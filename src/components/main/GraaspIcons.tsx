@@ -15,6 +15,7 @@ import {
 } from '@graasp/ui';
 
 import { platformsHostsMap } from '@/config/hostMapper';
+import { useEnumsTranslation } from '@/config/i18n';
 
 const DEFAULT_ICON_SIZE = 100;
 
@@ -45,29 +46,30 @@ const PlatformIcon = ({ text, href, color, icon }: PlatformProps) => (
 );
 
 const GraaspIcons = (): JSX.Element => {
+  const { t } = useEnumsTranslation();
   const getNavigationEvents = usePlatformNavigation(platformsHostsMap);
   const platforms = [
     {
       color: AccentColors[Context.Builder],
-      text: Platform.Builder,
+      text: t(Context.Builder),
       href: getNavigationEvents(Platform.Builder).href,
       icon: <BuildIcon size={DEFAULT_ICON_SIZE} primaryColor="white" />,
     },
     {
       color: AccentColors[Context.Player],
-      text: Platform.Player,
+      text: t(Context.Player),
       href: getNavigationEvents(Platform.Player).href,
       icon: <PlayIcon size={DEFAULT_ICON_SIZE} primaryColor="white" />,
     },
     {
       color: AccentColors[Context.Library],
-      text: Platform.Library,
+      text: t(Context.Library),
       href: getNavigationEvents(Platform.Library).href,
       icon: <LibraryIcon size={DEFAULT_ICON_SIZE} primaryColor="white" />,
     },
     {
       color: AccentColors[Context.Analytics],
-      text: Platform.Analytics,
+      text: t(Context.Analytics),
       href: getNavigationEvents(Platform.Analytics).href,
       icon: <AnalyticsIcon size={DEFAULT_ICON_SIZE} primaryColor="white" />,
     },

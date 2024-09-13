@@ -22,6 +22,8 @@ i18n.addResourceBundle('ar', ACCOUNT_NAMESPACE, ar);
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useCommonTranslation = () => useTranslation(namespaces.common);
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const useEnumsTranslation = () => useTranslation(namespaces.enums);
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useAccountTranslation = () => useTranslation(ACCOUNT_NAMESPACE);
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useMessagesTranslation = () => useTranslation(namespaces.messages);
