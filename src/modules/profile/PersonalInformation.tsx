@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Alert, AlertTitle, Button } from '@mui/material';
 
+import { AccountType } from '@graasp/sdk';
+
 import BorderedSection from '@/components/layout/BorderedSection';
 import MemberProfileItem from '@/components/main/MemberProfileItem';
 import { useAccountTranslation } from '@/config/i18n';
@@ -15,7 +17,7 @@ import {
 } from '@/config/selectors';
 import EditPersonalInformation from '@/modules/profile/EditPersonalInformation';
 
-const PersonalInformation = (): JSX.Element | false => {
+const PersonalInformation = (): JSX.Element | null => {
   const { data: member } = hooks.useCurrentMember();
   const { t } = useAccountTranslation();
 
@@ -23,6 +25,10 @@ const PersonalInformation = (): JSX.Element | false => {
   const [newEmail, setNewEmail] = useState('');
 
   const onClose = () => setIsEditing(false);
+
+  if (member?.type === AccountType.Guest) {
+    return null;
+  }
 
   if (isEditing) {
     return (
