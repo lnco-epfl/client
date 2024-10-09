@@ -1,7 +1,0 @@
-build
-public
-coverage
-src/serviceWorker.js
-commitlint.config.js
-config-overrides.js
-cypress.config.ts
