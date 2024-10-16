@@ -67,9 +67,12 @@ export const PASSWORD_DISPLAY_CONTAINER_ID = 'password-display-container';
 export const PASSWORD_DISPLAY_INFORMATION_ID = 'password-display-information';
 export const PASSWORD_EDIT_BUTTON_ID = 'password-edit-button';
 export const PASSWORD_EDIT_CONTAINER_ID = 'password-edit-container';
+export const PASSWORD_CREATE_CONTAINER_ID = 'password-create-container';
 export const PASSWORD_SAVE_BUTTON_ID = 'password-save-button';
 export const PASSWORD_INPUT_NEW_PASSWORD_ID = 'new-password';
 export const PASSWORD_INPUT_CONFIRM_PASSWORD_ID = 'confirm-password';
+export const PASSWORD_INPUT_CURRENT_PASSWORD_ID =
+  'password-input-current-password';
 
 export const EMAIL_VALIDATION_BUTTON_ID = 'email-validation-button';
 export const EMAIL_VALIDATION_SUCCESS_MESSAGE_ID = 'email-validation-success';

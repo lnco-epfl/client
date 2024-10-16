@@ -1,7 +1,7 @@
 import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
 
 import { LoadingButton } from '@mui/lab';
-import { Alert, Box, Button, Stack } from '@mui/material';
+import { Alert, Button, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import { isPasswordStrong } from '@graasp/sdk';
@@ -17,9 +17,8 @@ import {
 } from '@/config/i18n';
 import { mutations } from '@/config/queryClient';
 import {
-  PASSWORD_EDIT_CONTAINER_ID,
+  PASSWORD_CREATE_CONTAINER_ID,
   PASSWORD_INPUT_CONFIRM_PASSWORD_ID,
-  PASSWORD_INPUT_CURRENT_PASSWORD_ID,
   PASSWORD_INPUT_NEW_PASSWORD_ID,
   PASSWORD_SAVE_BUTTON_ID,
 } from '@/config/selectors';
@@ -27,12 +26,11 @@ import { ACCOUNT } from '@/langs/constants';
 
 import PasswordField from './PasswordField';
 
-type EditPasswordProps = {
+type CreatePasswordProps = {
   onClose: () => void;
 };
 
 type Inputs = {
-  currentPassword: string;
   newPassword: string;
   confirmNewPassword: string;
 };
@@ -46,7 +44,7 @@ export const getValidationMessage = (
   return fieldError?.message;
 };
 
-const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
+const CreatePassword = ({ onClose }: CreatePasswordProps): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -58,75 +56,43 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
   const { t: translateCommon } = useCommonTranslation();
 
   const {
-    mutateAsync: updatePassword,
-    error: updatePasswordError,
-    isPending: isUpdatePasswordLoading,
-  } = mutations.useUpdatePassword();
+    mutateAsync: createPassword,
+    error: createPasswordError,
+    isPending: isCreatePasswordLoading,
+  } = mutations.useCreatePassword();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      // perform password update
-      await updatePassword({
-        password: data.newPassword,
-        currentPassword: data.currentPassword,
-      });
-
+      await createPassword({ password: data.newPassword });
       onClose();
     } catch (e) {
       console.error(e);
     }
   };
 
-  const currentPasswordErrorMessage = getValidationMessage(
-    errors.currentPassword,
-  );
   const newPasswordErrorMessage = getValidationMessage(errors.newPassword);
   const confirmNewPasswordErrorMessage = getValidationMessage(
     errors.confirmNewPassword,
   );
   const hasErrors = Boolean(
-    currentPasswordErrorMessage ||
-      newPasswordErrorMessage ||
-      confirmNewPasswordErrorMessage,
+    newPasswordErrorMessage || confirmNewPasswordErrorMessage,
   );
 
-  const updateNetworkError = axios.isAxiosError(updatePasswordError)
+  const createNetworkError = axios.isAxiosError(createPasswordError)
     ? translateMessage(
-        updatePasswordError.response?.data.name ??
+        createPasswordError.response?.data.name ??
           FAILURE_MESSAGES.UNEXPECTED_ERROR,
       )
     : null;
-
   return (
     <BorderedSection
-      id={PASSWORD_EDIT_CONTAINER_ID}
+      id={PASSWORD_CREATE_CONTAINER_ID}
       title={t('PASSWORD_SETTINGS_TITLE')}
     >
       <Typography variant="body1">
         {t('PASSWORD_SETTINGS_CONFIRM_INFORMATION')}
       </Typography>
       <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
-        <Box>
-          <PasswordField
-            id={PASSWORD_INPUT_CURRENT_PASSWORD_ID}
-            label={t('PASSWORD_SETTINGS_CURRENT_LABEL')}
-            error={Boolean(currentPasswordErrorMessage)}
-            helperText={
-              currentPasswordErrorMessage && t(currentPasswordErrorMessage)
-            }
-            form={register('currentPassword', {
-              required: true,
-              validate: {
-                strong: (value) =>
-                  isPasswordStrong(value) || 'PASSWORD_WEAK_ERROR',
-              },
-            })}
-          />
-          <Typography variant="subtitle2">
-            {t('PASSWORD_SETTINGS_CURRENT_INFORMATION')}
-          </Typography>
-        </Box>
-
         <Stack direction="row" spacing={2}>
           <PasswordField
             label={t('PASSWORD_SETTINGS_NEW_LABEL')}
@@ -136,9 +102,6 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
             form={register('newPassword', {
               required: true,
               validate: {
-                different: (newPassword, formState) =>
-                  newPassword !== formState.currentPassword ||
-                  ACCOUNT.NEW_PASSWORD_SHOULD_NOT_MATCH_CURRENT_PASSWORD_ERROR,
                 strong: (value) =>
                   isPasswordStrong(value) || 'PASSWORD_WEAK_ERROR',
               },
@@ -162,8 +125,8 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
             })}
           />
         </Stack>
-        {Boolean(updateNetworkError) && (
-          <Alert severity="error">{updateNetworkError}</Alert>
+        {Boolean(createNetworkError) && (
+          <Alert severity="error">{createNetworkError}</Alert>
         )}
         <Stack direction="row" gap={1} justifyContent="flex-end">
           <Button variant="outlined" onClick={onClose} size="small">
@@ -176,7 +139,7 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
             disabled={hasErrors}
             size="small"
             type="submit"
-            loading={isUpdatePasswordLoading}
+            loading={isCreatePasswordLoading}
           >
             {translateCommon(COMMON.SAVE_BUTTON)}
           </LoadingButton>
@@ -186,4 +149,4 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
   );
 };
 
-export default EditPassword;
+export default CreatePassword;

@@ -1004,9 +1004,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/query-client@npm:4.0.2":
-  version: 4.0.2
-  resolution: "@graasp/query-client@npm:4.0.2"
+"@graasp/query-client@npm:4.1.0":
+  version: 4.1.0
+  resolution: "@graasp/query-client@npm:4.1.0"
   dependencies:
     "@tanstack/react-query": "npm:5.59.8"
     "@tanstack/react-query-devtools": "npm:5.59.8"
@@ -1016,7 +1016,7 @@ __metadata:
     "@graasp/sdk": ^4.0.0
     "@graasp/translations": "*"
     react: ^18.0.0
-  checksum: 10/333f4856725d59e128581d104037997a397f7f6ddf09ffaab7a3ff8a8e1fb716b870b2a97dda600e45c5e3a63395ca1df5796755dabfdcaf465a5a793d5d459e
+  checksum: 10/308d6cf6a2f577ebd193e9c1edfb362a7850e69daf8858148cc79ad7a028479704e3e7e814a119a472cc368813f6d2bd596206b2c4ec7fd1bb32a02240e8d730
   languageName: node
   linkType: hard
 
@@ -4738,7 +4738,7 @@ __metadata:
     "@emotion/cache": "npm:11.13.1"
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
-    "@graasp/query-client": "npm:4.0.2"
+    "@graasp/query-client": "npm:4.1.0"
     "@graasp/sdk": "npm:4.32.1"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/translations": "npm:1.40.0"
@@ -4778,6 +4778,7 @@ __metadata:
     prettier: "npm:3.3.3"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
+    react-hook-form: "npm:7.53.0"
     react-i18next: "npm:^15.0.2"
     react-image-crop: "npm:11.0.7"
     react-router: "npm:6.26.2"
@@ -7000,6 +7001,15 @@ __metadata:
     react: ">= 16.3.0"
     react-dom: ">= 16.3.0"
   checksum: 10/51b9ac7f913797fc1cebc30ae383f346883033c45eb91e9b0b92e9ebd224bb1545b4ae2391825b649b798cc711a38351a5f41be24d949c64c6703ebc24eba661
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:7.53.0":
+  version: 7.53.0
+  resolution: "react-hook-form@npm:7.53.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 10/b7d73696b7c10e042f6ea6fcec01f951091146bfbc89d1378327a970bcd724b968e93fae1657bddada75caf648cfaf8693c5ba03c25e96816b755079d29f65da
   languageName: node
   linkType: hard
 
