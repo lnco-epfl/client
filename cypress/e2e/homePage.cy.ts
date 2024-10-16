@@ -3,7 +3,7 @@ import { HttpMethod, formatDate } from '@graasp/sdk';
 
 import { StatusCodes } from 'http-status-codes';
 
-import i18n from '@/config/i18n';
+import i18n from '../../src/config/i18n';
 import {
   AVATAR_UPLOAD_ICON_ID,
   AVATAR_UPLOAD_INPUT_ID,
@@ -14,8 +14,7 @@ import {
   MEMBER_AVATAR_IMAGE_ID,
   MEMBER_CREATED_AT_ID,
   MEMBER_USERNAME_DISPLAY_ID,
-} from '@/config/selectors';
-
+} from '../../src/config/selectors';
 import { BOB, MEMBER_WITH_AVATAR } from '../fixtures/members';
 import {
   AVATAR_LINK,
@@ -33,7 +32,6 @@ class TestHelper {
 
   constructor(args: TestHelperInput) {
     this.currentMember = JSON.parse(JSON.stringify(args.currentMember));
-    this.setupServer();
   }
 
   setupServer() {
@@ -76,10 +74,10 @@ class TestHelper {
 }
 
 describe('Upload Avatar', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let helpers: TestHelper;
   beforeEach(() => {
     helpers = new TestHelper({ currentMember: BOB });
+    helpers.setupServer();
     cy.visit('/');
   });
 
