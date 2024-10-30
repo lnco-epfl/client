@@ -15,7 +15,7 @@ const LanguageSwitch = ({ id, lang, onChange }: Props): JSX.Element => {
     if (newLang) {
       onChange(newLang);
     } else {
-      console.error(`The lang ${event.target.value} is not valid`);
+      console.error('The lang is not valid');
     }
   };
 
@@ -24,8 +24,8 @@ const LanguageSwitch = ({ id, lang, onChange }: Props): JSX.Element => {
       variant="outlined"
       id={id}
       size="small"
-      defaultValue={lang}
       onChange={handleChange}
+      value={lang}
       buildOptionId={(value) => value}
       values={Object.entries(langs).map(([value, text]) => ({ value, text }))}
     />
