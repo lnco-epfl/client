@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Alert,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -16,11 +18,10 @@ import {
   formatDate,
   formatFileSize,
 } from '@graasp/sdk';
-import { Loader } from '@graasp/ui';
 
 import { Link } from '@tanstack/react-router';
 
-import i18n, { useAccountTranslation } from '@/config/i18n';
+import { NS } from '@/config/constants';
 import { hooks } from '@/config/queryClient';
 import {
   MEMBER_STORAGE_FILE_NAME_ID,
@@ -29,10 +30,9 @@ import {
   MEMBER_STORAGE_PARENT_FOLDER_ID,
   getCellId,
 } from '@/config/selectors';
-import { ACCOUNT } from '@/langs/constants';
 
 export const StorageFiles = (): JSX.Element | null => {
-  const { t } = useAccountTranslation();
+  const { t, i18n } = useTranslation(NS.Account);
   const [pagination, setPagination] = useState({ page: 1, pageSize: 10 });
   const { data, isLoading } = hooks.useMemberStorageFiles(pagination);
 
@@ -42,10 +42,7 @@ export const StorageFiles = (): JSX.Element | null => {
     return clientHostManager.getItemLink(Context.Builder, id);
   };
 
-  const handlePageChange = (
-    _: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
+  const handlePageChange = (_: unknown, newPage: number) => {
     setPagination((prev) => {
       if (prev.page !== newPage + 1) {
         return { ...prev, page: newPage + 1 };
@@ -55,7 +52,7 @@ export const StorageFiles = (): JSX.Element | null => {
   };
 
   const handlePageSizeChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const newSize = parseInt(event.target.value, 10);
     setPagination((prev) => {
@@ -68,9 +65,7 @@ export const StorageFiles = (): JSX.Element | null => {
 
   if (data) {
     if (data.data.length === 0) {
-      return (
-        <Alert severity="info">{t(ACCOUNT.MEMBER_STORAGE_FILES_EMPTY)}</Alert>
-      );
+      return <Alert severity="info">{t('MEMBER_STORAGE_FILES_EMPTY')}</Alert>;
     }
 
     return (
@@ -78,10 +73,10 @@ export const StorageFiles = (): JSX.Element | null => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>{t(ACCOUNT.MEMBER_STORAGE_FILE_NAME)}</TableCell>
-              <TableCell>{t(ACCOUNT.MEMBER_STORAGE_FILE_SIZE)}</TableCell>
-              <TableCell>{t(ACCOUNT.MEMBER_STORAGE_FILE_UPDATED_AT)}</TableCell>
-              <TableCell>{t(ACCOUNT.MEMBER_STORAGE_PARENT_FOLDER)}</TableCell>
+              <TableCell>{t('MEMBER_STORAGE_FILE_NAME')}</TableCell>
+              <TableCell>{t('MEMBER_STORAGE_FILE_SIZE')}</TableCell>
+              <TableCell>{t('MEMBER_STORAGE_FILE_UPDATED_AT')}</TableCell>
+              <TableCell>{t('MEMBER_STORAGE_PARENT_FOLDER')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -108,7 +103,7 @@ export const StorageFiles = (): JSX.Element | null => {
                 <TableCell
                   id={getCellId(`${MEMBER_STORAGE_PARENT_FOLDER_ID}`, file.id)}
                 >
-                  {file.parent?.name ?? t(ACCOUNT.MEMBER_STORAGE_NO_PARENT)}
+                  {file.parent?.name ?? t('MEMBER_STORAGE_NO_PARENT')}
                 </TableCell>
               </TableRow>
             ))}
@@ -128,10 +123,8 @@ export const StorageFiles = (): JSX.Element | null => {
   }
 
   if (isLoading) {
-    return <Loader />;
+    return <Skeleton />;
   }
 
-  return (
-    <Alert severity="error">{t(ACCOUNT.MEMBER_STORAGE_FILES_ERROR)}</Alert>
-  );
+  return <Alert severity="error">{t('MEMBER_STORAGE_FILES_ERROR')}</Alert>;
 };
