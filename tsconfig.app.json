@@ -20,6 +20,7 @@
     "paths": {
       "~account/*": ["./src/modules/account/*"],
       "~landing/*": ["./src/modules/landing/*"],
+      "~auth/*": ["./src/modules/auth/*"],
       "@/*": ["./src/*"]
     }
   },

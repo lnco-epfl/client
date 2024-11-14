@@ -1,6 +1,6 @@
-import { useTheme } from '@graasp/ui';
-
 import { Box, Typography } from '@mui/material';
+
+import { useTheme } from '@graasp/ui';
 
 export function Footer() {
   const { languageSelect } = useTheme();

@@ -79,6 +79,7 @@ const config = ({ mode }: { mode: string }): UserConfigExport => {
       alias: {
         '~account': resolve(__dirname, 'src/modules/account'),
         '~landing': resolve(__dirname, 'src/modules/landing'),
+        '~auth': resolve(__dirname, 'src/modules/auth'),
         '@': resolve(__dirname, 'src'),
       },
     },

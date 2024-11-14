@@ -1,22 +1,21 @@
-import { StatusCodes } from 'http-status-codes';
-
 import { API_ROUTES } from '@graasp/query-client';
 
-import { SIGN_UP_PATH } from '../../src/config/paths';
+import { StatusCodes } from 'http-status-codes';
+
 import {
   EMAIL_SIGN_UP_FIELD_ID,
   NAME_SIGN_UP_FIELD_ID,
   SIGN_UP_BUTTON_ID,
   SIGN_UP_SAVE_ACTIONS_ID,
   SUCCESS_CONTENT_ID,
-} from '../../src/config/selectors';
-import { MEMBERS } from '../fixtures/members';
+} from '../../../src/config/selectors';
+import { AUTH_MEMBERS } from '../../fixtures/members';
 import { checkInvitationFields, fillSignUpLayout } from './util';
 
 describe('SignUp', () => {
   describe('Must Accept All Terms To Sign Up', () => {
     beforeEach(() => {
-      cy.visit(SIGN_UP_PATH);
+      cy.visit('/auth/register');
       cy.intercept({ method: 'post', pathname: '/register' }, ({ reply }) => {
         return reply({
           statusCode: StatusCodes.NO_CONTENT,
@@ -38,8 +37,8 @@ describe('SignUp', () => {
 
   describe('Name and Email Validation', () => {
     it('Sign Up', () => {
-      const { GRAASP, WRONG_NAME, WRONG_EMAIL } = MEMBERS;
-      cy.visit(SIGN_UP_PATH);
+      const { GRAASP, WRONG_NAME, WRONG_EMAIL } = AUTH_MEMBERS;
+      cy.visit('/auth/register');
       cy.intercept({ method: 'post', pathname: '/register' }, ({ reply }) => {
         return reply({
           statusCode: StatusCodes.NO_CONTENT,
@@ -70,7 +69,7 @@ describe('SignUp', () => {
       );
       const search = new URLSearchParams();
       search.set('invitationId', invitation.id);
-      cy.visit(`${SIGN_UP_PATH}?${search.toString()}`);
+      cy.visit(`/auth/register?${search.toString()}`);
       checkInvitationFields(invitation);
     });
 
@@ -85,7 +84,7 @@ describe('SignUp', () => {
       );
       const search = new URLSearchParams();
       search.set('invitationId', invitation.id);
-      cy.visit(`${SIGN_UP_PATH}?${search.toString()}`);
+      cy.visit(`/auth/register?${search.toString()}`);
       checkInvitationFields(invitation);
     });
 
@@ -100,14 +99,14 @@ describe('SignUp', () => {
       });
       const search = new URLSearchParams();
       search.set('invitationId', invitation.id);
-      cy.visit(`${SIGN_UP_PATH}?${search.toString()}`);
+      cy.visit(`/auth/register?${search.toString()}`);
       cy.get(`#${SIGN_UP_BUTTON_ID}`).should('be.visible');
     });
 
     it('Username can not contain special characters', () => {
       const badUsername = '<<div>%^\'"';
 
-      cy.visit(SIGN_UP_PATH);
+      cy.visit('/auth/register');
       cy.get(`#${NAME_SIGN_UP_FIELD_ID}`).clear();
       cy.get(`#${NAME_SIGN_UP_FIELD_ID}`).type(badUsername);
       cy.get(`#${EMAIL_SIGN_UP_FIELD_ID}`).clear();
@@ -124,10 +123,10 @@ describe('SignUp', () => {
   });
 
   describe('Defining Analytics On Sign Up', () => {
-    const { GRAASP } = MEMBERS;
+    const { GRAASP } = AUTH_MEMBERS;
 
     beforeEach(() => {
-      cy.visit(SIGN_UP_PATH);
+      cy.visit('/auth/register');
       cy.intercept({ method: 'post', pathname: '/register' }, ({ reply }) => {
         return reply({
           statusCode: StatusCodes.NO_CONTENT,

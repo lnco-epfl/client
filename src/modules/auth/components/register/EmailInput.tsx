@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { useAuthTranslation } from '../../config/i18n';
+import { NS } from '@/config/constants';
+
 import { AUTH } from '../../langs/constants';
 import { emailValidator } from '../../utils/validation';
 import { EmailAdornment } from '../common/Adornments';
@@ -29,11 +31,13 @@ export function EmailInput({
   shouldValidate = true,
   autoFocus = false,
 }: Props) {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
+
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (shouldValidate) {
+      // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
       setError(emailValidator(value));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,10 +59,16 @@ export function EmailInput({
       variant="outlined"
       value={value}
       error={Boolean(error)}
-      helperText={error && t(error)}
+      helperText={
+        error &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        t(error)
+      }
       placeholder={t(
         `${EMAIL_INPUT_PLACEHOLDER}${required ? '_REQUIRED' : ''}`,
       )}
+      // eslint-disable-next-line jsx-a11y/no-autofocus
       autoFocus={autoFocus}
       onChange={handleEmailOnChange}
       id={id}

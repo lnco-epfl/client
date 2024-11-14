@@ -31,7 +31,6 @@ type Inputs = {
   confirmNewPassword: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getValidationMessage = (fieldError?: FieldError) => {
   if (fieldError?.type === 'required') {
     return 'REQUIRED_FIELD_ERROR' as const;

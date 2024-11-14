@@ -9,7 +9,7 @@ import {
   PERSONAL_INFO_SAVE_BUTTON_ID,
   PERSONAL_INFO_USERNAME_DISPLAY_ID,
 } from '../../../src/config/selectors';
-import { BOB, MEMBERS } from '../../fixtures/members';
+import { BOB } from '../../fixtures/members';
 
 const changeUsername = (newUserName: string) => {
   cy.get('input[name=username]').clear();
@@ -53,14 +53,15 @@ describe('Edit personal information', () => {
     });
 
     it('Username too long', () => {
-      const longUsername = MEMBERS.WRONG_NAME_TOO_LONG.name;
+      const longUsername =
+        'qwertyuio pasdfghjklzx cvbnmqwertr tyuiopa sdfghjklzxcvbnmqwe';
       changeUsername(longUsername);
 
       cy.get(`#${PERSONAL_INFO_SAVE_BUTTON_ID}`).should('be.disabled');
     });
 
     it('Username too short', () => {
-      const shortUsername = MEMBERS.WRONG_NAME_TOO_SHORT.name;
+      const shortUsername = 'w';
       changeUsername(shortUsername);
       cy.get(`#${PERSONAL_INFO_SAVE_BUTTON_ID}`).should('be.disabled');
     });

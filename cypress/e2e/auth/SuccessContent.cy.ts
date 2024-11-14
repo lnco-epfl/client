@@ -1,8 +1,7 @@
-import { StatusCodes } from 'http-status-codes';
-
 import { API_ROUTES } from '@graasp/query-client';
 
-import { SIGN_IN_PATH, SIGN_UP_PATH } from '../../src/config/paths';
+import { StatusCodes } from 'http-status-codes';
+
 import {
   BACK_BUTTON_ID,
   EMAIL_SIGN_IN_FIELD_ID,
@@ -10,14 +9,14 @@ import {
   SIGN_IN_HEADER_ID,
   SIGN_UP_HEADER_ID,
   SUCCESS_CONTENT_ID,
-} from '../../src/config/selectors';
-import { MEMBERS } from '../fixtures/members';
+} from '../../../src/config/selectors';
+import { AUTH_MEMBERS } from '../../fixtures/members';
 
 describe('Success Content', () => {
   describe('Sign In', () => {
     it('Back Button', () => {
-      const { GRAASP, GRAASP_OTHER } = MEMBERS;
-      cy.visit(SIGN_IN_PATH);
+      const { GRAASP, GRAASP_OTHER } = AUTH_MEMBERS;
+      cy.visit('/auth/login');
 
       cy.intercept(API_ROUTES.SIGN_IN_ROUTE, ({ reply }) => {
         return reply({
@@ -35,7 +34,7 @@ describe('Success Content', () => {
       cy.get(`#${BACK_BUTTON_ID}`).click();
 
       cy.get(`#${SUCCESS_CONTENT_ID}`).should('not.exist');
-      cy.url().should('include', SIGN_IN_PATH);
+      cy.url().should('include', '/auth/login');
       cy.get(`#${SIGN_IN_HEADER_ID}`).should('be.visible');
       // checks so email is cleared
       cy.get(`#${EMAIL_SIGN_IN_FIELD_ID}`).should('be.empty');
@@ -48,15 +47,15 @@ describe('Success Content', () => {
       cy.get(`#${BACK_BUTTON_ID}`).click();
 
       cy.get(`#${SUCCESS_CONTENT_ID}`).should('not.exist');
-      cy.url().should('include', SIGN_IN_PATH);
+      cy.url().should('include', '/auth/login');
       cy.get(`#${SIGN_IN_HEADER_ID}`).should('be.visible');
       // checks so email is cleared
       cy.get(`#${EMAIL_SIGN_IN_FIELD_ID}`).should('be.empty');
     });
 
     it('Resend email', () => {
-      const { GRAASP, GRAASP_OTHER } = MEMBERS;
-      cy.visit(SIGN_IN_PATH);
+      const { GRAASP, GRAASP_OTHER } = AUTH_MEMBERS;
+      cy.visit('/auth/login');
 
       cy.intercept(API_ROUTES.SIGN_IN_ROUTE, ({ reply }) => {
         return reply({
@@ -89,8 +88,8 @@ describe('Success Content', () => {
       });
     });
     it('Back Button', () => {
-      const { GRAASP, GRAASP_OTHER } = MEMBERS;
-      cy.visit(SIGN_UP_PATH);
+      const { GRAASP, GRAASP_OTHER } = AUTH_MEMBERS;
+      cy.visit('/auth/register');
 
       cy.get(`#${SUCCESS_CONTENT_ID}`).should('not.exist');
 
@@ -102,7 +101,7 @@ describe('Success Content', () => {
       cy.get(`#${BACK_BUTTON_ID}`).click();
 
       cy.get(`#${SUCCESS_CONTENT_ID}`).should('not.exist');
-      cy.url().should('include', SIGN_UP_PATH);
+      cy.url().should('include', '/auth/register');
       cy.get(`#${SIGN_UP_HEADER_ID}`).should('be.visible');
 
       // check if it's possible to sign up and use back button again
@@ -113,13 +112,13 @@ describe('Success Content', () => {
       cy.get(`#${BACK_BUTTON_ID}`).click();
 
       cy.get(`#${SUCCESS_CONTENT_ID}`).should('not.exist');
-      cy.url().should('include', SIGN_UP_PATH);
+      cy.url().should('include', '/auth/register');
       cy.get(`#${SIGN_UP_HEADER_ID}`).should('be.visible');
     });
 
     it('Resend email', () => {
-      const { GRAASP, GRAASP_OTHER } = MEMBERS;
-      cy.visit(SIGN_UP_PATH);
+      const { GRAASP, GRAASP_OTHER } = AUTH_MEMBERS;
+      cy.visit('/auth/register');
 
       // Signing up with a valid email
       cy.signUpAndCheck(GRAASP_OTHER, true);

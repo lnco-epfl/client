@@ -33,6 +33,7 @@ export const SIGN_IN_PATH = buildSignInPath({
   host: Cypress.env('VITE_GRAASP_AUTH_HOST'),
 });
 const API_HOST = Cypress.env('VITE_GRAASP_API_HOST');
+const DEFAULT_REDIRECTION_URL = Cypress.env('VITE_DEFAULT_REDIRECTION_URL');
 
 export const redirectionReply = {
   headers: { 'content-type': 'text/html' },
@@ -81,7 +82,7 @@ export const mockEditPublicProfile = (
 };
 
 export const mockGetCurrentMember = (
-  currentMember = CURRENT_MEMBER,
+  currentMember: CompleteMember | null = CURRENT_MEMBER,
   shouldThrowError = false,
 ): void => {
   cy.intercept(
@@ -319,4 +320,81 @@ export const mockGetPasswordStatus = (hasPassword: boolean): void => {
     },
     ({ reply }) => reply({ hasPassword }),
   ).as('getPasswordStatus');
+};
+
+export const mockGetStatus = (shouldThrowServerError = false) => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: `${API_HOST}/status`,
+    },
+    ({ reply }) => {
+      if (shouldThrowServerError) {
+        return reply({ statusCode: StatusCodes.INTERNAL_SERVER_ERROR });
+      }
+      return reply({ statusCode: StatusCodes.OK });
+    },
+  ).as('getStatus');
+};
+
+export const mockRequestPasswordReset = (shouldThrowServerError = false) => {
+  cy.intercept(
+    {
+      method: HttpMethod.Post,
+      url: `${API_HOST}/password/reset`,
+    },
+    ({ reply }) => {
+      if (shouldThrowServerError) {
+        // member email was not found
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+      return reply({ statusCode: StatusCodes.NO_CONTENT });
+    },
+  ).as('requestPasswordReset');
+};
+
+export const mockResetPassword = (shouldThrowServerError = false) => {
+  cy.intercept(
+    {
+      method: HttpMethod.Patch,
+      url: `${API_HOST}/password/reset`,
+    },
+    ({ reply }) => {
+      if (shouldThrowServerError) {
+        // token is not present or password is too weak
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+      return reply({ statusCode: StatusCodes.NO_CONTENT });
+    },
+  ).as('resetPassword');
+};
+
+export const mockRedirection = () => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: DEFAULT_REDIRECTION_URL,
+    },
+    ({ reply }) =>
+      reply({
+        body: '<h1>Content</h1>',
+        headers: { 'content-type': 'text/html' },
+      }),
+  ).as('redirectionContent');
+};
+
+export const mockLogin = (shouldThrowServerError = false) => {
+  cy.intercept(
+    {
+      method: HttpMethod.Post,
+      url: `${API_HOST}/login`,
+    },
+    ({ reply }) => {
+      if (shouldThrowServerError) {
+        // token is not present or password is too weak
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+      return reply({ statusCode: StatusCodes.NO_CONTENT });
+    },
+  ).as('login');
 };

@@ -19,6 +19,7 @@ export const TWITTER_DOMAIN = 'twitter';
 
 export const NS = {
   Account: 'account',
+  Auth: 'auth',
   Landing: 'landing',
   Messages: 'messages',
   Common: 'common',

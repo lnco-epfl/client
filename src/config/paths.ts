@@ -1,6 +1,8 @@
 export const LANDING_PAGE_PATH = '/' as const;
 
 export const LOGIN_PAGE_PATH = '/auth/login' as const;
+export const REQUEST_PASSWORD_RESET_PATH = '/auth/forgot-password' as const;
+export const RESET_PASSWORD_PATH = '/auth/reset-password' as const;
 
 export const ACCOUNT_HOME_PATH = '/account' as const;
 export const ACCOUNT_STORAGE_PATH = '/account/storage' as const;

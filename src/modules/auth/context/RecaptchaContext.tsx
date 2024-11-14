@@ -27,7 +27,7 @@ type Props = {
   siteKey: string;
 };
 
-export function RecaptchaProvider({ children, siteKey }: Props) {
+export function RecaptchaProvider({ children, siteKey }: Props): JSX.Element {
   const executeCaptcha = (action: string): Promise<string> => {
     return new Promise<string>((resolve) => {
       if (!window.grecaptcha) {
@@ -68,4 +68,5 @@ export function RecaptchaProvider({ children, siteKey }: Props) {
   );
 }
 
-export const useRecaptcha = () => useContext(RecaptchaContext);
+export const useRecaptcha = (): RecaptchaContextType =>
+  useContext(RecaptchaContext);

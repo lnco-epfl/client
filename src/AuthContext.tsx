@@ -40,7 +40,7 @@ export function AuthProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const { data: currentMember, isPending } = hooks.useCurrentMember();
+  const { data: currentMember, isLoading } = hooks.useCurrentMember();
 
   const useLogin = mutations.useSignIn();
   const useLogout = mutations.useSignOut();
@@ -57,7 +57,7 @@ export function AuthProvider({
   );
 
   // if the query has not resolved yet, we can not render the rest of the tree
-  if (isPending) {
+  if (isLoading) {
     return <CustomInitialLoader />;
   }
 

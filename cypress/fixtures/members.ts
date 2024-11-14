@@ -1,7 +1,9 @@
 import {
-  Member,
+  AccountType,
+  CompleteMember,
   MemberFactory,
   MemberStorageItem,
+  Password,
   PublicProfile,
 } from '@graasp/sdk';
 
@@ -17,25 +19,6 @@ export const BOB = MemberFactory({
   enableSaveActions: true,
   extra: { lang: 'en', emailFreq: 'always', hasAvatar: true },
 });
-export const MEMBERS: {
-  [name: string]: Member & {
-    nameValid?: boolean;
-  };
-} = {
-  WRONG_NAME_TOO_SHORT: {
-    id: '201621f0-848b-413f-80f9-25937a56c008',
-    name: 'w',
-    email: 'graasp@graasp.org',
-    nameValid: false,
-  },
-  WRONG_NAME_TOO_LONG: {
-    id: 'a7e428e9-86d3-434a-b611-d930cf8380ec',
-    name: 'qwertyuio pasdfghjklzx cvbnmqwertr tyuiopa sdfghjklzxcvbnmqwe',
-    email: 'graasp@graasp.org',
-    nameValid: false,
-  },
-  VALID_NAME: BOB,
-};
 
 export const MEMBER_WITH_AVATAR: MemberForTest = {
   ...MemberFactory({
@@ -206,3 +189,109 @@ export const MEMBER_STORAGE_ITEM_RESPONSE: MemberStorageItem[] = [
     path: '4de1b419_38cd_46e5_81f2_916150819175',
   },
 ];
+
+export const AUTH_MEMBERS = {
+  GRAASP: {
+    id: 'graasp-id',
+    name: 'graasp',
+    email: 'graasp@graasp.org',
+    password: 'aPassword1',
+    nameValid: true,
+    emailValid: true,
+    passwordValid: true,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  GRAASP_OTHER: {
+    id: 'graasp_other-id',
+    name: 'graasp_other',
+    email: 'graasp_other@graasp.org',
+    password: 'aPassword2',
+    nameValid: true,
+    emailValid: true,
+    passwordValid: true,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  WRONG_NAME: {
+    id: 'id1',
+    name: 'w',
+    email: 'graasp@graasp.org',
+    nameValid: false,
+    emailValid: true,
+    passwordValid: false,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  WRONG_EMAIL: {
+    id: 'id2',
+    name: 'graasp',
+    email: 'wrong',
+    password: 'test',
+    nameValid: true,
+    emailValid: false,
+    passwordValid: true,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  WRONG_PASSWORD: {
+    id: 'id3',
+    name: 'graasp',
+    email: 'graasp@graasp.org',
+    password: 'test',
+    nameValid: true,
+    emailValid: true,
+    passwordValid: false,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  BOB: {
+    id: 'ecafbd2a-5642-31fb-ae93-0242ac130004',
+    name: 'bob',
+    email: 'bob@email.com',
+    createdAt: '2021-04-13 14:56:34.749946',
+    extra: { lang: 'en' },
+    type: AccountType.Individual,
+    updatedAt: new Date().toISOString(),
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  CEDRIC: {
+    id: 'ecafbd2a-5642-31fb-ae93-0242ac130006',
+    name: 'cedric',
+    email: 'cedric@email.com',
+    createdAt: '2021-04-13 14:56:34.749946',
+    type: AccountType.Individual,
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+} satisfies {
+  [name: string]: CompleteMember & {
+    nameValid?: boolean;
+    emailValid?: boolean;
+    passwordValid?: boolean;
+    password?: Password;
+  };
+};

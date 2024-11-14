@@ -9,7 +9,7 @@ import {
   PASSWORD_SIGN_IN_FIELD_ID,
   SIGN_IN_BUTTON_ID,
   SIGN_UP_BUTTON_ID,
-} from '../../src/config/selectors';
+} from '../../../src/config/selectors';
 
 export const fillSignUpLayout = ({
   name,
@@ -30,7 +30,7 @@ export const checkInvitationFields = ({
 }: {
   name?: string;
   email: string;
-}) => {
+}): void => {
   if (name) {
     cy.get(`#${NAME_SIGN_UP_FIELD_ID}`)
       .should('have.value', name)
@@ -41,17 +41,17 @@ export const checkInvitationFields = ({
     .should('be.disabled');
 };
 
-export const fillSignInByMailLayout = ({ email }: { email?: string }) => {
+export const fillSignInByMailLayout = ({ email }: { email?: string }): void => {
   if (email) {
     cy.get(`#${MAGIC_LINK_EMAIL_FIELD_ID}`).clear().type(email);
   }
 };
 
-export const submitSignIn = () => {
+export const submitSignIn = (): void => {
   cy.get(`#${SIGN_IN_BUTTON_ID}`).click();
 };
 
-export const submitSignUp = () => {
+export const submitSignUp = (): void => {
   cy.get(`#${SIGN_UP_BUTTON_ID}`).click();
 };
 
@@ -61,21 +61,21 @@ export const fillPasswordSignInLayout = ({
 }: {
   email: string;
   password?: string;
-}) => {
+}): void => {
   cy.get(`#${EMAIL_SIGN_IN_FIELD_ID}`).clear().type(email);
   if (password) {
     cy.get(`#${PASSWORD_SIGN_IN_FIELD_ID}`).clear().type(password);
   }
 };
 
-export const submitPasswordSignIn = () => {
+export const submitPasswordSignIn = (): void => {
   cy.get(`#${PASSWORD_SIGN_IN_BUTTON_ID}`).click();
 };
 
 export const generateJWT = async (
   payload: string,
   expiresAt: string = '24h',
-) => {
+): Promise<string> => {
   const jwt = await new SignJWT({ payload })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()

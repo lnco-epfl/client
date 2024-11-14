@@ -14,4 +14,9 @@ VITE_SHOW_NOTIFICATIONS=true
 
 VITE_UMAMI_WEBSITE_ID=<the id of your umami project>
 VITE_UMAMI_HOST=http://localhost:8000
+
+VITE_SENTRY_ENV= # some value
+VITE_SENTRY_DSN= # some value
+
+VITE_RECAPTCHA_SITE_KEY= # some value
 ```

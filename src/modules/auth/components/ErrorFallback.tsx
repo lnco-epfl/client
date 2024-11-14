@@ -1,10 +1,10 @@
-import { FAILURE_MESSAGES } from '@graasp/translations';
+import { useTranslation } from 'react-i18next';
 
 import { Alert } from '@mui/material';
 
-import { useMessagesTranslation } from '../config/i18n';
+import { NS } from '@/config/constants';
 
 export function ErrorFallback() {
-  const { t } = useMessagesTranslation();
-  return <Alert severity="error">{t(FAILURE_MESSAGES.UNEXPECTED_ERROR)}</Alert>;
+  const { t } = useTranslation(NS.Messages);
+  return <Alert severity="error">{t('UNEXPECTED_ERROR')}</Alert>;
 }

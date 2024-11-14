@@ -14,13 +14,22 @@ import Typography from '@mui/material/Typography';
 
 import { isPasswordStrong } from '@graasp/sdk';
 
-import { useSearch } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
+import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { z } from 'zod';
 
 import { ButtonLink } from '@/components/ui/ButtonLink';
 import { TypographyLink } from '@/components/ui/TypographyLink';
 import { NS } from '@/config/constants';
 
-import { HELP_EMAIL } from '../../config/constants';
+import { PasswordAdornment } from '~auth/components/common/Adornments';
+import { CenteredContent } from '~auth/components/layout/CenteredContent';
+import { DialogHeader } from '~auth/components/layout/DialogHeader';
+import { InvalidTokenScreen } from '~auth/components/requestPasswordReset/InvalidTokenScreen';
+import { HELP_EMAIL } from '~auth/config/constants';
+import { useValidateJWTToken } from '~auth/hooks/useValidateJWTToken';
+import { getValidationMessage } from '~auth/utils/validation';
+
 import { mutations } from '../../config/queryClient';
 import {
   RESET_PASSWORD_BACK_TO_LOGIN_BUTTON_ID,
@@ -32,13 +41,16 @@ import {
   RESET_PASSWORD_SUBMIT_BUTTON_ID,
   RESET_PASSWORD_SUCCESS_MESSAGE_ID,
 } from '../../config/selectors';
-import { useValidateJWTToken } from '../../hooks/useValidateJWTToken';
-import { AUTH } from '../../langs/constants';
-import { getValidationMessage } from '../../utils/validation';
-import { PasswordAdornment } from '../common/Adornments';
-import { CenteredContent } from '../layout/CenteredContent';
-import { DialogHeader } from '../layout/DialogHeader';
-import { InvalidTokenScreen } from './InvalidTokenScreen';
+
+const resetPasswordSchema = z.object({
+  t: z.string(),
+});
+
+export const Route = createFileRoute('/auth/reset-password')({
+  validateSearch: zodSearchValidator(resetPasswordSchema),
+  errorComponent: InvalidTokenScreen,
+  component: ResetPassword,
+});
 
 const { useResolvePasswordResetRequest } = mutations;
 
@@ -46,11 +58,11 @@ type Inputs = {
   password: string;
   confirmPassword: string;
 };
+
 export function ResetPassword() {
   const { t } = useTranslation(NS.Auth);
-
-  const search = useSearch({ from: '/auth/reset-password' });
-  const { isValid, token } = useValidateJWTToken(search.t);
+  const { t: rawToken } = Route.useSearch();
+  const { isValid, token } = useValidateJWTToken(rawToken);
 
   const [showPasswords, setShowPasswords] = useState(false);
 
@@ -87,28 +99,28 @@ export function ResetPassword() {
     <CenteredContent
       header={
         <DialogHeader
-          title={t(AUTH.RESET_PASSWORD_TITLE)}
+          title={t('RESET_PASSWORD_TITLE')}
           description={
             <Stack gap={1} width="100%">
-              {t(AUTH.RESET_PASSWORD_DESCRIPTION)}
+              {t('RESET_PASSWORD_DESCRIPTION')}
               <Typography>
-                {t(AUTH.RESET_PASSWORD_REQUIREMENTS_TITLE)}
+                {t('RESET_PASSWORD_REQUIREMENTS_TITLE')}
                 <ul style={{ margin: 0 }}>
                   <li>
-                    {t(AUTH.RESET_PASSWORD_REQUIREMENTS_LENGTH, { length: 8 })}
+                    {t('RESET_PASSWORD_REQUIREMENTS_LENGTH', { length: 8 })}
                   </li>
                   <li>
-                    {t(AUTH.RESET_PASSWORD_REQUIREMENTS_LOWERCASE, {
+                    {t('RESET_PASSWORD_REQUIREMENTS_LOWERCASE', {
                       count: 1,
                     })}
                   </li>
                   <li>
-                    {t(AUTH.RESET_PASSWORD_REQUIREMENTS_UPPERCASE, {
+                    {t('RESET_PASSWORD_REQUIREMENTS_UPPERCASE', {
                       count: 1,
                     })}
                   </li>
                   <li>
-                    {t(AUTH.RESET_PASSWORD_REQUIREMENTS_NUMBER, {
+                    {t('RESET_PASSWORD_REQUIREMENTS_NUMBER', {
                       count: 1,
                     })}
                   </li>
@@ -140,9 +152,9 @@ export function ResetPassword() {
           {...register('password', {
             required: true,
             validate: (value) =>
-              isPasswordStrong(value) || t(AUTH.PASSWORD_WEAK_ERROR),
+              isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
           })}
-          label={t(AUTH.RESET_PASSWORD_NEW_PASSWORD_FIELD_LABEL)}
+          label={t('RESET_PASSWORD_NEW_PASSWORD_FIELD_LABEL')}
           variant="outlined"
           error={Boolean(passwordErrorMessage)}
           helperText={passwordErrorMessage}
@@ -164,13 +176,13 @@ export function ResetPassword() {
             required: true,
             validate: {
               strong: (value) =>
-                isPasswordStrong(value) || t(AUTH.PASSWORD_WEAK_ERROR),
+                isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
               match: (confirmPassword, formState) =>
                 confirmPassword === formState.password ||
-                t(AUTH.PASSWORD_DO_NOT_MATCH_ERROR),
+                t('PASSWORD_DO_NOT_MATCH_ERROR'),
             },
           })}
-          label={t(AUTH.RESET_PASSWORD_NEW_PASSWORD_CONFIRMATION_FIELD_LABEL)}
+          label={t('RESET_PASSWORD_NEW_PASSWORD_CONFIRMATION_FIELD_LABEL')}
           variant="outlined"
           error={Boolean(confirmPasswordErrorMessage)}
           helperText={confirmPasswordErrorMessage}
@@ -186,12 +198,12 @@ export function ResetPassword() {
               onChange={() => setShowPasswords((v) => !v)}
             />
           }
-          label={t(AUTH.SHOW_PASSWORD)}
+          label={t('SHOW_PASSWORD')}
         />
         {isError && (
           <>
             <Alert id={RESET_PASSWORD_ERROR_MESSAGE_ID} severity="error">
-              {t(AUTH.RESET_PASSWORD_ERROR_MESSAGE, { email: HELP_EMAIL })}
+              {t('RESET_PASSWORD_ERROR_MESSAGE', { email: HELP_EMAIL })}
             </Alert>
             <ButtonLink
               variant="contained"
@@ -199,14 +211,14 @@ export function ResetPassword() {
               to="/auth/forgot-password"
               sx={{ textDecoration: 'none' }}
             >
-              {t(AUTH.REQUEST_PASSWORD_RESET_TITLE)}
+              {t('REQUEST_PASSWORD_RESET_TITLE')}
             </ButtonLink>
           </>
         )}
         {isSuccess ? (
           <>
             <Alert id={RESET_PASSWORD_SUCCESS_MESSAGE_ID} severity="success">
-              {t(AUTH.RESET_PASSWORD_SUCCESS_MESSAGE)}
+              {t('RESET_PASSWORD_SUCCESS_MESSAGE')}
             </Alert>
             <ButtonLink
               variant="contained"
@@ -214,7 +226,7 @@ export function ResetPassword() {
               to="/auth/login"
               id={RESET_PASSWORD_BACK_TO_LOGIN_BUTTON_ID}
             >
-              {t(AUTH.BACK_TO_SIGN_IN_BUTTON)}
+              {t('BACK_TO_SIGN_IN_BUTTON')}
             </ButtonLink>
           </>
         ) : (
@@ -226,7 +238,7 @@ export function ResetPassword() {
             type="submit"
             disabled={hasErrors || isError}
           >
-            {t(AUTH.RESET_PASSWORD_BUTTON)}
+            {t('RESET_PASSWORD_BUTTON')}
           </LoadingButton>
         )}
       </Stack>
@@ -238,7 +250,7 @@ export function ResetPassword() {
             color="textSecondary"
             sx={{ textDecoration: 'none' }}
           >
-            {t(AUTH.BACK_TO_SIGN_IN_BUTTON)}
+            {t('BACK_TO_SIGN_IN_BUTTON')}
           </TypographyLink>
         )
       }

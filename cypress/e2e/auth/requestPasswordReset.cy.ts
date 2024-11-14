@@ -1,20 +1,20 @@
-import { REQUEST_PASSWORD_RESET_PATH } from '../../src/config/paths';
+import { REQUEST_PASSWORD_RESET_PATH } from '../../../src/config/paths';
 import {
   REQUEST_PASSWORD_RESET_EMAIL_FIELD_HELPER_ID,
   REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID,
   REQUEST_PASSWORD_RESET_ERROR_MESSAGE_ID,
   REQUEST_PASSWORD_RESET_SUBMIT_BUTTON_ID,
   REQUEST_PASSWORD_RESET_SUCCESS_MESSAGE_ID,
-} from '../../src/config/selectors';
-import { MEMBERS } from '../fixtures/members';
+} from '../../../src/config/selectors';
+import { AUTH_MEMBERS } from '../../fixtures/members';
 
 describe('Request password reset', () => {
   it('For existing member', () => {
-    cy.setUpApi();
+    cy.setUpApi({});
     cy.visit(REQUEST_PASSWORD_RESET_PATH);
     // request password reset for an existing member
     cy.get(`#${REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID}`).type(
-      MEMBERS.GRAASP.email,
+      AUTH_MEMBERS.GRAASP.email,
     );
     cy.get(`#${REQUEST_PASSWORD_RESET_SUBMIT_BUTTON_ID}`).click();
     cy.get(`#${REQUEST_PASSWORD_RESET_SUCCESS_MESSAGE_ID}`).should(
@@ -22,11 +22,11 @@ describe('Request password reset', () => {
     );
   });
   it('For non-email', () => {
-    cy.setUpApi();
+    cy.setUpApi({});
     cy.visit(REQUEST_PASSWORD_RESET_PATH);
 
     cy.get(`#${REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID}`).type(
-      MEMBERS.WRONG_EMAIL.email,
+      AUTH_MEMBERS.WRONG_EMAIL.email,
     );
 
     // click the button to trigger the validation
@@ -43,7 +43,7 @@ describe('Request password reset', () => {
     cy.visit(REQUEST_PASSWORD_RESET_PATH);
 
     cy.get(`#${REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID}`).type(
-      MEMBERS.GRAASP.email,
+      AUTH_MEMBERS.GRAASP.email,
     );
 
     cy.get(`#${REQUEST_PASSWORD_RESET_SUBMIT_BUTTON_ID}`).click();

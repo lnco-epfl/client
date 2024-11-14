@@ -1,6 +1,8 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
-import { useAuthTranslation } from '../../config/i18n';
+import { NS } from '@/config/constants';
+
 import { EmailAdornment } from '../common/Adornments';
 import { StyledTextField } from '../common/StyledTextField';
 
@@ -21,7 +23,7 @@ export function EmailInput({
   error,
   placeholder,
 }: Props): JSX.Element {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
 
   return (
     <StyledTextField
@@ -32,7 +34,13 @@ export function EmailInput({
       variant="outlined"
       error={Boolean(error)}
       placeholder={placeholder}
-      helperText={error && t(error)}
+      helperText={
+        error &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        t(error)
+      }
+      // eslint-disable-next-line jsx-a11y/no-autofocus
       autoFocus={autoFocus}
       disabled={disabled}
       {...form}

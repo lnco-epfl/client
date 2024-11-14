@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import { GraaspLogo } from '@graasp/ui';
-
 import { Stack, Typography, useTheme } from '@mui/material';
+
+import { GraaspLogo } from '@graasp/ui';
 
 type DialogHeaderProps = {
   title: string;

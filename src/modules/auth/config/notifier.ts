@@ -1,11 +1,11 @@
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 import { Notifier, routines } from '@graasp/query-client';
 import { FAILURE_MESSAGES } from '@graasp/translations';
 
+import { AxiosError } from 'axios';
+
 import { SHOW_NOTIFICATIONS } from './env';
-import i18n from './i18n';
 
 const {
   getInvitationRoutine,
@@ -13,6 +13,8 @@ const {
   signUpRoutine,
   signInWithPasswordRoutine,
 } = routines;
+
+const t = (str: string) => str;
 
 type PayloadError = NonNullable<Parameters<Notifier>[0]['payload']>['error'];
 export const getErrorMessage = (error: PayloadError) => {
@@ -60,11 +62,11 @@ const notifier: Notifier = (args) => {
 
   // error notification
   if (payload?.error && message) {
-    toast.error(i18n.t(message));
+    toast.error(t(message));
   }
   // success notification
   else if (message) {
-    toast.success(i18n.t(message));
+    toast.success(t(message));
   }
 };
 

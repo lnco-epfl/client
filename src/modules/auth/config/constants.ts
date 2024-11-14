@@ -1,5 +1,3 @@
-export const MAX_CHECKBOX_LABEL_WITH_PX_SIGN_UP = 330;
-
 /**
  * Email used when requesting help for account procedures
  */

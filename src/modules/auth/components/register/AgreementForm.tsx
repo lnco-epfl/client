@@ -1,4 +1,4 @@
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import {
   Checkbox,
@@ -7,7 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useAuthTranslation } from '../../config/i18n';
+import { NS } from '@/config/constants';
+
 import { SIGN_UP_AGREEMENTS_CHECKBOX_ID } from '../../config/selectors';
 import { UseAgreementForm } from '../../hooks/useAgreementForm';
 import { AUTH } from '../../langs/constants';
@@ -17,7 +18,8 @@ type Props = {
 };
 
 export function AgreementForm({ useAgreementForm }: Props) {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
+
   const {
     userHasAcceptedAllTerms,
     updateUserAgreements,

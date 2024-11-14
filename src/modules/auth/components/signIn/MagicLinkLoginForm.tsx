@@ -1,13 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-
-import { RecaptchaAction } from '@graasp/sdk';
+import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
 import { Stack } from '@mui/material';
 
-import { useAuthTranslation } from '../../config/i18n';
-import { SIGN_IN_MAGIC_LINK_SUCCESS_PATH } from '../../config/paths';
+import { RecaptchaAction } from '@graasp/sdk';
+
+import { useNavigate } from '@tanstack/react-router';
+
+import { NS } from '@/config/constants';
+
 import { mutations } from '../../config/queryClient';
 import {
   MAGIC_LINK_EMAIL_FIELD_ID,
@@ -15,7 +17,6 @@ import {
 } from '../../config/selectors';
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { useMobileAppLogin } from '../../hooks/mobile';
-import { useRedirection } from '../../hooks/searchParams';
 import { AUTH } from '../../langs/constants';
 import { getValidationMessage, isEmailValid } from '../../utils/validation';
 import { ErrorDisplay } from '../common/ErrorDisplay';
@@ -27,9 +28,16 @@ type Inputs = {
   email: string;
 };
 
-export function MagicLinkForm() {
+type MagicLinkLoginFormProps = {
+  search: {
+    url?: string;
+  };
+};
+
+export function MagicLinkLoginForm({ search }: MagicLinkLoginFormProps) {
   const navigate = useNavigate();
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
+
   const { executeCaptcha } = useRecaptcha();
   const {
     register,
@@ -38,7 +46,6 @@ export function MagicLinkForm() {
   } = useForm<Inputs>();
 
   const { isMobile, challenge } = useMobileAppLogin();
-  const redirect = useRedirection();
 
   const {
     mutateAsync: signIn,
@@ -65,13 +72,13 @@ export function MagicLinkForm() {
         : signIn({
             email: lowercaseEmail,
             captcha: token,
-            url: redirect.url,
+            url: search.url,
           }));
 
       // navigate to success path
       navigate({
-        pathname: SIGN_IN_MAGIC_LINK_SUCCESS_PATH,
-        search: `email=${email}`,
+        to: '/auth/login/success',
+        search: { email },
       });
     } catch (e) {
       console.error(e);
@@ -89,6 +96,7 @@ export function MagicLinkForm() {
     >
       <EmailInput
         id={MAGIC_LINK_EMAIL_FIELD_ID}
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         form={register('email', {
           required: true,

@@ -1,5 +1,9 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { LoadingButton } from '@mui/lab';
+import { FormControl, LinearProgress, Stack, useTheme } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import {
   MAX_USERNAME_LENGTH,
@@ -8,15 +12,10 @@ import {
 } from '@graasp/sdk';
 import { GraaspLogo } from '@graasp/ui';
 
-import { LoadingButton } from '@mui/lab';
-import { FormControl, LinearProgress, Stack, useTheme } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Link, useNavigate } from '@tanstack/react-router';
 
-import { useAuthTranslation } from '../../config/i18n';
-import {
-  SIGN_IN_MAGIC_LINK_SUCCESS_PATH,
-  SIGN_IN_PATH,
-} from '../../config/paths';
+import { NS } from '@/config/constants';
+
 import { hooks, mutations } from '../../config/queryClient';
 import {
   EMAIL_SIGN_UP_FIELD_ID,
@@ -26,11 +25,9 @@ import {
 } from '../../config/selectors';
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { useMobileAppLogin } from '../../hooks/mobile';
-import { useRedirection } from '../../hooks/searchParams';
 import { useAgreementForm } from '../../hooks/useAgreementForm';
 import { AUTH } from '../../langs/constants';
 import { emailValidator, nameValidator } from '../../utils/validation';
-import { LeftContentContainer } from '../LeftContentContainer';
 import { EmailAdornment } from '../common/Adornments';
 import { ErrorDisplay } from '../common/ErrorDisplay';
 import { StyledTextField } from '../common/StyledTextField';
@@ -47,14 +44,21 @@ const {
   INVITATIONS_LOADING_MESSAGE,
 } = AUTH;
 
-function RegisterInnerComponent() {
-  const { t, i18n } = useAuthTranslation();
+type RegisterProps = {
+  search: {
+    url?: string;
+    invitationId?: string;
+  };
+};
+
+export function Register({ search }: RegisterProps) {
+  const { t, i18n } = useTranslation(NS.Auth);
+
   const navigate = useNavigate();
   const { executeCaptcha } = useRecaptcha();
   const theme = useTheme();
 
   const { isMobile, challenge } = useMobileAppLogin();
-  const redirect = useRedirection();
 
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -76,20 +80,20 @@ function RegisterInnerComponent() {
     isPending: isLoadingMobileSignUp,
     error: mobileRegisterError,
   } = mutations.useMobileSignUp();
-  const [searchParams] = useSearchParams();
 
   const {
     data: invitation,
     isSuccess: isInvitationSuccess,
     isLoading: isLoadingInvitations,
-  } = hooks.useInvitation(searchParams.get('invitationId') || undefined);
+  } = hooks.useInvitation(search.invitationId);
 
   useEffect(() => {
     if (isInvitationSuccess && invitation) {
+      // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
       setEmail(invitation.email);
+      // eslint-disable-next-line @eslint-react/hooks-extra/no-direct-set-state-in-use-effect
       setName(invitation.name ?? '');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invitation, isInvitationSuccess]);
 
   // loading invitation
@@ -139,15 +143,15 @@ function RegisterInnerComponent() {
             name: name.trim(),
             email: lowercaseEmail,
             captcha: token,
-            url: redirect.url,
+            url: search.url,
             lang: i18n.language,
             enableSaveActions,
           }));
 
       // navigate to success path
       navigate({
-        pathname: SIGN_IN_MAGIC_LINK_SUCCESS_PATH,
-        search: `email=${email}`,
+        to: '/auth/login/success',
+        search: { email },
       });
     }
   };
@@ -178,6 +182,8 @@ function RegisterInnerComponent() {
             error={Boolean(nameError)}
             helperText={
               nameError &&
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
               t(nameError, {
                 min: MIN_USERNAME_LENGTH,
                 max: MAX_USERNAME_LENGTH,
@@ -186,6 +192,7 @@ function RegisterInnerComponent() {
             onChange={handleNameOnChange}
             id={NAME_SIGN_UP_FIELD_ID}
             disabled={Boolean(invitation?.name)}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
           <EmailInput
@@ -218,17 +225,9 @@ function RegisterInnerComponent() {
         </Stack>
       </FormControl>
       <Typography>{t(SIGN_IN_LINK_TEXT)}</Typography>
-      <Link to={`${SIGN_IN_PATH}?${searchParams.toString()}`}>
+      <Link to="/auth/login" search={search}>
         {t(SIGN_IN_LINK_TEXT_BUTTON)}
       </Link>
     </Stack>
-  );
-}
-
-export function Register() {
-  return (
-    <LeftContentContainer>
-      <RegisterInnerComponent />
-    </LeftContentContainer>
   );
 }

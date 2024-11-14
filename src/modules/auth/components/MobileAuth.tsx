@@ -1,18 +1,20 @@
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Android, Apple, DeviceUnknown } from '@mui/icons-material';
 import { Button, Stack, Typography } from '@mui/material';
 
-import { useAuthTranslation } from '../config/i18n';
-import { HOME_PATH } from '../config/paths';
+import { TypographyLink } from '@/components/ui/TypographyLink';
+import { NS } from '@/config/constants';
+
 import { AUTH } from '../langs/constants';
 import { LeftContentContainer } from './LeftContentContainer';
 
 const PLAY_STORE_LINK =
   'https://play.google.com/store/apps/details?id=org.graasp.mobile';
+const APPLE_STORE_LINK = 'https://apps.apple.com/ch/app/graasp/id1579895549';
 
 export function MobileAuth(): JSX.Element {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
 
   return (
     <LeftContentContainer>
@@ -24,7 +26,7 @@ export function MobileAuth(): JSX.Element {
       >
         <DeviceUnknown fontSize="large" color="primary" />
         <Typography>{t(AUTH.MOBILE_APP_NOT_INSTALLED_MESSAGE)}</Typography>
-        <Button component={Link} to={''} variant="contained">
+        <Button href={APPLE_STORE_LINK} variant="contained">
           <Stack
             direction="column"
             alignItems="center"
@@ -37,7 +39,7 @@ export function MobileAuth(): JSX.Element {
             <Typography>{t(AUTH.MOBILE_GET_APP_FROM_APPLE_STORE)}</Typography>
           </Stack>
         </Button>
-        <Button component={Link} to={PLAY_STORE_LINK} variant="contained">
+        <Button href={PLAY_STORE_LINK} variant="contained">
           <Stack
             direction="column"
             alignItems="center"
@@ -52,9 +54,9 @@ export function MobileAuth(): JSX.Element {
             </Typography>
           </Stack>
         </Button>
-        <Typography component={Link} to={HOME_PATH} variant="caption">
-          {t(AUTH.MOBILE_BACK_TO_LOGIN)}
-        </Typography>
+        <TypographyLink to="/auth/login" variant="caption">
+          {t('MOBILE_BACK_TO_LOGIN')}
+        </TypographyLink>
       </Stack>
     </LeftContentContainer>
   );

@@ -1,16 +1,18 @@
-import { ArrowRightIcon } from 'lucide-react';
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { Container, Stack, Typography, useTheme } from '@mui/material';
 
 import { GraaspLogo } from '@graasp/ui';
 
-import { Button, Container, Stack, Typography, useTheme } from '@mui/material';
+import { ArrowRightIcon } from 'lucide-react';
+
+import { ButtonLink } from '@/components/ui/ButtonLink';
+import { NS } from '@/config/constants';
 
 import { DEFAULT_REDIRECTION_URL } from '../config/env';
-import { useAuthTranslation } from '../config/i18n';
 import { hooks } from '../config/queryClient';
 import { REDIRECTION_CONTENT_CONTAINER_ID } from '../config/selectors';
-import { useRedirection } from '../hooks/searchParams';
 import { AUTH } from '../langs/constants';
 
 type Props = {
@@ -20,10 +22,8 @@ type Props = {
 export function Redirection({ children }: Props) {
   const theme = useTheme();
   const { data: member } = hooks.useCurrentMember();
-  const { t } = useAuthTranslation();
-  const redirect = useRedirection();
-  // redirect.url is used when user comes from another part of the app
-  const targetLink = redirect.url || DEFAULT_REDIRECTION_URL;
+  const { t } = useTranslation(NS.Auth);
+  const targetLink = DEFAULT_REDIRECTION_URL;
 
   if (member) {
     return (
@@ -51,15 +51,14 @@ export function Redirection({ children }: Props) {
             >
               {t(AUTH.REDIRECTION_DESCRIPTION)}
             </Typography>
-            <Button
+            <ButtonLink
               role="button"
               variant="contained"
-              component={Link}
               to={targetLink}
               endIcon={<ArrowRightIcon />}
             >
               {t(AUTH.REDIRECTION_BUTTON)}
-            </Button>
+            </ButtonLink>
           </Stack>
         </Stack>
       </Container>

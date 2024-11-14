@@ -1,6 +1,6 @@
-import { GraaspLogo } from '@graasp/ui';
-
 import { Stack, Typography, useTheme } from '@mui/material';
+
+import { GraaspLogo } from '@graasp/ui';
 
 export function BrandingLogo() {
   const theme = useTheme();

@@ -1,8 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
-
-const enum MobileSearchParams {
-  CHALLENGE = 'm',
-}
+import { useSearch } from '@tanstack/react-router';
 
 /**
  * Checks whether the auth front-end was loaded from the mobile app
@@ -10,8 +6,7 @@ const enum MobileSearchParams {
  * @returns { isMobile, challenge } a boolean that indicates if the login is for the mobile app, and the challenge nonce
  */
 export const useMobileAppLogin = () => {
-  const [searchParams] = useSearchParams();
-  const challenge = searchParams.get(MobileSearchParams.CHALLENGE);
+  const { m: challenge } = useSearch({ strict: false });
   if (challenge) {
     return {
       // using const is necessary for type to be inferred as `true` instead of `boolean`

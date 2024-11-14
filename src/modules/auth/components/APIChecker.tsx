@@ -1,15 +1,19 @@
-import { RotateCcwIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
 import { Alert, AlertTitle, Box, Stack, Typography } from '@mui/material';
 
+import { RotateCcwIcon } from 'lucide-react';
+
+import { NS } from '@/config/constants';
+
 import { API_HOST } from '../config/env';
-import { useAuthTranslation } from '../config/i18n';
 import { axios, useQuery } from '../config/queryClient';
 import { AUTH } from '../langs/constants';
 
 export function APIChecker(): JSX.Element | null {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
+
   const { isSuccess, isLoading, refetch, isError } = useQuery({
     queryKey: ['apiStatus'],
     queryFn: () =>

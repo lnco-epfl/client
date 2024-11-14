@@ -4,6 +4,8 @@ export const API_HOST =
 export const SHOW_NOTIFICATIONS =
   (import.meta.env.VITE_SHOW_NOTIFICATIONS ?? 'true') === 'true';
 
+export const APP_VERSION = import.meta.env.VITE_VERSION;
+
 export const GRAASP_AUTH_HOST =
   import.meta.env.VITE_GRAASP_AUTH_HOST ?? 'http://localhost:3001';
 export const GRAASP_BUILDER_HOST =
@@ -15,4 +17,7 @@ export const GRAASP_LIBRARY_HOST =
 export const GRAASP_ANALYTICS_HOST =
   import.meta.env.VITE_GRAASP_ANALYTICS_HOST ?? 'http://localhost:3113';
 
-// export const STRIPE_PK = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+export const SENTRY_ENV = import.meta.env.VITE_SENTRY_ENV;
+export const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
+
+export const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;

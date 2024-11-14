@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { NS } from '@/config/constants';
 
 import { GRAASP_LANDING_PAGE_HOST } from '../config/env';
-import { useAuthTranslation } from '../config/i18n';
 import { AUTH } from '../langs/constants';
 
 export type UseAgreementForm = {
@@ -14,7 +16,7 @@ export type UseAgreementForm = {
 };
 
 export const useAgreementForm = (): UseAgreementForm => {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
 
   const [userHasAcceptedAllTerms, setUserHasAcceptedAllTerms] = useState(false);
   const [hasError, setHasError] = useState(false);

@@ -1,10 +1,13 @@
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { IconButton, InputAdornment } from '@mui/material';
 
-import { useAuthTranslation } from '../../config/i18n';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
+
+import { NS } from '@/config/constants';
+
 import { AUTH } from '../../langs/constants';
 import { PasswordAdornment } from './Adornments';
 import { StyledTextField } from './StyledTextField';
@@ -18,7 +21,8 @@ type Props = {
 };
 
 export function PasswordInput({ id, error, form }: Props): JSX.Element {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -48,7 +52,12 @@ export function PasswordInput({ id, error, form }: Props): JSX.Element {
       }}
       variant="outlined"
       error={Boolean(error)}
-      helperText={error && t(error)}
+      helperText={
+        error &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        t(error)
+      }
       placeholder={t(PASSWORD_INPUT_PLACEHOLDER)}
       id={id}
       type={showPassword ? 'text' : 'password'}

@@ -1,4 +1,4 @@
-import { RESET_PASSWORD_PATH } from '../../src/config/paths';
+import { RESET_PASSWORD_PATH } from '../../../src/config/paths';
 import {
   RESET_PASSWORD_BACK_TO_LOGIN_BUTTON_ID,
   RESET_PASSWORD_ERROR_MESSAGE_ID,
@@ -9,14 +9,14 @@ import {
   RESET_PASSWORD_SUBMIT_BUTTON_ID,
   RESET_PASSWORD_SUCCESS_MESSAGE_ID,
   RESET_PASSWORD_TOKEN_ERROR_ID,
-} from '../../src/config/selectors';
-import { MEMBERS } from '../fixtures/members';
+} from '../../../src/config/selectors';
+import { AUTH_MEMBERS } from '../../fixtures/members';
 import { generateJWT } from './util';
 
 describe('Reset password', () => {
   describe('With valid token', () => {
     it('With strong password', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
 
       // this allows to run async code in cypress
       cy.wrap(null).then(async () => {
@@ -25,10 +25,10 @@ describe('Reset password', () => {
       });
 
       cy.get(`#${RESET_PASSWORD_NEW_PASSWORD_FIELD_ID}`).type(
-        MEMBERS.GRAASP.password,
+        AUTH_MEMBERS.GRAASP.password,
       );
       cy.get(`#${RESET_PASSWORD_NEW_PASSWORD_CONFIRMATION_FIELD_ID}`).type(
-        MEMBERS.GRAASP.password,
+        AUTH_MEMBERS.GRAASP.password,
       );
       cy.get(`#${RESET_PASSWORD_SUBMIT_BUTTON_ID}`).click();
       cy.get(`#${RESET_PASSWORD_SUCCESS_MESSAGE_ID}`).should('be.visible');
@@ -39,7 +39,7 @@ describe('Reset password', () => {
     });
 
     it('With weak password', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
 
       // this allows to run async code in cypress
       cy.wrap(null).then(async () => {
@@ -64,7 +64,7 @@ describe('Reset password', () => {
     });
 
     it('Without matching passwords', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
 
       // this allows to run async code in cypress
       cy.wrap(null).then(async () => {
@@ -110,7 +110,7 @@ describe('Reset password', () => {
 
   describe('Invalid token', () => {
     it('Without token', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
       cy.visit(RESET_PASSWORD_PATH);
 
       // a rough error message is displayed when the url does not
@@ -122,7 +122,7 @@ describe('Reset password', () => {
     });
 
     it('Not a JWT token', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
       cy.visit(`${RESET_PASSWORD_PATH}?t=${'1234'}`);
 
       // a rough error message is displayed when the url does not
@@ -134,7 +134,7 @@ describe('Reset password', () => {
     });
 
     it('Expired token', () => {
-      cy.setUpApi();
+      cy.setUpApi({});
 
       // this allows to run async code in cypress
       cy.wrap(null).then(async () => {

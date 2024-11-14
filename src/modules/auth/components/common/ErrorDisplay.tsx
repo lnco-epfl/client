@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 import { Alert } from '@mui/material';
 
-import { useMessagesTranslation } from '../../config/i18n';
+import { NS } from '@/config/constants';
+
 import { getErrorMessage } from '../../config/notifier';
 import { ERROR_DISPLAY_ID } from '../../config/selectors';
 
@@ -9,7 +12,7 @@ export function ErrorDisplay({
 }: {
   error: Error | null;
 }): JSX.Element | null {
-  const { t: translateMessages } = useMessagesTranslation();
+  const { t: translateMessages } = useTranslation(NS.Messages);
 
   if (!error) {
     return null;

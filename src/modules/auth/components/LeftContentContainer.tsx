@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
+import { Box, Stack } from '@mui/material';
+
 import {
   AccentColors,
   AnalyticsIcon,
@@ -6,10 +10,9 @@ import {
   PlayIcon,
 } from '@graasp/ui';
 
-import { Box, Stack } from '@mui/material';
+import { NS } from '@/config/constants';
 
 import { BACKGROUND_PATTERN } from '../config/constants';
-import { useAuthTranslation } from '../config/i18n';
 import { PLATFORM_ADVERTISEMENT_CONTAINER_ID } from '../config/selectors';
 import { AUTH } from '../langs/constants';
 import { APIChecker } from './APIChecker';
@@ -23,7 +26,7 @@ type Props = {
 };
 
 export function LeftContentContainer({ children }: Props): JSX.Element {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
 
   return (
     <>
@@ -38,19 +41,17 @@ export function LeftContentContainer({ children }: Props): JSX.Element {
       </Box>
       <Stack
         direction="row"
-        margin="auto"
+        // need to be minHeight for screen in landscape with potentially shallow heights
         minHeight="100svh"
+        width="100%"
         sx={{
           backgroundImage: BACKGROUND_PATTERN,
         }}
+        gap={2}
       >
         <Stack
-          display={{
-            xs: 'none',
-            sm: 'none',
-            md: 'flex',
-          }}
-          width="100%"
+          display={{ xs: 'none', md: 'flex' }}
+          flex={1}
           justifyContent="center"
           alignItems="center"
           px={3}
@@ -85,13 +86,12 @@ export function LeftContentContainer({ children }: Props): JSX.Element {
         </Stack>
         <Stack
           {...styledBox}
-          flexGrow={1}
           justifyContent="space-between"
           alignItems="flex-end"
-          width={{ xs: '100%', sm: 'inherit' }}
+          width={{ xs: '100%', md: 'fit-content' }}
           px={{ xs: 2, sm: 8 }}
           py={{ xs: 2, sm: 2 }}
-          spacing={2}
+          gap={2}
         >
           <Stack
             alignItems="center"

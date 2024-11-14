@@ -1,23 +1,24 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-
-import { RecaptchaAction } from '@graasp/sdk';
+import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
 import { Alert, Stack, TextField } from '@mui/material';
-import Typography from '@mui/material/Typography';
 
-import { HELP_EMAIL } from '../../config/constants';
-import { useAuthTranslation } from '../../config/i18n';
-import { SIGN_IN_PATH } from '../../config/paths';
-import { mutations } from '../../config/queryClient';
+import { RecaptchaAction } from '@graasp/sdk';
+
+import { TypographyLink } from '@/components/ui/TypographyLink';
+import { NS } from '@/config/constants';
+import { mutations } from '@/config/queryClient';
 import {
   REQUEST_PASSWORD_RESET_EMAIL_FIELD_HELPER_ID,
   REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID,
   REQUEST_PASSWORD_RESET_ERROR_MESSAGE_ID,
   REQUEST_PASSWORD_RESET_SUBMIT_BUTTON_ID,
   REQUEST_PASSWORD_RESET_SUCCESS_MESSAGE_ID,
-} from '../../config/selectors';
+} from '@/config/selectors';
+
+import { HELP_EMAIL } from '~auth/config/constants';
+
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { AUTH } from '../../langs/constants';
 import { getValidationMessage, isEmailValid } from '../../utils/validation';
@@ -32,7 +33,7 @@ type Inputs = {
 };
 
 export function RequestPasswordReset() {
-  const { t } = useAuthTranslation();
+  const { t } = useTranslation(NS.Auth);
   const {
     register,
     handleSubmit,
@@ -72,6 +73,7 @@ export function RequestPasswordReset() {
       >
         <TextField
           id={REQUEST_PASSWORD_RESET_EMAIL_FIELD_ID}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           {...register('email', {
             required: true,
@@ -84,7 +86,12 @@ export function RequestPasswordReset() {
             startAdornment: EmailAdornment,
           }}
           placeholder={t(AUTH.EMAIL_INPUT_PLACEHOLDER)}
-          helperText={errorMessage && t(errorMessage)}
+          helperText={
+            errorMessage &&
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            t(errorMessage)
+          }
           error={hasErrors}
           // once the request is sent disable the input
           disabled={isSuccess || isError}
@@ -116,14 +123,13 @@ export function RequestPasswordReset() {
           </LoadingButton>
         )}
       </Stack>
-      <Typography
-        component={Link}
+      <TypographyLink
         color="textSecondary"
         sx={{ textDecoration: 'none' }}
-        to={SIGN_IN_PATH}
+        to="/auth/login"
       >
         {t(AUTH.REQUEST_PASSWORD_RESET_BACK_BUTTON)}
-      </Typography>
+      </TypographyLink>
     </CenteredContent>
   );
 }

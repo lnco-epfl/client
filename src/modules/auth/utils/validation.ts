@@ -1,10 +1,10 @@
 import { FieldError } from 'react-hook-form';
-import validator from 'validator';
 
 import {
   MAX_USERNAME_LENGTH,
   MIN_USERNAME_LENGTH,
   MemberConstants,
+  isEmail,
   isPasswordStrong,
 } from '@graasp/sdk';
 
@@ -41,18 +41,18 @@ export const emailValidator = (email?: string) => {
   if (!email) {
     return EMPTY_EMAIL_ERROR;
   }
-  return validator.isEmail(email) ? null : INVALID_EMAIL_ERROR;
+  return isEmail(email, {}) ? null : INVALID_EMAIL_ERROR;
 };
 
 export const isEmailValid = (email?: string) => {
   if (!email) {
     return EMPTY_EMAIL_ERROR;
   }
-  return validator.isEmail(email) ? true : INVALID_EMAIL_ERROR;
+  return isEmail(email, {}) ? true : INVALID_EMAIL_ERROR;
 };
 
 export const passwordValidator = (password?: string) => {
-  if (!password || validator.isEmpty(password)) {
+  if (!password || password.trim().length == 0) {
     return PASSWORD_EMPTY_ERROR;
   }
   return null;
@@ -65,7 +65,7 @@ export const isPasswordValid = (password: string) => {
   return PASSWORD_WEAK_ERROR;
 };
 
-export const passwordsMatch = (passA: string, passB: string): string | null => {
+export const passwordsMatch = (passA: string, passB: string) => {
   if (passA !== passB) {
     return PASSWORD_DO_NOT_MATCH_ERROR;
   }

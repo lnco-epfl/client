@@ -17,7 +17,6 @@ export function CenteredContent({
   return (
     <Stack
       direction="column"
-      margin="auto"
       minHeight="100svh"
       justifyContent="center"
       alignItems="center"

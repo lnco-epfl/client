@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { Alert, LoadingButton } from '@mui/lab';
+import { Stack } from '@mui/material';
 
 import { RecaptchaAction } from '@graasp/sdk';
 
-import { Alert, LoadingButton } from '@mui/lab';
-import { Stack, Typography } from '@mui/material';
+import { TypographyLink } from '@/components/ui/TypographyLink';
+import { NS } from '@/config/constants';
 
-import { useAuthTranslation } from '../../config/i18n';
-import { REQUEST_PASSWORD_RESET_PATH } from '../../config/paths';
 import { mutations } from '../../config/queryClient';
 import {
   EMAIL_SIGN_IN_FIELD_ID,
@@ -17,7 +18,6 @@ import {
 } from '../../config/selectors';
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { useMobileAppLogin } from '../../hooks/mobile';
-import { useRedirection } from '../../hooks/searchParams';
 import { AUTH } from '../../langs/constants';
 import { getValidationMessage, isEmailValid } from '../../utils/validation';
 import { ErrorDisplay } from '../common/ErrorDisplay';
@@ -29,9 +29,14 @@ type Inputs = {
   password: string;
 };
 
-export function PasswordForm() {
-  const { t } = useAuthTranslation();
-  const redirect = useRedirection();
+type PasswordLoginProps = {
+  search: {
+    url?: string;
+  };
+};
+
+export function PasswordLoginForm({ search }: PasswordLoginProps) {
+  const { t } = useTranslation(NS.Auth);
   const { isMobile, challenge } = useMobileAppLogin();
   const { executeCaptcha } = useRecaptcha();
   const {
@@ -76,7 +81,7 @@ export function PasswordForm() {
             ...data,
             email: lowercaseEmail,
             captcha: token,
-            url: redirect.url,
+            url: search.url,
           }));
       // successful redirect
       if (result?.resource) {
@@ -116,15 +121,14 @@ export function PasswordForm() {
             required: true,
           })}
         />
-        <Typography
-          component={Link}
+        <TypographyLink
           color="textSecondary"
           variant="caption"
           sx={{ textDecoration: 'none' }}
-          to={REQUEST_PASSWORD_RESET_PATH}
+          to="/auth/forgot-password"
         >
           {t(AUTH.REQUEST_PASSWORD_RESET_LINK)}
-        </Typography>
+        </TypographyLink>
       </Stack>
       <ErrorDisplay error={passwordSignInError} />
       <LoadingButton

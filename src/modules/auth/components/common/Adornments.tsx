@@ -1,6 +1,6 @@
-import { LockIcon, MailIcon } from 'lucide-react';
-
 import { InputAdornment } from '@mui/material';
+
+import { LockIcon, MailIcon } from 'lucide-react';
 
 export const EmailAdornment = (
   <InputAdornment position="start" color="inherit">
