@@ -8,22 +8,65 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
+import { Route as TermsImport } from './routes/terms'
+import { Route as SupportImport } from './routes/support'
+import { Route as PolicyImport } from './routes/policy'
+import { Route as FeaturesImport } from './routes/features'
+import { Route as DisclaimerImport } from './routes/disclaimer'
+import { Route as ContactUsImport } from './routes/contact-us'
 import { Route as AccountImport } from './routes/account'
-import { Route as IndexImport } from './routes/index'
+import { Route as AboutUsImport } from './routes/about-us'
 import { Route as AccountIndexImport } from './routes/account/index'
 import { Route as EmailChangeImport } from './routes/email.change'
+import { Route as AuthRegisterImport } from './routes/auth/register'
+import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as AccountStorageImport } from './routes/account/storage'
 import { Route as AccountSettingsImport } from './routes/account/settings'
 
+// Create Virtual Routes
+
+const IndexLazyImport = createFileRoute('/')()
+
 // Create/Update Routes
 
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
+const TermsRoute = TermsImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SupportRoute = SupportImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PolicyRoute = PolicyImport.update({
+  id: '/policy',
+  path: '/policy',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FeaturesRoute = FeaturesImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DisclaimerRoute = DisclaimerImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContactUsRoute = ContactUsImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -33,11 +76,17 @@ const AccountRoute = AccountImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const AboutUsRoute = AboutUsImport.update({
+  id: '/about-us',
+  path: '/about-us',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 const AccountIndexRoute = AccountIndexImport.update({
   id: '/',
@@ -50,6 +99,18 @@ const EmailChangeRoute = EmailChangeImport.update({
   path: '/email/change',
   getParentRoute: () => rootRoute,
 } as any)
+
+const AuthRegisterRoute = AuthRegisterImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthLoginRoute = AuthLoginImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/auth/login.lazy').then((d) => d.Route))
 
 const AccountStorageRoute = AccountStorageImport.update({
   id: '/storage',
@@ -71,7 +132,14 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+      preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsImport
       parentRoute: typeof rootRoute
     }
     '/account': {
@@ -81,11 +149,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsImport
+      parentRoute: typeof rootRoute
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerImport
+      parentRoute: typeof rootRoute
+    }
+    '/features': {
+      id: '/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof FeaturesImport
+      parentRoute: typeof rootRoute
+    }
+    '/policy': {
+      id: '/policy'
+      path: '/policy'
+      fullPath: '/policy'
+      preLoaderRoute: typeof PolicyImport
+      parentRoute: typeof rootRoute
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportImport
+      parentRoute: typeof rootRoute
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsImport
       parentRoute: typeof rootRoute
     }
     '/account/settings': {
@@ -101,6 +204,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/account/storage'
       preLoaderRoute: typeof AccountStorageImport
       parentRoute: typeof AccountImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterImport
+      parentRoute: typeof rootRoute
     }
     '/email/change': {
       id: '/email/change'
@@ -137,31 +254,55 @@ const AccountRouteWithChildren =
   AccountRoute._addFileChildren(AccountRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof IndexLazyRoute
+  '/about-us': typeof AboutUsRoute
   '/account': typeof AccountRouteWithChildren
-  '/login': typeof LoginRoute
+  '/contact-us': typeof ContactUsRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/features': typeof FeaturesRoute
+  '/policy': typeof PolicyRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/storage': typeof AccountStorageRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/email/change': typeof EmailChangeRoute
   '/account/': typeof AccountIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
+  '/': typeof IndexLazyRoute
+  '/about-us': typeof AboutUsRoute
+  '/contact-us': typeof ContactUsRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/features': typeof FeaturesRoute
+  '/policy': typeof PolicyRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/storage': typeof AccountStorageRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/email/change': typeof EmailChangeRoute
   '/account': typeof AccountIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
+  '/': typeof IndexLazyRoute
+  '/about-us': typeof AboutUsRoute
   '/account': typeof AccountRouteWithChildren
-  '/login': typeof LoginRoute
+  '/contact-us': typeof ContactUsRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/features': typeof FeaturesRoute
+  '/policy': typeof PolicyRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/storage': typeof AccountStorageRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/email/change': typeof EmailChangeRoute
   '/account/': typeof AccountIndexRoute
 }
@@ -170,43 +311,83 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about-us'
     | '/account'
-    | '/login'
+    | '/contact-us'
+    | '/disclaimer'
+    | '/features'
+    | '/policy'
+    | '/support'
+    | '/terms'
     | '/account/settings'
     | '/account/storage'
+    | '/auth/login'
+    | '/auth/register'
     | '/email/change'
     | '/account/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/login'
+    | '/about-us'
+    | '/contact-us'
+    | '/disclaimer'
+    | '/features'
+    | '/policy'
+    | '/support'
+    | '/terms'
     | '/account/settings'
     | '/account/storage'
+    | '/auth/login'
+    | '/auth/register'
     | '/email/change'
     | '/account'
   id:
     | '__root__'
     | '/'
+    | '/about-us'
     | '/account'
-    | '/login'
+    | '/contact-us'
+    | '/disclaimer'
+    | '/features'
+    | '/policy'
+    | '/support'
+    | '/terms'
     | '/account/settings'
     | '/account/storage'
+    | '/auth/login'
+    | '/auth/register'
     | '/email/change'
     | '/account/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  IndexLazyRoute: typeof IndexLazyRoute
+  AboutUsRoute: typeof AboutUsRoute
   AccountRoute: typeof AccountRouteWithChildren
-  LoginRoute: typeof LoginRoute
+  ContactUsRoute: typeof ContactUsRoute
+  DisclaimerRoute: typeof DisclaimerRoute
+  FeaturesRoute: typeof FeaturesRoute
+  PolicyRoute: typeof PolicyRoute
+  SupportRoute: typeof SupportRoute
+  TermsRoute: typeof TermsRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   EmailChangeRoute: typeof EmailChangeRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  IndexLazyRoute: IndexLazyRoute,
+  AboutUsRoute: AboutUsRoute,
   AccountRoute: AccountRouteWithChildren,
-  LoginRoute: LoginRoute,
+  ContactUsRoute: ContactUsRoute,
+  DisclaimerRoute: DisclaimerRoute,
+  FeaturesRoute: FeaturesRoute,
+  PolicyRoute: PolicyRoute,
+  SupportRoute: SupportRoute,
+  TermsRoute: TermsRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   EmailChangeRoute: EmailChangeRoute,
 }
 
@@ -221,13 +402,24 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/about-us",
         "/account",
-        "/login",
+        "/contact-us",
+        "/disclaimer",
+        "/features",
+        "/policy",
+        "/support",
+        "/terms",
+        "/auth/login",
+        "/auth/register",
         "/email/change"
       ]
     },
     "/": {
-      "filePath": "index.tsx"
+      "filePath": "index.lazy.tsx"
+    },
+    "/about-us": {
+      "filePath": "about-us.tsx"
     },
     "/account": {
       "filePath": "account.tsx",
@@ -237,8 +429,23 @@ export const routeTree = rootRoute
         "/account/"
       ]
     },
-    "/login": {
-      "filePath": "login.tsx"
+    "/contact-us": {
+      "filePath": "contact-us.tsx"
+    },
+    "/disclaimer": {
+      "filePath": "disclaimer.tsx"
+    },
+    "/features": {
+      "filePath": "features.tsx"
+    },
+    "/policy": {
+      "filePath": "policy.tsx"
+    },
+    "/support": {
+      "filePath": "support.tsx"
+    },
+    "/terms": {
+      "filePath": "terms.tsx"
     },
     "/account/settings": {
       "filePath": "account/settings.tsx",
@@ -247,6 +454,12 @@ export const routeTree = rootRoute
     "/account/storage": {
       "filePath": "account/storage.tsx",
       "parent": "/account"
+    },
+    "/auth/login": {
+      "filePath": "auth/login.tsx"
+    },
+    "/auth/register": {
+      "filePath": "auth/register.tsx"
     },
     "/email/change": {
       "filePath": "email.change.tsx"

@@ -21,7 +21,7 @@ const loginSearchSchema = z.object({
   url: z.string().url().optional(),
 });
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/auth/login')({
   validateSearch: zodSearchValidator(loginSearchSchema),
   component: LoginRoute,
 });
