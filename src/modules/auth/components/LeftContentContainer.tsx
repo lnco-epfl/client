@@ -11,10 +11,11 @@ import {
 } from '@graasp/ui';
 
 import { NS } from '@/config/constants';
+import { PLATFORM_ADVERTISEMENT_CONTAINER_ID } from '@/config/selectors';
 
-import { BACKGROUND_PATTERN } from '../config/constants';
-import { PLATFORM_ADVERTISEMENT_CONTAINER_ID } from '../config/selectors';
-import { AUTH } from '../langs/constants';
+import { AUTH } from '~auth/langs';
+
+import { BACKGROUND_PATTERN } from '../constants';
 import { APIChecker } from './APIChecker';
 import { BrandingLogo } from './BrandingLogo';
 import { Footer } from './Footer';
@@ -51,7 +52,7 @@ export function LeftContentContainer({ children }: Props): JSX.Element {
       >
         <Stack
           display={{ xs: 'none', md: 'flex' }}
-          flex={1}
+          flexGrow={1}
           justifyContent="center"
           alignItems="center"
           px={3}
@@ -92,6 +93,8 @@ export function LeftContentContainer({ children }: Props): JSX.Element {
           px={{ xs: 2, sm: 8 }}
           py={{ xs: 2, sm: 2 }}
           gap={2}
+          flexGrow={1}
+          flexShrink={0}
         >
           <Stack
             alignItems="center"

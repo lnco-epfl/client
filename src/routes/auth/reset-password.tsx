@@ -26,9 +26,9 @@ import { PasswordAdornment } from '~auth/components/common/Adornments';
 import { CenteredContent } from '~auth/components/layout/CenteredContent';
 import { DialogHeader } from '~auth/components/layout/DialogHeader';
 import { InvalidTokenScreen } from '~auth/components/requestPasswordReset/InvalidTokenScreen';
-import { HELP_EMAIL } from '~auth/config/constants';
+import { HELP_EMAIL } from '~auth/constants';
 import { useValidateJWTToken } from '~auth/hooks/useValidateJWTToken';
-import { getValidationMessage } from '~auth/utils/validation';
+import { getValidationMessage } from '~auth/validation';
 
 import { mutations } from '../../config/queryClient';
 import {
@@ -43,12 +43,11 @@ import {
 } from '../../config/selectors';
 
 const resetPasswordSchema = z.object({
-  t: z.string(),
+  t: z.string().optional(),
 });
 
 export const Route = createFileRoute('/auth/reset-password')({
   validateSearch: zodSearchValidator(resetPasswordSchema),
-  errorComponent: InvalidTokenScreen,
   component: ResetPassword,
 });
 
@@ -61,8 +60,8 @@ type Inputs = {
 
 export function ResetPassword() {
   const { t } = useTranslation(NS.Auth);
-  const { t: rawToken } = Route.useSearch();
-  const { isValid, token } = useValidateJWTToken(rawToken);
+  const search = Route.useSearch();
+  const { isValid, token } = useValidateJWTToken(search.t);
 
   const [showPasswords, setShowPasswords] = useState(false);
 

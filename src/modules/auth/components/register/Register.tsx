@@ -12,22 +12,23 @@ import {
 } from '@graasp/sdk';
 import { GraaspLogo } from '@graasp/ui';
 
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, useLocation, useNavigate } from '@tanstack/react-router';
 
 import { NS } from '@/config/constants';
-
-import { hooks, mutations } from '../../config/queryClient';
+import { hooks, mutations } from '@/config/queryClient';
 import {
   EMAIL_SIGN_UP_FIELD_ID,
   NAME_SIGN_UP_FIELD_ID,
-  SIGN_UP_BUTTON_ID,
-  SIGN_UP_HEADER_ID,
-} from '../../config/selectors';
-import { useRecaptcha } from '../../context/RecaptchaContext';
-import { useMobileAppLogin } from '../../hooks/mobile';
-import { useAgreementForm } from '../../hooks/useAgreementForm';
-import { AUTH } from '../../langs/constants';
-import { emailValidator, nameValidator } from '../../utils/validation';
+  REGISTER_BUTTON_ID,
+  REGISTER_HEADER_ID,
+} from '@/config/selectors';
+
+import { useRecaptcha } from '~auth/context/RecaptchaContext';
+import { useAgreementForm } from '~auth/hooks/useAgreementForm';
+import { useMobileAppLogin } from '~auth/hooks/useMobileAppLogin';
+import { AUTH } from '~auth/langs';
+import { emailValidator, nameValidator } from '~auth/validation';
+
 import { EmailAdornment } from '../common/Adornments';
 import { ErrorDisplay } from '../common/ErrorDisplay';
 import { StyledTextField } from '../common/StyledTextField';
@@ -55,6 +56,7 @@ export function Register({ search }: RegisterProps) {
   const { t, i18n } = useTranslation(NS.Auth);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { executeCaptcha } = useRecaptcha();
   const theme = useTheme();
 
@@ -150,8 +152,8 @@ export function Register({ search }: RegisterProps) {
 
       // navigate to success path
       navigate({
-        to: '/auth/login/success',
-        search: { email },
+        to: '/auth/success',
+        search: { email, back: location.pathname },
       });
     }
   };
@@ -163,7 +165,7 @@ export function Register({ search }: RegisterProps) {
         <Typography
           variant="h4"
           component="h2"
-          id={SIGN_UP_HEADER_ID}
+          id={REGISTER_HEADER_ID}
           textAlign="center"
         >
           {t(SIGN_UP_HEADER)}
@@ -214,7 +216,7 @@ export function Register({ search }: RegisterProps) {
           <ErrorDisplay error={registerError} />
           <LoadingButton
             variant="contained"
-            id={SIGN_UP_BUTTON_ID}
+            id={REGISTER_BUTTON_ID}
             loading={isLoadingSignUp || isLoadingMobileSignUp}
             onClick={handleRegister}
             fullWidth

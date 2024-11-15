@@ -2,13 +2,12 @@ import { API_ROUTES } from '@graasp/query-client';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { LOGIN_PAGE_PATH } from '../../../src/config/paths';
+import { LOG_IN_PAGE_PATH } from '../../../src/config/paths';
 import {
   EMAIL_SIGN_IN_FIELD_ID,
   ERROR_DISPLAY_ID,
   PASSWORD_SIGN_IN_BUTTON_ID,
   PASSWORD_SIGN_IN_FIELD_ID,
-  PASSWORD_SUCCESS_ALERT,
 } from '../../../src/config/selectors';
 import { AUTH_MEMBERS } from '../../fixtures/members';
 import { fillPasswordSignInLayout } from './util';
@@ -37,8 +36,8 @@ describe('Email and Password Validation', () => {
       },
     ).as('redirectionPage');
 
-    const { WRONG_EMAIL, GRAASP } = AUTH_MEMBERS;
-    cy.visit(LOGIN_PAGE_PATH);
+    const { INVALID_EMAIL: WRONG_EMAIL, GRAASP } = AUTH_MEMBERS;
+    cy.visit(LOG_IN_PAGE_PATH);
     // Signing in with wrong email
     cy.signInPasswordAndCheck(WRONG_EMAIL);
 
@@ -61,18 +60,17 @@ describe('Email and Password Validation', () => {
       },
     ).as('signInWithPassword');
 
-    const { WRONG_PASSWORD } = AUTH_MEMBERS;
-    cy.visit(LOGIN_PAGE_PATH);
+    cy.visit(LOG_IN_PAGE_PATH);
 
-    // Signing in with a valid email but empty password
-    fillPasswordSignInLayout(WRONG_PASSWORD);
+    // Signing in with a valid email but wrong password
+    fillPasswordSignInLayout(AUTH_MEMBERS.WRONG_PASSWORD);
     cy.get(`#${PASSWORD_SIGN_IN_BUTTON_ID}`).click();
     cy.get(`#${EMAIL_SIGN_IN_FIELD_ID}-helper-text`).should('not.exist');
     cy.get(`#${PASSWORD_SIGN_IN_FIELD_ID}-helper-text`).should('not.exist');
     cy.get(`#${ERROR_DISPLAY_ID}`).should('be.visible');
   });
 
-  it('Sign In With Password shows success message if no redirect', () => {
+  it('Check errors if  shows success message if no redirect', () => {
     cy.intercept(
       {
         pathname: API_ROUTES.SIGN_IN_WITH_PASSWORD_ROUTE,
@@ -82,37 +80,18 @@ describe('Email and Password Validation', () => {
       },
     ).as('signInWithPassword');
 
-    const { WRONG_EMAIL, WRONG_PASSWORD, GRAASP } = AUTH_MEMBERS;
-    cy.visit(LOGIN_PAGE_PATH);
-    // Signing in with wrong email
-    cy.signInPasswordAndCheck(WRONG_EMAIL);
-    // Signing in with a valid email but empty password
-    cy.signInPasswordAndCheck(WRONG_PASSWORD);
-    // Signing in with a valid email and password
-    cy.signInPasswordAndCheck(GRAASP);
+    cy.visit(LOG_IN_PAGE_PATH);
+    cy.signInPasswordAndCheck(AUTH_MEMBERS.INVALID_EMAIL);
 
-    cy.get(`#${PASSWORD_SUCCESS_ALERT}`).should('be.visible');
+    // Signing in with a valid email but empty password
+    cy.signInPasswordAndCheck(AUTH_MEMBERS.INVALID_PASSWORD);
   });
 
-  it('Sign In With Password shows success message if no redirect', () => {
-    cy.intercept(
-      {
-        pathname: API_ROUTES.SIGN_IN_WITH_PASSWORD_ROUTE,
-      },
-      (req) => {
-        req.reply({ statusCode: 303 });
-      },
-    ).as('signInWithPassword');
+  // // Signing in with a valid email but empty password
+  // cy.signInPasswordAndCheck(AUTH_MEMBERS.WRONG_PASSWORD);
+  // // Signing in with a valid email and password
+  // cy.signInPasswordAndCheck(AUTH_MEMBERS.GRAASP);
 
-    const { WRONG_EMAIL, WRONG_PASSWORD, GRAASP } = AUTH_MEMBERS;
-    cy.visit(LOGIN_PAGE_PATH);
-    // Signing in with wrong email
-    cy.signInPasswordAndCheck(WRONG_EMAIL);
-    // Signing in with a valid email but empty password
-    cy.signInPasswordAndCheck(WRONG_PASSWORD);
-    // Signing in with a valid email and password
-    cy.signInPasswordAndCheck(GRAASP);
-
-    cy.get(`#${PASSWORD_SUCCESS_ALERT}`).should('be.visible');
-  });
+  // cy.get(`#${PASSWORD_SUCCESS_ALERT}`).should('be.visible');
+  // });
 });

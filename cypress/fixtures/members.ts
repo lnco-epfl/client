@@ -235,7 +235,7 @@ export const AUTH_MEMBERS = {
     enableSaveActions: true,
     isValidated: true,
   },
-  WRONG_EMAIL: {
+  INVALID_EMAIL: {
     id: 'id2',
     name: 'graasp',
     email: 'wrong',
@@ -243,6 +243,21 @@ export const AUTH_MEMBERS = {
     nameValid: true,
     emailValid: false,
     passwordValid: true,
+    type: AccountType.Individual,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    extra: {},
+    enableSaveActions: true,
+    isValidated: true,
+  },
+  INVALID_PASSWORD: {
+    id: 'id3',
+    name: 'graasp',
+    email: 'graasp@graasp.org',
+    password: '',
+    nameValid: true,
+    emailValid: true,
+    passwordValid: false,
     type: AccountType.Individual,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -287,7 +302,7 @@ export const AUTH_MEMBERS = {
     enableSaveActions: true,
     isValidated: true,
   },
-} satisfies {
+} as const satisfies {
   [name: string]: CompleteMember & {
     nameValid?: boolean;
     emailValid?: boolean;
