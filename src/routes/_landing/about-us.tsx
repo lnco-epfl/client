@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { WorkInProgress } from '@/components/WorkInProgress';
 
-export const Route = createFileRoute('/policy')({
+export const Route = createFileRoute('/_landing/about-us')({
   component: RouteComponent,
 });
 
