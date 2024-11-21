@@ -29,7 +29,7 @@ import { useMobileAppLogin } from '~auth/hooks/useMobileAppLogin';
 import { AUTH } from '~auth/langs';
 import { emailValidator, nameValidator } from '~auth/validation';
 
-import { EmailAdornment } from '../common/Adornments';
+import { NameAdornment } from '../common/Adornments';
 import { ErrorDisplay } from '../common/ErrorDisplay';
 import { StyledTextField } from '../common/StyledTextField';
 import { AgreementForm } from '../register/AgreementForm';
@@ -174,8 +174,10 @@ export function Register({ search }: RegisterProps) {
       <FormControl>
         <Stack direction="column" spacing={1}>
           <StyledTextField
-            InputProps={{
-              startAdornment: EmailAdornment,
+            slotProps={{
+              input: {
+                startAdornment: NameAdornment,
+              },
             }}
             required
             placeholder={t(NAME_FIELD_LABEL)}
