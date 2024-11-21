@@ -6,8 +6,8 @@ import { NS } from '@/config/constants';
 import { AUTH } from '~auth/langs';
 import { emailValidator } from '~auth/validation';
 
-import { EmailAdornment } from '../common/Adornments';
 import { StyledTextField } from '../common/StyledTextField';
+import { EmailAdornment } from '../common/adornments';
 
 type Props = {
   required?: boolean;
@@ -52,8 +52,10 @@ export function EmailInput({
 
   return (
     <StyledTextField
-      InputProps={{
-        startAdornment: EmailAdornment,
+      slotProps={{
+        input: {
+          startAdornment: EmailAdornment,
+        },
       }}
       variant="outlined"
       value={value}
