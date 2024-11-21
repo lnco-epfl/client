@@ -2,7 +2,7 @@ import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
-import { FormControl, LinearProgress, Stack, useTheme } from '@mui/material';
+import { FormControl, LinearProgress, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
 import {
@@ -10,7 +10,6 @@ import {
   MIN_USERNAME_LENGTH,
   RecaptchaAction,
 } from '@graasp/sdk';
-import { GraaspLogo } from '@graasp/ui';
 
 import { Link, useLocation, useNavigate } from '@tanstack/react-router';
 
@@ -20,7 +19,6 @@ import {
   EMAIL_SIGN_UP_FIELD_ID,
   NAME_SIGN_UP_FIELD_ID,
   REGISTER_BUTTON_ID,
-  REGISTER_HEADER_ID,
 } from '@/config/selectors';
 
 import { useRecaptcha } from '~auth/context/RecaptchaContext';
@@ -31,6 +29,7 @@ import { emailValidator, nameValidator } from '~auth/validation';
 
 import { EmailAdornment } from '../common/Adornments';
 import { ErrorDisplay } from '../common/ErrorDisplay';
+import { FormHeader } from '../common/FormHeader';
 import { StyledTextField } from '../common/StyledTextField';
 import { AgreementForm } from '../register/AgreementForm';
 import { EmailInput } from './EmailInput';
@@ -39,7 +38,6 @@ import { EnableAnalyticsForm } from './EnableAnalyticsForm';
 const {
   SIGN_IN_LINK_TEXT,
   SIGN_IN_LINK_TEXT_BUTTON,
-  SIGN_UP_HEADER,
   NAME_FIELD_LABEL,
   SIGN_UP_BUTTON,
   INVITATIONS_LOADING_MESSAGE,
@@ -58,7 +56,6 @@ export function Register({ search }: RegisterProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { executeCaptcha } = useRecaptcha();
-  const theme = useTheme();
 
   const { isMobile, challenge } = useMobileAppLogin();
 
@@ -160,17 +157,7 @@ export function Register({ search }: RegisterProps) {
 
   return (
     <Stack direction="column" spacing={2}>
-      <Stack spacing={1}>
-        <GraaspLogo height={90} sx={{ fill: theme.palette.primary.main }} />
-        <Typography
-          variant="h4"
-          component="h2"
-          id={REGISTER_HEADER_ID}
-          textAlign="center"
-        >
-          {t(SIGN_UP_HEADER)}
-        </Typography>
-      </Stack>
+      <FormHeader title={t('REGISTER_HEADER')} />
       <FormControl>
         <Stack direction="column" spacing={1}>
           <StyledTextField
