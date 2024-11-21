@@ -19,6 +19,7 @@ import {
   EMAIL_SIGN_UP_FIELD_ID,
   NAME_SIGN_UP_FIELD_ID,
   REGISTER_BUTTON_ID,
+  REGISTER_HEADER_ID,
 } from '@/config/selectors';
 
 import { useRecaptcha } from '~auth/context/RecaptchaContext';
@@ -157,7 +158,7 @@ export function Register({ search }: RegisterProps) {
 
   return (
     <Stack direction="column" spacing={2}>
-      <FormHeader title={t('REGISTER_HEADER')} />
+      <FormHeader id={REGISTER_HEADER_ID} title={t('REGISTER_TITLE')} />
       <FormControl>
         <Stack direction="column" spacing={1}>
           <StyledTextField
