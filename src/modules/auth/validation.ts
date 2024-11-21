@@ -1,5 +1,3 @@
-import { FieldError } from 'react-hook-form';
-
 import {
   MAX_USERNAME_LENGTH,
   MIN_USERNAME_LENGTH,
@@ -70,11 +68,4 @@ export const passwordsMatch = (passA: string, passB: string) => {
     return PASSWORD_DO_NOT_MATCH_ERROR;
   }
   return null;
-};
-
-export const getValidationMessage = (fieldError?: FieldError) => {
-  if (fieldError?.type === 'required') {
-    return AUTH.REQUIRED_FIELD_ERROR;
-  }
-  return fieldError?.message;
 };

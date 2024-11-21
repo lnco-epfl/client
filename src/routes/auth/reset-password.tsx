@@ -28,7 +28,6 @@ import { DialogHeader } from '~auth/components/layout/DialogHeader';
 import { InvalidTokenScreen } from '~auth/components/requestPasswordReset/InvalidTokenScreen';
 import { HELP_EMAIL } from '~auth/constants';
 import { useValidateJWTToken } from '~auth/hooks/useValidateJWTToken';
-import { getValidationMessage } from '~auth/validation';
 
 import { mutations } from '../../config/queryClient';
 import {
@@ -86,10 +85,8 @@ export function ResetPassword() {
     resolveRequestPasswordReset({ password, token });
   };
 
-  const passwordErrorMessage = getValidationMessage(errors.password);
-  const confirmPasswordErrorMessage = getValidationMessage(
-    errors.confirmPassword,
-  );
+  const passwordErrorMessage = errors.password?.message;
+  const confirmPasswordErrorMessage = errors.confirmPassword?.message;
   const hasErrors = Boolean(
     passwordErrorMessage || confirmPasswordErrorMessage,
   );
@@ -149,7 +146,7 @@ export function ResetPassword() {
             },
           }}
           {...register('password', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
             validate: (value) =>
               isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
           })}
@@ -172,7 +169,7 @@ export function ResetPassword() {
             },
           }}
           {...register('confirmPassword', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
             validate: {
               strong: (value) =>
                 isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),

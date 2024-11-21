@@ -99,10 +99,10 @@ const CreatePassword = ({ onClose }: CreatePasswordProps): JSX.Element => {
             }
             id={PASSWORD_INPUT_NEW_PASSWORD_ID}
             form={register('newPassword', {
-              required: true,
+              required: t('REQUIRED_FIELD_ERROR'),
               validate: {
                 strong: (value) =>
-                  isPasswordStrong(value) || 'PASSWORD_WEAK_ERROR',
+                  isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
               },
             })}
           />
@@ -117,11 +117,11 @@ const CreatePassword = ({ onClose }: CreatePasswordProps): JSX.Element => {
             }
             id={PASSWORD_INPUT_CONFIRM_PASSWORD_ID}
             form={register('confirmNewPassword', {
-              required: true,
+              required: t('REQUIRED_FIELD_ERROR'),
               validate: {
                 match: (confirmPassword, formState) =>
                   confirmPassword === formState.newPassword ||
-                  'PASSWORD_DO_NOT_MATCH_ERROR',
+                  t('PASSWORD_DO_NOT_MATCH_ERROR'),
               },
             })}
           />

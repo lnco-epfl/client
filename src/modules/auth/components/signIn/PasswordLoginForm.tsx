@@ -19,7 +19,6 @@ import {
 import { useRecaptcha } from '~auth/context/RecaptchaContext';
 import { useMobileAppLogin } from '~auth/hooks/useMobileAppLogin';
 import { AUTH } from '~auth/langs';
-import { getValidationMessage, isEmailValid } from '~auth/validation';
 
 import { ErrorDisplay } from '../common/ErrorDisplay';
 import { PasswordInput } from '../common/PasswordInput';
@@ -94,8 +93,8 @@ export function PasswordLoginForm({ search }: PasswordLoginProps) {
     }
   };
 
-  const emailError = getValidationMessage(errors.email);
-  const passwordError = getValidationMessage(errors.password);
+  const emailError = errors.email?.message;
+  const passwordError = errors.password?.message;
 
   return (
     <Stack
@@ -108,8 +107,8 @@ export function PasswordLoginForm({ search }: PasswordLoginProps) {
       <EmailInput
         id={EMAIL_SIGN_IN_FIELD_ID}
         form={register('email', {
-          required: true,
-          validate: isEmailValid,
+          required: t('REQUIRED_FIELD_ERROR'),
+          validate: (email) => isEmail(email, {}) || t('INVALID_EMAIL_ERROR'),
         })}
         placeholder={t(AUTH.EMAIL_INPUT_PLACEHOLDER)}
         error={emailError}
@@ -119,7 +118,7 @@ export function PasswordLoginForm({ search }: PasswordLoginProps) {
           id={PASSWORD_SIGN_IN_FIELD_ID}
           error={passwordError}
           form={register('password', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
           })}
         />
         <TypographyLink
