@@ -22,7 +22,7 @@ import { AUTH } from '~auth/langs';
 import { getValidationMessage } from '~auth/validation';
 
 import { useRecaptcha } from '../../context/RecaptchaContext';
-import { EmailAdornment } from '../common/Adornments';
+import { EmailAdornment } from '../common/adornments';
 import { CenteredContent } from '../layout/CenteredContent';
 import { DialogHeader } from '../layout/DialogHeader';
 

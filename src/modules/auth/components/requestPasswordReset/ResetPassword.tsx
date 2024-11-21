@@ -36,7 +36,7 @@ import { useValidateJWTToken } from '~auth/hooks/useValidateJWTToken';
 import { AUTH } from '~auth/langs';
 import { getValidationMessage } from '~auth/validation';
 
-import { PasswordAdornment } from '../common/Adornments';
+import { PasswordAdornment } from '../common/adornments';
 import { CenteredContent } from '../layout/CenteredContent';
 import { DialogHeader } from '../layout/DialogHeader';
 import { InvalidTokenScreen } from './InvalidTokenScreen';
