@@ -16,7 +16,7 @@ import {
 } from '@/config/selectors';
 
 import { AUTH } from '~auth/langs';
-import { getValidationMessage, isEmailValid } from '~auth/validation';
+import { isEmailValid } from '~auth/validation';
 
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { useMobileAppLogin } from '../../hooks/useMobileAppLogin';
@@ -84,7 +84,7 @@ export function MagicLinkLoginForm({ search }: MagicLinkLoginFormProps) {
       console.error(e);
     }
   };
-  const emailError = getValidationMessage(errors.email);
+  const emailError = errors.email?.message;
 
   return (
     <Stack
@@ -99,9 +99,9 @@ export function MagicLinkLoginForm({ search }: MagicLinkLoginFormProps) {
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus
         form={register('email', {
-          required: true,
+          required: t('REQUIRED_FIELD_ERROR'),
           validate: {
-            email: (value) => isEmailValid(value) || 'INVALID_EMAIL_ERROR',
+            email: (value) => isEmailValid(value) || t('INVALID_EMAIL_ERROR'),
           },
         })}
         placeholder={t(AUTH.EMAIL_INPUT_PLACEHOLDER)}

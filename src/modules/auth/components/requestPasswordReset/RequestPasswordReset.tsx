@@ -19,7 +19,6 @@ import {
 
 import { HELP_EMAIL } from '~auth/constants';
 import { AUTH } from '~auth/langs';
-import { getValidationMessage } from '~auth/validation';
 
 import { useRecaptcha } from '../../context/RecaptchaContext';
 import { EmailAdornment } from '../common/Adornments';
@@ -53,7 +52,7 @@ export function RequestPasswordReset() {
     requestPasswordReset({ email, captcha });
   };
 
-  const errorMessage = getValidationMessage(errors.email);
+  const errorMessage = errors.email?.message;
   const hasErrors = !!errorMessage;
 
   return (
@@ -76,7 +75,7 @@ export function RequestPasswordReset() {
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           {...register('email', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
             validate: (email) =>
               isEmail(email, {}) || t(AUTH.INVALID_EMAIL_ERROR),
           })}

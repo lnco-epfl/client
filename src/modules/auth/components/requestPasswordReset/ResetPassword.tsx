@@ -34,7 +34,6 @@ import {
 import { HELP_EMAIL } from '~auth/constants';
 import { useValidateJWTToken } from '~auth/hooks/useValidateJWTToken';
 import { AUTH } from '~auth/langs';
-import { getValidationMessage } from '~auth/validation';
 
 import { PasswordAdornment } from '../common/Adornments';
 import { CenteredContent } from '../layout/CenteredContent';
@@ -76,10 +75,8 @@ export function ResetPassword() {
     resolveRequestPasswordReset({ password, token });
   };
 
-  const passwordErrorMessage = getValidationMessage(errors.password);
-  const confirmPasswordErrorMessage = getValidationMessage(
-    errors.confirmPassword,
-  );
+  const passwordErrorMessage = errors.password?.message;
+  const confirmPasswordErrorMessage = errors.confirmPassword?.message;
   const hasErrors = Boolean(
     passwordErrorMessage || confirmPasswordErrorMessage,
   );
@@ -139,7 +136,7 @@ export function ResetPassword() {
             },
           }}
           {...register('password', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
             validate: (value) =>
               isPasswordStrong(value) || t(AUTH.PASSWORD_WEAK_ERROR),
           })}
@@ -162,7 +159,7 @@ export function ResetPassword() {
             },
           }}
           {...register('confirmPassword', {
-            required: true,
+            required: t('REQUIRED_FIELD_ERROR'),
             validate: {
               strong: (value) =>
                 isPasswordStrong(value) || t(AUTH.PASSWORD_WEAK_ERROR),

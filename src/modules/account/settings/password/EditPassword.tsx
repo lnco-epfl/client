@@ -1,4 +1,4 @@
-import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
@@ -33,15 +33,6 @@ type Inputs = {
   confirmNewPassword: string;
 };
 
-export const getValidationMessage = (
-  fieldError?: FieldError,
-): string | undefined => {
-  if (fieldError?.type === 'required') {
-    return 'REQUIRED_FIELD_ERROR';
-  }
-  return fieldError?.message;
-};
-
 const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
   const {
     register,
@@ -73,13 +64,9 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
     }
   };
 
-  const currentPasswordErrorMessage = getValidationMessage(
-    errors.currentPassword,
-  );
-  const newPasswordErrorMessage = getValidationMessage(errors.newPassword);
-  const confirmNewPasswordErrorMessage = getValidationMessage(
-    errors.confirmNewPassword,
-  );
+  const currentPasswordErrorMessage = errors.currentPassword?.message;
+  const newPasswordErrorMessage = errors.newPassword?.message;
+  const confirmNewPasswordErrorMessage = errors.confirmNewPassword?.message;
   const hasErrors = Boolean(
     currentPasswordErrorMessage ||
       newPasswordErrorMessage ||
@@ -112,17 +99,12 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
             id={PASSWORD_INPUT_CURRENT_PASSWORD_ID}
             label={t('PASSWORD_SETTINGS_CURRENT_LABEL')}
             error={Boolean(currentPasswordErrorMessage)}
-            helperText={
-              currentPasswordErrorMessage &&
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //@ts-expect-error
-              t(currentPasswordErrorMessage)
-            }
+            helperText={currentPasswordErrorMessage}
             form={register('currentPassword', {
-              required: true,
+              required: t('REQUIRED_FIELD_ERROR'),
               validate: {
                 strong: (value) =>
-                  isPasswordStrong(value) || 'PASSWORD_WEAK_ERROR',
+                  isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
               },
             })}
           />
@@ -132,40 +114,30 @@ const EditPassword = ({ onClose }: EditPasswordProps): JSX.Element => {
           <PasswordField
             label={t('PASSWORD_SETTINGS_NEW_LABEL')}
             error={Boolean(newPasswordErrorMessage)}
-            helperText={
-              newPasswordErrorMessage &&
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              t(newPasswordErrorMessage)
-            }
+            helperText={newPasswordErrorMessage}
             id={PASSWORD_INPUT_NEW_PASSWORD_ID}
             form={register('newPassword', {
-              required: true,
+              required: t('REQUIRED_FIELD_ERROR'),
               validate: {
                 different: (newPassword, formState) =>
                   newPassword !== formState.currentPassword ||
-                  'NEW_PASSWORD_SHOULD_NOT_MATCH_CURRENT_PASSWORD_ERROR',
+                  t('NEW_PASSWORD_SHOULD_NOT_MATCH_CURRENT_PASSWORD_ERROR'),
                 strong: (value) =>
-                  isPasswordStrong(value) || 'PASSWORD_WEAK_ERROR',
+                  isPasswordStrong(value) || t('PASSWORD_WEAK_ERROR'),
               },
             })}
           />
           <PasswordField
             label={t('PASSWORD_SETTINGS_NEW_CONFIRM_LABEL')}
             error={Boolean(confirmNewPasswordErrorMessage)}
-            helperText={
-              confirmNewPasswordErrorMessage &&
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              t(confirmNewPasswordErrorMessage)
-            }
+            helperText={confirmNewPasswordErrorMessage}
             id={PASSWORD_INPUT_CONFIRM_PASSWORD_ID}
             form={register('confirmNewPassword', {
-              required: true,
+              required: t('REQUIRED_FIELD_ERROR'),
               validate: {
                 match: (confirmPassword, formState) =>
                   confirmPassword === formState.newPassword ||
-                  'PASSWORD_DO_NOT_MATCH_ERROR',
+                  t('PASSWORD_DO_NOT_MATCH_ERROR'),
               },
             })}
           />
