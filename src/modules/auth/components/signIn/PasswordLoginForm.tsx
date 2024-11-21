@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, LoadingButton } from '@mui/lab';
 import { Stack } from '@mui/material';
 
-import { RecaptchaAction } from '@graasp/sdk';
+import { RecaptchaAction, isEmail } from '@graasp/sdk';
 
 import { TypographyLink } from '@/components/ui/TypographyLink';
 import { NS } from '@/config/constants';

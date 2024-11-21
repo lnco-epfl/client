@@ -1,4 +1,4 @@
-import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
