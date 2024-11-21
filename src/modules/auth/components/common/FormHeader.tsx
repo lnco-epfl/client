@@ -3,8 +3,8 @@ import { Stack, Typography, useTheme } from '@mui/material';
 import { GraaspLogo } from '@graasp/ui';
 
 type FormHeaderProps = {
-  id?: string;
-  title: string;
+  readonly id?: string;
+  readonly title: string;
 };
 export function FormHeader({ id, title }: FormHeaderProps): JSX.Element {
   const theme = useTheme();
