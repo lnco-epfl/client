@@ -11,15 +11,15 @@ import {
   MAGIC_LINK_EMAIL_FIELD_ID,
   NAME_SIGN_UP_FIELD_ID,
   PASSWORD_SIGN_IN_FIELD_ID,
-  SIGN_UP_AGREEMENTS_CHECKBOX_ID,
+  REGISTER_AGREEMENTS_CHECKBOX_ID,
 } from '../../src/config/selectors';
 import {
   fillPasswordSignInLayout,
   fillSignInByMailLayout,
   fillSignUpLayout,
   submitPasswordSignIn,
+  submitRegister,
   submitSignIn,
-  submitSignUp,
 } from '../e2e/auth/util';
 import {
   CURRENT_MEMBER,
@@ -177,7 +177,7 @@ Cypress.Commands.add('checkErrorTextField', (id, flag) => {
 });
 
 Cypress.Commands.add('agreeWithAllTerms', () => {
-  cy.get(`[data-cy="${SIGN_UP_AGREEMENTS_CHECKBOX_ID}"] input`)
+  cy.get(`[data-cy="${REGISTER_AGREEMENTS_CHECKBOX_ID}"] input`)
     .check()
     .should('be.checked');
 });
@@ -187,7 +187,7 @@ Cypress.Commands.add('signUpAndCheck', (user, acceptAllTerms) => {
   if (acceptAllTerms) {
     cy.agreeWithAllTerms();
   }
-  submitSignUp();
+  submitRegister();
 
   cy.checkErrorTextField(NAME_SIGN_UP_FIELD_ID, user.nameValid);
   cy.checkErrorTextField(EMAIL_SIGN_UP_FIELD_ID, user.emailValid);
