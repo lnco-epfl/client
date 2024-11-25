@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Divider, Stack } from '@mui/material';
 
 import { createFileRoute } from '@tanstack/react-router';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { z } from 'zod';
 
 import { ButtonLink } from '@/components/ui/ButtonLink';
@@ -21,7 +21,7 @@ const loginSearchSchema = z.object({
 });
 
 export const Route = createFileRoute('/auth/login')({
-  validateSearch: zodSearchValidator(loginSearchSchema),
+  validateSearch: zodValidator(loginSearchSchema),
   component: LoginRoute,
 });
 

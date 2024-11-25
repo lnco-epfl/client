@@ -7,6 +7,7 @@ import common from '../../public/locales/en/common.json';
 import enums from '../../public/locales/en/enums.json';
 import landing from '../../public/locales/en/landing.json';
 import messages from '../../public/locales/en/messages.json';
+import player from '../../public/locales/en/player.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -14,6 +15,7 @@ declare module 'i18next' {
       account: typeof account;
       auth: typeof auth;
       landing: typeof landing;
+      player: typeof player;
       enums: typeof enums;
       common: typeof common;
       messages: typeof messages;

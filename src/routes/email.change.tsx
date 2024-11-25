@@ -10,7 +10,9 @@ import {
 } from '@mui/material';
 
 import { Link, createFileRoute } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { HttpStatusCode, isAxiosError } from 'axios';
+import { z } from 'zod';
 
 import CenteredContainer from '@/components/layout/CenteredContainer';
 import { ButtonLink } from '@/components/ui/ButtonLink';
@@ -24,37 +26,34 @@ import {
   EMAIL_VALIDATION_UNAUTHORIZED_MESSAGE_ID,
 } from '@/config/selectors';
 
-type EmailChangeSearch = {
-  newEmail: string;
-  jwtToken: string;
-};
+const schema = z.object({
+  email: z.string().email().optional(),
+  t: z.string().optional(),
+});
+
 export const Route = createFileRoute('/email/change')({
-  validateSearch: (search: Record<string, unknown>): EmailChangeSearch => {
-    return {
-      newEmail: (search.newEmail as string) || '',
-      jwtToken: (search.t as string) || '',
-    };
-  },
+  validateSearch: zodValidator(schema),
   component: EmailChangeRoute,
 });
 
 function EmailChangeRoute() {
-  const { newEmail, jwtToken } = Route.useSearch();
+  const { email, t: jwtToken } = Route.useSearch();
   return (
     <CenteredContainer>
-      <EmailChangeContent newEmail={newEmail} jwtToken={jwtToken} />
+      <EmailChangeContent newEmail={email} jwtToken={jwtToken} />
     </CenteredContainer>
   );
 }
 
 type EmailChangeContentProps = {
-  newEmail: string;
-  jwtToken: string;
+  newEmail?: string;
+  jwtToken?: string;
 };
-const EmailChangeContent = ({
+
+function EmailChangeContent({
   newEmail,
   jwtToken,
-}: EmailChangeContentProps): JSX.Element => {
+}: EmailChangeContentProps): JSX.Element {
   const { t } = useTranslation(NS.Account);
   const {
     mutate: validateEmail,
@@ -136,4 +135,4 @@ const EmailChangeContent = ({
     );
   }
   return <Typography>{t('EMAIL_UPDATE_MISSING_TOKEN')}</Typography>;
-};
+}

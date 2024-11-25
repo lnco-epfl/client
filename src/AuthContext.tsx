@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useCallback, useContext } from 'react';
 
-import { getCurrentAccountLang } from '@graasp/sdk';
+import { AccountType, getCurrentAccountLang } from '@graasp/sdk';
 import { DEFAULT_LANG } from '@graasp/translations';
 import { CustomInitialLoader } from '@graasp/ui';
 
@@ -15,6 +15,7 @@ export type AuthenticatedMember = {
   name: string;
   id: string;
   lang: string;
+  type: AccountType;
 };
 type AuthContextLoggedMember = {
   isAuthenticated: true;
@@ -68,6 +69,7 @@ export function AuthProvider({
           name: currentMember.name,
           id: currentMember.id,
           lang: getCurrentAccountLang(currentMember, DEFAULT_LANG),
+          type: currentMember.type,
         },
         logout,
         login: null,

@@ -1,4 +1,5 @@
 import {
+  ChatMessage,
   CookieKeys,
   Member,
   MemberStorageItem,
@@ -21,25 +22,40 @@ import {
   submitRegister,
   submitSignIn,
 } from '../e2e/auth/util';
+import { CURRENT_MEMBER, MEMBER_PUBLIC_PROFILE } from '../fixtures/members';
+import { MockItem } from '../fixtures/mockTypes';
+import { MEMBER_STORAGE_ITEM_RESPONSE } from '../fixtures/storage';
 import {
-  CURRENT_MEMBER,
-  MEMBER_PUBLIC_PROFILE,
-  MEMBER_STORAGE_ITEM_RESPONSE,
-} from '../fixtures/members';
-import {
+  mockAnalytics,
+  mockAppApiAccessToken,
+  mockBuilder,
   mockCreatePassword,
+  mockDefaultDownloadFile,
+  mockDeleteAppData,
   mockDeleteCurrentMember,
   mockEditCurrentMember,
   mockEditPublicProfile,
   mockExportData,
+  mockGetAccessibleItems,
+  mockGetAppData,
+  mockGetAppLink,
+  mockGetChildren,
   mockGetCurrentMember,
   mockGetCurrentMemberAvatar,
+  mockGetDescendants,
+  mockGetItem,
+  mockGetItemChat,
+  mockGetItemGeolocation,
+  mockGetItemsInMap,
+  mockGetLoginSchemaType,
   mockGetMemberStorageFiles,
   mockGetOwnProfile,
   mockGetPasswordStatus,
   mockGetStatus,
   mockGetStorage,
   mockLogin,
+  mockPatchAppData,
+  mockPostAppData,
   mockPostAvatar,
   mockRequestPasswordReset,
   mockResetPassword,
@@ -73,6 +89,12 @@ declare global {
         shouldFailRequestPasswordReset?: boolean;
         shouldFailResetPassword?: boolean;
         shouldFailLogin?: boolean;
+        items?: MockItem[];
+        itemLogins?: { [key: string]: string };
+        chatMessages?: ChatMessage[];
+        storedSessions?: { id: string; token: string; createdAt: number }[];
+        getItemError?: boolean;
+        getAppLinkError?: boolean;
       }): Chainable;
 
       checkErrorTextField(id: string, flag: unknown): Chainable;
@@ -104,6 +126,15 @@ declare global {
       ): Chainable;
 
       agreeWithAllTerms(): Chainable;
+
+      getIframeDocument(iframeSelector: string): Chainable;
+      getIframeBody(iframeSelector: string): Chainable;
+
+      checkContentInElementInIframe(
+        iframeSelector: string,
+        elementSelector: string,
+        text: string,
+      ): Chainable;
     }
   }
 }
@@ -130,6 +161,11 @@ Cypress.Commands.add(
     shouldFailRequestPasswordReset = false,
     shouldFailResetPassword = false,
     shouldFailLogin = false,
+    items = [],
+    itemLogins = {},
+    chatMessages = [],
+    getItemError = false,
+    getAppLinkError = false,
   } = {}) => {
     const cachedCurrentMember = JSON.parse(JSON.stringify(currentMember));
     const cachedCurrentProfile = JSON.parse(JSON.stringify(currentProfile));
@@ -168,6 +204,36 @@ Cypress.Commands.add(
     mockRequestPasswordReset(shouldFailRequestPasswordReset);
     mockResetPassword(shouldFailResetPassword);
     mockLogin(shouldFailLogin);
+
+    mockGetAccessibleItems(items);
+    mockGetItem(
+      { items, currentMember },
+      getItemError || getCurrentMemberError,
+    );
+    mockGetItemChat({ chatMessages });
+    // mockGetItemMembershipsForItem(items, currentMember);
+
+    // mockGetItemsTags(items, currentMember);
+    mockGetLoginSchemaType(itemLogins);
+
+    mockGetChildren(items, currentMember);
+
+    mockGetDescendants(items, currentMember);
+
+    mockDefaultDownloadFile({ items, currentMember });
+
+    mockBuilder();
+    mockAnalytics();
+
+    mockGetAppLink(getAppLinkError);
+    mockAppApiAccessToken(getAppLinkError);
+    mockGetAppData(getAppLinkError);
+    mockPostAppData(getAppLinkError);
+    mockPatchAppData(getAppLinkError);
+    mockDeleteAppData(getAppLinkError);
+
+    mockGetItemGeolocation(items);
+    mockGetItemsInMap(items, currentMember);
   },
 );
 
@@ -210,3 +276,28 @@ Cypress.Commands.add('signInPasswordAndCheck', (user) => {
   cy.checkErrorTextField(EMAIL_SIGN_IN_FIELD_ID, user.emailValid);
   cy.checkErrorTextField(PASSWORD_SIGN_IN_FIELD_ID, user.passwordValid);
 });
+
+Cypress.Commands.add('getIframeDocument', (iframeSelector) =>
+  cy.get(iframeSelector).its('0.contentDocument').should('exist').then(cy.wrap),
+);
+
+Cypress.Commands.add('getIframeBody', (iframeSelector) =>
+  // retry to get the body until the iframe is loaded
+  cy
+    .getIframeDocument(iframeSelector)
+    .its('body')
+    .should('not.be.undefined')
+    .then(cy.wrap),
+);
+
+Cypress.Commands.add(
+  'checkContentInElementInIframe',
+  (iframeSelector: string, elementSelector, text) =>
+    cy
+      .get(iframeSelector)
+      .then(($iframe) =>
+        cy
+          .wrap($iframe.contents().find(elementSelector))
+          .should('contain', text),
+      ),
+);

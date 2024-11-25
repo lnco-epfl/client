@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, LinearProgress, Stack, Typography } from '@mui/material';
 
 import { createFileRoute, retainSearchParams } from '@tanstack/react-router';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { z } from 'zod';
 
 import { NS } from '@/config/constants';
@@ -19,7 +19,7 @@ const registerSearchSchema = z.object({
 });
 
 export const Route = createFileRoute('/auth/register')({
-  validateSearch: zodSearchValidator(registerSearchSchema),
+  validateSearch: zodValidator(registerSearchSchema),
   search: { middlewares: [retainSearchParams(['url'])] },
   component: () => (
     <LeftContentContainer>

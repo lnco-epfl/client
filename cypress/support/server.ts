@@ -1,14 +1,35 @@
 import { API_ROUTES } from '@graasp/query-client';
-import { CompleteMember, HttpMethod, PublicProfile } from '@graasp/sdk';
+import {
+  ChatMessage,
+  CompleteMember,
+  HttpMethod,
+  Member,
+  PublicProfile,
+  getIdsFromPath,
+  isDescendantOf,
+  isError,
+  isRootItem,
+} from '@graasp/sdk';
 
 import { StatusCodes } from 'http-status-codes';
 
 import {
-  CURRENT_MEMBER,
-  MEMBER_PUBLIC_PROFILE,
-  MEMBER_STORAGE_ITEM_RESPONSE,
-} from '../fixtures/members';
-import { ID_FORMAT, MemberForTest } from './utils';
+  buildAppApiAccessTokenRoute,
+  buildAppItemLinkForTest,
+  buildGetAppData,
+} from '../fixtures/apps';
+import { CURRENT_MEMBER, MEMBER_PUBLIC_PROFILE } from '../fixtures/members';
+import { MockItem } from '../fixtures/mockTypes';
+import { MEMBER_STORAGE_ITEM_RESPONSE } from '../fixtures/storage';
+import { ANALYTICS_HOST, API_HOST, BUILDER_HOST } from './env';
+import {
+  ID_FORMAT,
+  MemberForTest,
+  checkMemberHasAccess,
+  getChatMessagesById,
+  getChildren,
+  getItemById,
+} from './utils';
 
 const {
   buildGetCurrentMemberRoute,
@@ -22,14 +43,22 @@ const {
   buildGetMemberStorageRoute,
   buildExportMemberDataRoute,
   buildDeleteCurrentMemberRoute,
+  buildGetItemGeolocationRoute,
+  buildGetItemChatRoute,
+  buildGetItemRoute,
+  buildGetItemLoginSchemaRoute,
+  buildDownloadFilesRoute,
 } = API_ROUTES;
-
-const API_HOST = Cypress.env('VITE_GRAASP_API_HOST');
 
 export const redirectionReply = {
   headers: { 'content-type': 'text/html' },
   statusCode: StatusCodes.OK,
-  body: '<h1>Mock Auth Page</h1>',
+  body: `
+  <!DOCTYPE html>
+  <html lang="en">
+    <body><h1>Mock Auth Page</h1></body>
+  </html>
+  `,
 };
 
 export const mockGetOwnProfile = (
@@ -82,15 +111,15 @@ export const mockGetCurrentMember = (
       pathname: `/${buildGetCurrentMemberRoute()}`,
     },
     ({ reply }) => {
-      if (shouldThrowError) {
-        return reply({
-          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-          body: null,
-        });
+      // simulate member accessing without log in
+      if (currentMember == null) {
+        return reply({ statusCode: StatusCodes.UNAUTHORIZED });
       }
-
-      // might reply empty user when signed out
-      return reply({ statusCode: StatusCodes.OK, body: currentMember });
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST, body: null });
+      }
+      // avoid sign in redirection
+      return reply(currentMember);
     },
   ).as('getCurrentMember');
 };
@@ -374,4 +403,498 @@ export const mockLogin = (shouldThrowServerError = false) => {
       return reply({ statusCode: StatusCodes.NO_CONTENT });
     },
   ).as('login');
+};
+
+export const mockGetAccessibleItems = (items: MockItem[]): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/items/accessible`),
+    },
+    ({ url, reply }) => {
+      const params = new URL(url).searchParams;
+
+      const page = parseInt(params.get('page') ?? '1', 10);
+      const pageSize = parseInt(params.get('pageSize') ?? '10', 10);
+
+      // as { page: number; pageSize: number };
+
+      // warning: we don't check memberships
+      const root = items.filter(isRootItem);
+
+      // todo: filter
+
+      const result = root.slice((page - 1) * pageSize, page * pageSize);
+
+      reply({ data: result, totalCount: root.length });
+    },
+  ).as('getAccessibleItems');
+};
+
+export const mockGetItem = (
+  { items, currentMember }: { items: MockItem[]; currentMember: Member | null },
+  shouldThrowError?: boolean,
+): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildGetItemRoute(ID_FORMAT)}$`),
+    },
+    ({ url, reply }) => {
+      const itemId = url.slice(API_HOST.length).split('/')[2];
+      const item = getItemById(items, itemId);
+
+      // item does not exist in db
+      if (!item || shouldThrowError) {
+        return reply({
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+      }
+
+      const error = checkMemberHasAccess({
+        item,
+        items,
+        member: currentMember,
+      });
+
+      if (isError(error)) {
+        return reply(error);
+      }
+
+      return reply({
+        body: item,
+        statusCode: StatusCodes.OK,
+      });
+    },
+  ).as('getItem');
+};
+
+export const mockGetItemChat = ({
+  chatMessages,
+}: {
+  chatMessages: ChatMessage[];
+}): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildGetItemChatRoute(ID_FORMAT)}$`),
+    },
+    ({ url, reply }) => {
+      const itemId = url.slice(API_HOST.length).split('/')[2];
+      const itemChat = getChatMessagesById(chatMessages, itemId);
+
+      return reply({
+        body: itemChat,
+        statusCode: StatusCodes.OK,
+      });
+    },
+  ).as('getItemChat');
+};
+
+// export const mockGetItemMembershipsForItem = (
+//   items: MockItem[],
+//   currentMember: Member | null,
+// ): void => {
+//   cy.intercept(
+//     {
+//       method: HttpMethod.Get,
+//       url: new RegExp(
+//         `${API_HOST}/${parseStringToRegExp(
+//           buildGetItemMembershipsForItemsRoute([]),
+//         )}`,
+//       ),
+//     },
+//     ({ reply, url }) => {
+//       const itemIds = new URLSearchParams(new URL(url).search).getAll('itemId');
+//       const selectedItems = items.filter(({ id }) => itemIds?.includes(id));
+//       const allMemberships = selectedItems.map(
+//         ({ creator, id, memberships }) => {
+//           // build default membership depending on current member
+//           // if the current member is the creator, it has membership
+//           // otherwise it should return an error
+//           const defaultMembership =
+//             creator?.id === currentMember?.id
+//               ? [
+//                   {
+//                     permission: PermissionLevel.Admin,
+//                     memberId: creator,
+//                     itemId: id,
+//                   },
+//                 ]
+//               : { statusCode: StatusCodes.UNAUTHORIZED };
+
+//           // if the defined memberships does not contain currentMember, it should throw
+//           const currentMemberHasMembership = memberships?.find(
+//             ({ memberId }) => memberId === currentMember?.id,
+//           );
+//           if (!currentMemberHasMembership) {
+//             return defaultMembership;
+//           }
+
+//           return memberships || defaultMembership;
+//         },
+//       );
+//       reply(allMemberships);
+//     },
+//   ).as('getItemMemberships');
+// };
+
+export const mockGetChildren = (
+  items: MockItem[],
+  member: Member | null,
+): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/items/${ID_FORMAT}/children`),
+    },
+    ({ url, reply }) => {
+      const id = url.slice(API_HOST.length).split('/')[2];
+      const item = items.find(({ id: thisId }) => id === thisId);
+
+      // item does not exist in db
+      if (!item) {
+        return reply({
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+      }
+
+      const error = checkMemberHasAccess({ item, items, member });
+      if (isError(error)) {
+        return reply(error);
+      }
+      const children = getChildren(items, item, member);
+      return reply(children);
+    },
+  ).as('getChildren');
+};
+
+export const mockGetDescendants = (
+  items: MockItem[],
+  member: Member | null,
+): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/items/${ID_FORMAT}/descendants`),
+    },
+    ({ url, reply }) => {
+      const id = url.slice(API_HOST.length).split('/')[2];
+      const item = items.find(({ id: thisId }) => id === thisId);
+
+      // item does not exist in db
+      if (!item) {
+        return reply({
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+      }
+
+      const error = checkMemberHasAccess({ item, items, member });
+      if (isError(error)) {
+        return reply(error);
+      }
+      const descendants = items.filter(
+        (newItem) =>
+          isDescendantOf(newItem.path, item.path) &&
+          checkMemberHasAccess({ item: newItem, items, member }) ===
+            undefined &&
+          newItem.path !== item.path,
+      );
+      return reply(descendants);
+    },
+  ).as('getDescendants');
+};
+
+export const mockDefaultDownloadFile = (
+  { items, currentMember }: { items: MockItem[]; currentMember: Member | null },
+  shouldThrowError?: boolean,
+): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildDownloadFilesRoute(ID_FORMAT)}`),
+    },
+    ({ reply, url }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      const id = url.slice(API_HOST.length).split('/')[2];
+      const item = items.find(({ id: thisId }) => id === thisId);
+      const replyUrl = new URLSearchParams(new URL(url).search).get('replyUrl');
+      // item does not exist in db
+      if (!item) {
+        return reply({
+          statusCode: StatusCodes.NOT_FOUND,
+        });
+      }
+
+      const error = checkMemberHasAccess({
+        item,
+        items,
+        member: currentMember,
+      });
+      if (isError(error)) {
+        return reply(error);
+      }
+
+      // either return the file url or the fixture data
+      // info: we don't test fixture data anymore since the frontend uses url only
+      if (replyUrl && item.filepath) {
+        return reply(item.filepath);
+      }
+
+      return reply({ fixture: item.filefixture });
+    },
+  ).as('downloadFile');
+};
+
+// export const mockGetItemsTags = (
+//   items: MockItem[],
+//   member: Member | null,
+// ): void => {
+//   cy.intercept(
+//     {
+//       method: HttpMethod.Get,
+//       url: new RegExp(`${API_HOST}/items/tags\\?id\\=`),
+//     },
+//     ({ reply, url }) => {
+//       const ids = new URL(url).searchParams.getAll('id');
+
+//       const result = items
+//         .filter(({ id }) => ids.includes(id))
+//         .reduce(
+//           (acc, item) => {
+//             const error = checkMemberHasAccess({ item, items, member });
+
+//             return isError(error)
+//               ? { ...acc, error: [...acc.errors, error] }
+//               : {
+//                   ...acc,
+//                   data: {
+//                     ...acc.data,
+//                     [item.id]: ([item.public, item.hidden]
+//                       .filter(Boolean)
+//                       .map((t) => ({ item, ...t })) ?? []) as ItemVisibility[],
+//                   },
+//                 };
+//           },
+//           { data: {}, errors: [] } as ResultOf<ItemVisibility[]>,
+//         );
+//       reply({
+//         statusCode: StatusCodes.OK,
+//         body: result,
+//       });
+//     },
+//   ).as('getItemsTags');
+// };
+
+export const mockGetLoginSchemaType = (itemLogins: {
+  [key: string]: string;
+}): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildGetItemLoginSchemaRoute(ID_FORMAT)}`),
+    },
+    ({ reply, url }) => {
+      const itemId = url.slice(API_HOST.length).split('/')[2];
+
+      // todo: add response for itemLoginSchemaType
+      const itemLogin = itemLogins[itemId];
+
+      if (itemLogin) {
+        return reply(itemLogin);
+      }
+      return reply({
+        statusCode: StatusCodes.NOT_FOUND,
+      });
+    },
+  ).as('getLoginSchemaType');
+};
+
+export const mockBuilder = (): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${BUILDER_HOST}`),
+    },
+    ({ reply }) => {
+      reply(redirectionReply);
+    },
+  ).as('builder');
+};
+
+export const mockAnalytics = (): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(ANALYTICS_HOST),
+    },
+    ({ reply }) => {
+      reply(redirectionReply);
+    },
+  ).as('analytics');
+};
+
+export const mockGetAppLink = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildAppItemLinkForTest()}`),
+    },
+    ({ reply, url }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      const filepath = url.slice(API_HOST.length).split('?')[0];
+      return reply({ fixture: filepath });
+    },
+  ).as('getAppLink');
+};
+
+export const mockAppApiAccessToken = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Post,
+      url: new RegExp(`${API_HOST}/${buildAppApiAccessTokenRoute(ID_FORMAT)}$`),
+    },
+    ({ reply }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      return reply({ token: 'token' });
+    },
+  ).as('appApiAccessToken');
+};
+
+export const mockGetAppData = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildGetAppData(ID_FORMAT)}$`),
+    },
+    ({ reply }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      return reply({ data: 'get app data' });
+    },
+  ).as('getAppData');
+};
+
+export const mockPostAppData = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Post,
+      url: new RegExp(`${API_HOST}/${buildGetAppData(ID_FORMAT)}$`),
+    },
+    ({ reply }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      return reply({ data: 'post app data' });
+    },
+  ).as('postAppData');
+};
+
+export const mockDeleteAppData = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Delete,
+      url: new RegExp(`${API_HOST}/${buildGetAppData(ID_FORMAT)}$`),
+    },
+    ({ reply }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      return reply({ data: 'delete app data' });
+    },
+  ).as('deleteAppData');
+};
+
+export const mockPatchAppData = (shouldThrowError: boolean): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Patch,
+      url: new RegExp(`${API_HOST}/${buildGetAppData(ID_FORMAT)}$`),
+    },
+    ({ reply }) => {
+      if (shouldThrowError) {
+        return reply({ statusCode: StatusCodes.BAD_REQUEST });
+      }
+
+      return reply({ data: 'patch app data' });
+    },
+  ).as('patchAppData');
+};
+
+export const mockGetItemGeolocation = (items: MockItem[]): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(
+        `${API_HOST}/${buildGetItemGeolocationRoute(ID_FORMAT)}$`,
+      ),
+    },
+    ({ reply, url }) => {
+      const itemId = url.slice(API_HOST.length).split('/')[2];
+      const item = items.find(({ id }) => id === itemId);
+
+      if (!item) {
+        return reply({ statusCode: StatusCodes.NOT_FOUND });
+      }
+
+      if (item?.geolocation) {
+        return reply(item?.geolocation);
+      }
+
+      const parentIds = getIdsFromPath(item.path);
+      // suppose return only one
+      const geolocs = items
+        .filter((i) => parentIds.includes(i.id))
+        .filter(Boolean)
+        .map((i) => i.geolocation);
+
+      if (geolocs.length) {
+        return reply(geolocs[0]!);
+      }
+
+      return reply({ statusCode: StatusCodes.NOT_FOUND });
+    },
+  ).as('getItemGeolocation');
+};
+
+export const mockGetItemsInMap = (
+  items: MockItem[],
+  currentMember: Member | null,
+): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/items/geolocation`),
+    },
+    ({ reply, url }) => {
+      const itemId = new URL(url).searchParams.get('parentItemId');
+      const item = items.find(({ id }) => id === itemId);
+
+      if (!item) {
+        return reply({ statusCode: StatusCodes.NOT_FOUND });
+      }
+
+      const children = getChildren(items, item, currentMember);
+
+      const geolocs = [
+        item?.geolocation,
+        ...children.map((c) => c.geolocation),
+      ].filter(Boolean);
+
+      return reply(geolocs);
+    },
+  ).as('getItemsInMap');
 };

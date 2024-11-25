@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { isPasswordStrong } from '@graasp/sdk';
 
 import { createFileRoute } from '@tanstack/react-router';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { z } from 'zod';
 
 import { ButtonLink } from '@/components/ui/ButtonLink';
@@ -46,7 +46,7 @@ const resetPasswordSchema = z.object({
 });
 
 export const Route = createFileRoute('/auth/reset-password')({
-  validateSearch: zodSearchValidator(resetPasswordSchema),
+  validateSearch: zodValidator(resetPasswordSchema),
   component: ResetPassword,
 });
 

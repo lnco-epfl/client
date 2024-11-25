@@ -141,3 +141,56 @@ export const PLATFORM_ADVERTISEMENT_CONTAINER_ID =
 export const REDIRECTION_CONTENT_CONTAINER_ID = 'redirectionContentContainer';
 
 export const ERROR_DISPLAY_ID = 'errorDisplay';
+
+// player
+export const AUTO_LOGIN_CONTAINER_ID = 'autoLoginContainer';
+export const AUTO_LOGIN_ERROR_CONTAINER_ID = 'autoLoginErrorContainer';
+export const AUTO_LOGIN_NO_ITEM_LOGIN_ERROR_ID = 'autoLoginNoItemLoginError';
+
+export const HOME_PAGE_PAGINATION_ID = 'homePagePagination';
+export const buildHomePaginationId = (page: number | null): string =>
+  `homePagination-${page}`;
+
+export const MAIN_MENU_ID = 'mainMenu';
+export const TREE_VIEW_ID = 'treeView';
+export const TREE_FALLBACK_RELOAD_BUTTON_ID = 'treeViewReloadButton';
+export const buildTreeItemClass = (id: string): string => `buildTreeItem-${id}`;
+
+export const ITEM_LOGIN_USERNAME_INPUT_ID = 'itemLoginInput';
+export const ITEM_LOGIN_SIGN_IN_BUTTON_ID = 'itemLoginSignInButton';
+export const ITEM_LOGIN_PASSWORD_INPUT_ID = 'itemLoginPasswordInput';
+
+export const REQUEST_MEMBERSHIP_BUTTON_ID = 'requestMembershipButton';
+export const FOLDER_NAME_TITLE_CLASS = 'folderNameTitle';
+
+export const buildFileId = (id: string): string => `file-${id}`;
+export const buildDocumentId = (id: string): string => `document-${id}`;
+export const buildAppId = (id: string): string => `app-${id}`;
+export const buildLinkItemId = (id: string): string => `link-${id}`;
+export const COLLAPSIBLE_WRAPPER_ID = 'collapsibleWrapper';
+export const buildCollapsibleId = (id: string): string =>
+  `${COLLAPSIBLE_WRAPPER_ID}-${id}`;
+export const buildFolderButtonId = (id: string): string => `folderButton-${id}`;
+
+export const BACK_TO_SHORTCUT_ID = 'backToButtonShortcut';
+
+export const ENROLL_BUTTON_SELECTOR = 'enrollButton';
+export const FORBIDDEN_CONTENT_ID = 'forbiddenContent';
+export const FORBIDDEN_CONTENT_CONTAINER_ID = 'forbiddenContentContainer';
+
+export const USER_SWITCH_SIGN_IN_BUTTON_ID = 'userSwitchSignInButton';
+
+export const NAVIGATION_ISLAND_CY = 'navigationIsland';
+export const ITEM_CHATBOX_BUTTON_ID = 'itemChatboxButton';
+export const ITEM_MAP_BUTTON_ID = 'itemMapButton';
+export const ITEM_PINNED_BUTTON_ID = 'itemPinnedButton';
+
+export const CHATBOX_DRAWER_ID = 'chatboxDrawer';
+export const PANEL_CLOSE_BUTTON_SELECTOR = `#${CHATBOX_DRAWER_ID} [data-testid="ChevronRightIcon"]`;
+
+export const ITEM_FULLSCREEN_BUTTON_ID = 'item-fullscreen-button';
+
+export const ITEM_PINNED_ID = 'item-pinned';
+export const ITEM_CHATBOX_ID = 'chatbox';
+
+export const PREVENT_GUEST_MESSAGE_ID = 'prevent-guests';

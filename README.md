@@ -12,7 +12,7 @@
 [![gitlocalized-it](https://gitlocalize.com/repo/8978/it/badge.svg)](https://gitlocalize.com/repo/8978/it?utm_source=badge)  
 [![gitlocalized-ar](https://gitlocalize.com/repo/8978/ar/badge.svg)](https://gitlocalize.com/repo/8978/ar?utm_source=badge)  
 
-## Environement variables
+## Environment variables
 
 ```sh
 # .env.development
@@ -28,4 +28,18 @@ VITE_SENTRY_ENV= # some value
 VITE_SENTRY_DSN= # some value
 
 VITE_RECAPTCHA_SITE_KEY= # some value
+
+VITE_GRAASP_H5P_INTEGRATION_URL= # the origin for the h5p integration
+```
+
+## Test setup
+
+```sh
+# .env.test
+VITE_VERSION=local
+VITE_PORT=3333
+VITE_GRAASP_API_HOST=http://localhost:3636
+VITE_SHOW_NOTIFICATIONS=true
+VITE_GRAASP_ANALYZER_HOST=http://localhost:3005
+
 ```

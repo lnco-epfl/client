@@ -6,10 +6,8 @@ export function getRandomValue(seed: string, max: number): number {
   }
 
   let hash = 0;
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < seed.length; i++) {
     hash = hash * 31 + seed.charCodeAt(i);
-    // eslint-disable-next-line no-bitwise
     hash |= 0; // Convert to 32bit integer
   }
   // max is never attained
@@ -20,7 +18,6 @@ export function shuffleArray<T>(array: T[], seed: string = ''): T[] {
   // make a copy of the original array
   const shuffledArray = array.slice();
 
-  // eslint-disable-next-line no-plusplus
   for (let i = shuffledArray.length - 1; i > 0; i--) {
     // max is i + 1 as getRandomValue does modulo over the max to get an answer in the range of the array indexes
     const j = getRandomValue(seed, i + 1);

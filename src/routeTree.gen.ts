@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/auth'
 import { Route as AccountImport } from './routes/account'
 import { Route as LandingImport } from './routes/_landing'
+import { Route as PlayerIndexImport } from './routes/player/index'
 import { Route as AccountIndexImport } from './routes/account/index'
 import { Route as EmailChangeImport } from './routes/email.change'
 import { Route as AuthSuccessImport } from './routes/auth/success'
@@ -32,6 +33,10 @@ import { Route as LandingFeaturesImport } from './routes/_landing/features'
 import { Route as LandingDisclaimerImport } from './routes/_landing/disclaimer'
 import { Route as LandingContactUsImport } from './routes/_landing/contact-us'
 import { Route as LandingAboutUsImport } from './routes/_landing/about-us'
+import { Route as PlayerRootIdIndexImport } from './routes/player/$rootId/index'
+import { Route as PlayerRootIdItemIdImport } from './routes/player/$rootId/$itemId'
+import { Route as PlayerRootIdItemIdIndexImport } from './routes/player/$rootId/$itemId/index'
+import { Route as PlayerRootIdItemIdAutoLoginImport } from './routes/player/$rootId/$itemId/autoLogin'
 
 // Create Virtual Routes
 
@@ -61,6 +66,12 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const PlayerIndexRoute = PlayerIndexImport.update({
+  id: '/player/',
+  path: '/player/',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AccountIndexRoute = AccountIndexImport.update({
   id: '/',
@@ -157,6 +168,31 @@ const LandingAboutUsRoute = LandingAboutUsImport.update({
   path: '/about-us',
   getParentRoute: () => LandingRoute,
 } as any)
+
+const PlayerRootIdIndexRoute = PlayerRootIdIndexImport.update({
+  id: '/player/$rootId/',
+  path: '/player/$rootId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PlayerRootIdItemIdRoute = PlayerRootIdItemIdImport.update({
+  id: '/player/$rootId/$itemId',
+  path: '/player/$rootId/$itemId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PlayerRootIdItemIdIndexRoute = PlayerRootIdItemIdIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PlayerRootIdItemIdRoute,
+} as any)
+
+const PlayerRootIdItemIdAutoLoginRoute =
+  PlayerRootIdItemIdAutoLoginImport.update({
+    id: '/autoLogin',
+    path: '/autoLogin',
+    getParentRoute: () => PlayerRootIdItemIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -302,6 +338,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountIndexImport
       parentRoute: typeof AccountImport
     }
+    '/player/': {
+      id: '/player/'
+      path: '/player'
+      fullPath: '/player'
+      preLoaderRoute: typeof PlayerIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/player/$rootId/$itemId': {
+      id: '/player/$rootId/$itemId'
+      path: '/player/$rootId/$itemId'
+      fullPath: '/player/$rootId/$itemId'
+      preLoaderRoute: typeof PlayerRootIdItemIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/player/$rootId/': {
+      id: '/player/$rootId/'
+      path: '/player/$rootId'
+      fullPath: '/player/$rootId'
+      preLoaderRoute: typeof PlayerRootIdIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/player/$rootId/$itemId/autoLogin': {
+      id: '/player/$rootId/$itemId/autoLogin'
+      path: '/autoLogin'
+      fullPath: '/player/$rootId/$itemId/autoLogin'
+      preLoaderRoute: typeof PlayerRootIdItemIdAutoLoginImport
+      parentRoute: typeof PlayerRootIdItemIdImport
+    }
+    '/player/$rootId/$itemId/': {
+      id: '/player/$rootId/$itemId/'
+      path: '/'
+      fullPath: '/player/$rootId/$itemId/'
+      preLoaderRoute: typeof PlayerRootIdItemIdIndexImport
+      parentRoute: typeof PlayerRootIdItemIdImport
+    }
   }
 }
 
@@ -363,6 +434,19 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface PlayerRootIdItemIdRouteChildren {
+  PlayerRootIdItemIdAutoLoginRoute: typeof PlayerRootIdItemIdAutoLoginRoute
+  PlayerRootIdItemIdIndexRoute: typeof PlayerRootIdItemIdIndexRoute
+}
+
+const PlayerRootIdItemIdRouteChildren: PlayerRootIdItemIdRouteChildren = {
+  PlayerRootIdItemIdAutoLoginRoute: PlayerRootIdItemIdAutoLoginRoute,
+  PlayerRootIdItemIdIndexRoute: PlayerRootIdItemIdIndexRoute,
+}
+
+const PlayerRootIdItemIdRouteWithChildren =
+  PlayerRootIdItemIdRoute._addFileChildren(PlayerRootIdItemIdRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '': typeof LandingRouteWithChildren
@@ -384,6 +468,11 @@ export interface FileRoutesByFullPath {
   '/auth/success': typeof AuthSuccessRoute
   '/email/change': typeof EmailChangeRoute
   '/account/': typeof AccountIndexRoute
+  '/player': typeof PlayerIndexRoute
+  '/player/$rootId/$itemId': typeof PlayerRootIdItemIdRouteWithChildren
+  '/player/$rootId': typeof PlayerRootIdIndexRoute
+  '/player/$rootId/$itemId/autoLogin': typeof PlayerRootIdItemIdAutoLoginRoute
+  '/player/$rootId/$itemId/': typeof PlayerRootIdItemIdIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -406,6 +495,10 @@ export interface FileRoutesByTo {
   '/auth/success': typeof AuthSuccessRoute
   '/email/change': typeof EmailChangeRoute
   '/account': typeof AccountIndexRoute
+  '/player': typeof PlayerIndexRoute
+  '/player/$rootId': typeof PlayerRootIdIndexRoute
+  '/player/$rootId/$itemId/autoLogin': typeof PlayerRootIdItemIdAutoLoginRoute
+  '/player/$rootId/$itemId': typeof PlayerRootIdItemIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -430,6 +523,11 @@ export interface FileRoutesById {
   '/auth/success': typeof AuthSuccessRoute
   '/email/change': typeof EmailChangeRoute
   '/account/': typeof AccountIndexRoute
+  '/player/': typeof PlayerIndexRoute
+  '/player/$rootId/$itemId': typeof PlayerRootIdItemIdRouteWithChildren
+  '/player/$rootId/': typeof PlayerRootIdIndexRoute
+  '/player/$rootId/$itemId/autoLogin': typeof PlayerRootIdItemIdAutoLoginRoute
+  '/player/$rootId/$itemId/': typeof PlayerRootIdItemIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -455,6 +553,11 @@ export interface FileRouteTypes {
     | '/auth/success'
     | '/email/change'
     | '/account/'
+    | '/player'
+    | '/player/$rootId/$itemId'
+    | '/player/$rootId'
+    | '/player/$rootId/$itemId/autoLogin'
+    | '/player/$rootId/$itemId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -476,6 +579,10 @@ export interface FileRouteTypes {
     | '/auth/success'
     | '/email/change'
     | '/account'
+    | '/player'
+    | '/player/$rootId'
+    | '/player/$rootId/$itemId/autoLogin'
+    | '/player/$rootId/$itemId'
   id:
     | '__root__'
     | '/'
@@ -498,6 +605,11 @@ export interface FileRouteTypes {
     | '/auth/success'
     | '/email/change'
     | '/account/'
+    | '/player/'
+    | '/player/$rootId/$itemId'
+    | '/player/$rootId/'
+    | '/player/$rootId/$itemId/autoLogin'
+    | '/player/$rootId/$itemId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -507,6 +619,9 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   EmailChangeRoute: typeof EmailChangeRoute
+  PlayerIndexRoute: typeof PlayerIndexRoute
+  PlayerRootIdItemIdRoute: typeof PlayerRootIdItemIdRouteWithChildren
+  PlayerRootIdIndexRoute: typeof PlayerRootIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -515,6 +630,9 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   EmailChangeRoute: EmailChangeRoute,
+  PlayerIndexRoute: PlayerIndexRoute,
+  PlayerRootIdItemIdRoute: PlayerRootIdItemIdRouteWithChildren,
+  PlayerRootIdIndexRoute: PlayerRootIdIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -531,7 +649,10 @@ export const routeTree = rootRoute
         "/_landing",
         "/account",
         "/auth",
-        "/email/change"
+        "/email/change",
+        "/player/",
+        "/player/$rootId/$itemId",
+        "/player/$rootId/"
       ]
     },
     "/": {
@@ -629,6 +750,27 @@ export const routeTree = rootRoute
     "/account/": {
       "filePath": "account/index.tsx",
       "parent": "/account"
+    },
+    "/player/": {
+      "filePath": "player/index.tsx"
+    },
+    "/player/$rootId/$itemId": {
+      "filePath": "player/$rootId/$itemId.tsx",
+      "children": [
+        "/player/$rootId/$itemId/autoLogin",
+        "/player/$rootId/$itemId/"
+      ]
+    },
+    "/player/$rootId/": {
+      "filePath": "player/$rootId/index.tsx"
+    },
+    "/player/$rootId/$itemId/autoLogin": {
+      "filePath": "player/$rootId/$itemId/autoLogin.tsx",
+      "parent": "/player/$rootId/$itemId"
+    },
+    "/player/$rootId/$itemId/": {
+      "filePath": "player/$rootId/$itemId/index.tsx",
+      "parent": "/player/$rootId/$itemId"
     }
   }
 }

@@ -37,7 +37,11 @@
     "SETTINGS": "Settings"
   },
   "ERRORS": {
-    "UNEXPECTED": "An unexpected Error occurred"
+    "UNEXPECTED": "An unexpected Error occurred",
+    "NETWORK": {
+      "TITLE": "Network Error",
+      "TEXT": "There seems to be a problem joining the server. Please try again later"
+    }
   },
   "FIELD_ERROR": {
     "REQUIRED": "This field is required",

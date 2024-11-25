@@ -5,7 +5,7 @@ import {
   combineUuids,
   getRandomValue,
   shuffleAllButLastItemInArray,
-} from '@/utils/shuffle.ts';
+} from './shuffle.ts';
 
 describe('shuffleAllButLastItemInArray', () => {
   // check if the function shuffles all items except the last one with different UUID seeds

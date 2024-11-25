@@ -21,6 +21,7 @@ export const NS = {
   Account: 'account',
   Auth: 'auth',
   Landing: 'landing',
+  Player: 'player',
   Messages: 'messages',
   Common: 'common',
   Enums: 'enums',

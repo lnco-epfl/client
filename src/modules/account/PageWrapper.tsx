@@ -10,18 +10,21 @@ import {
   PlatformSwitch,
   PlatformSwitchProps,
   useMobileView,
-  usePlatformNavigation,
 } from '@graasp/ui';
 
 import { Link } from '@tanstack/react-router';
 import { UserRoundIcon } from 'lucide-react';
 
+import { UserSwitchWrapper } from '@/components/ui/UserSwitchWrapper';
 import { NS } from '@/config/constants';
-import { platformsHostsMap } from '@/config/hostMapper';
+import {
+  GRAASP_ANALYTICS_HOST,
+  GRAASP_BUILDER_HOST,
+  GRAASP_LIBRARY_HOST,
+} from '@/config/env';
 import { ACCOUNT_HOME_PATH } from '@/config/paths';
 
 import { MainMenu } from './MainMenu';
-import UserSwitchWrapper from './UserSwitchWrapper';
 
 const StyledLink = styled(Link)(() => ({
   textDecoration: 'none',
@@ -46,19 +49,18 @@ export function PageWrapper({
   const { t } = useTranslation(NS.Account);
   const theme = useTheme();
   const { isMobile } = useMobileView();
-  const getNavigationEvents = usePlatformNavigation(platformsHostsMap);
   const platformProps = {
     [Platform.Builder]: {
-      ...getNavigationEvents(Platform.Builder),
+      href: GRAASP_BUILDER_HOST,
     },
     [Platform.Player]: {
-      ...getNavigationEvents(Platform.Player),
+      href: '/player',
     },
     [Platform.Library]: {
-      ...getNavigationEvents(Platform.Library),
+      href: GRAASP_LIBRARY_HOST,
     },
     [Platform.Analytics]: {
-      ...getNavigationEvents(Platform.Analytics),
+      href: GRAASP_ANALYTICS_HOST,
     },
   };
 

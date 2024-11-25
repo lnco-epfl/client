@@ -20,9 +20,28 @@
     "paths": {
       "~account/*": ["./src/modules/account/*"],
       "~landing/*": ["./src/modules/landing/*"],
+      "~player/*": ["./src/modules/player/*"],
       "~auth/*": ["./src/modules/auth/*"],
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "cypress/e2e/player/apps.cy.ts",
+    "cypress/e2e/player/autoLogin.cy.ts",
+    "cypress/e2e/player/chatbox.cy.ts",
+    "cypress/e2e/player/collapsed.cy.ts",
+    "cypress/e2e/player/header.cy.ts",
+    "cypress/e2e/player/hidden.cy.ts",
+    "cypress/e2e/player/island.cy.ts",
+    "cypress/e2e/player/main.cy.ts",
+    "cypress/e2e/player/membershipRequest.cy.ts",
+    "cypress/e2e/player/navigation.cy.ts",
+    "cypress/e2e/player/pinned.cy.ts",
+    "cypress/e2e/player/pseudonimized.cy.ts",
+    "cypress/e2e/player/redirections.cy.ts",
+    "cypress/e2e/player/shortcut.cy.ts",
+    "cypress/e2e/player/shuffle.cy.ts",
+    "cypress/support/env.ts"
+  ]
 }

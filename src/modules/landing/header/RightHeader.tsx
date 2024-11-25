@@ -4,10 +4,9 @@ import { Stack } from '@mui/material';
 
 import { useAuth } from '@/AuthContext';
 import { ButtonLink } from '@/components/ui/ButtonLink';
+import LanguageSwitch from '@/components/ui/LanguageSwitch';
 import { NS } from '@/config/constants';
 import { mutations } from '@/config/queryClient';
-
-import LanguageSwitch from '~account/common/LanguageSwitch';
 
 import { UserAvatar } from './UserAvatar';
 

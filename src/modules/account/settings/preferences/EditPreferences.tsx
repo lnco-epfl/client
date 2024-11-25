@@ -8,6 +8,7 @@ import { DEFAULT_LANG } from '@graasp/translations';
 
 import { BorderedSection } from '@/components/layout/BorderedSection';
 import FormProperty from '@/components/layout/FormProperty';
+import LanguageSwitch from '@/components/ui/LanguageSwitch';
 import { DEFAULT_EMAIL_FREQUENCY, NS } from '@/config/constants';
 import { mutations } from '@/config/queryClient';
 import {
@@ -18,8 +19,6 @@ import {
   PREFERENCES_LANGUAGE_SWITCH_ID,
   PREFERENCES_SAVE_BUTTON_ID,
 } from '@/config/selectors';
-
-import LanguageSwitch from '~account/common/LanguageSwitch';
 
 import { EmailPreferenceSwitch } from '../EmailPreferenceSwitch';
 

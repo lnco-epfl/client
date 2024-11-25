@@ -15,8 +15,6 @@ export const Route = createRootRouteWithContext<{ auth: AuthContextType }>()({
 
 // this allows to remove the tanstack router dev tools in production
 const TanStackRouterDevtools =
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   process.env.NODE_ENV === 'production'
     ? () => null // Render nothing in production
     : React.lazy(() =>

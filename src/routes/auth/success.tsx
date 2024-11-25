@@ -6,7 +6,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { RecaptchaAction } from '@graasp/sdk';
 
 import { createFileRoute } from '@tanstack/react-router';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
+import { zodValidator } from '@tanstack/zod-adapter';
 import { MailIcon } from 'lucide-react';
 import { z } from 'zod';
 
@@ -29,7 +29,7 @@ const signInSuccessSchema = z.object({
 });
 
 export const Route = createFileRoute('/auth/success')({
-  validateSearch: zodSearchValidator(signInSuccessSchema),
+  validateSearch: zodValidator(signInSuccessSchema),
   component: RouteComponent,
 });
 
