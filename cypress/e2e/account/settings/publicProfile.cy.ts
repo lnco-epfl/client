@@ -8,7 +8,7 @@ import {
   PUBLIC_PROFILE_TWITTER_ID,
 } from '../../../../src/config/selectors';
 import {
-  BOB,
+  MEMBERS,
   MEMBER_EMPTY_PUBLIC_PROFILE,
   MEMBER_PUBLIC_PROFILE,
 } from '../../../fixtures/members';
@@ -23,7 +23,7 @@ describe('Display public profile', () => {
   describe('Completed public profile', () => {
     beforeEach(() => {
       cy.setUpApi({
-        currentMember: BOB,
+        currentMember: MEMBERS.BOB,
         currentProfile: MEMBER_PUBLIC_PROFILE,
       });
       cy.visit(ACCOUNT_SETTINGS_PATH);
@@ -78,7 +78,7 @@ describe('Display public profile', () => {
   describe('Empty public profile', () => {
     beforeEach(() => {
       cy.setUpApi({
-        currentMember: BOB,
+        currentMember: MEMBERS.BOB,
         currentProfile: MEMBER_EMPTY_PUBLIC_PROFILE,
       });
       cy.visit(ACCOUNT_SETTINGS_PATH);
@@ -116,7 +116,7 @@ describe('Display public profile', () => {
 describe('Edit public profile', () => {
   beforeEach(() => {
     cy.setUpApi({
-      currentMember: BOB,
+      currentMember: MEMBERS.BOB,
       currentProfile: MEMBER_PUBLIC_PROFILE,
     });
     cy.visit(ACCOUNT_SETTINGS_PATH);

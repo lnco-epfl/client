@@ -12,7 +12,7 @@ import {
   PREFERENCES_LANGUAGE_SWITCH_ID,
   PREFERENCES_SAVE_BUTTON_ID,
 } from '../../../../src/config/selectors';
-import { BOB, CURRENT_MEMBER } from '../../../fixtures/members';
+import { CURRENT_MEMBER, MEMBERS } from '../../../fixtures/members';
 
 describe('Display preferences', () => {
   describe('Language', () => {
@@ -203,7 +203,7 @@ describe('Edit preferences', () => {
   describe('Cancel should not update preferences', () => {
     beforeEach(() => {
       cy.setUpApi({
-        currentMember: BOB,
+        currentMember: MEMBERS.BOB,
       });
       cy.visit(ACCOUNT_SETTINGS_PATH);
       cy.wait('@getCurrentMember');

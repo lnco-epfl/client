@@ -27,14 +27,7 @@ export const STATIC_ELECTRICITY: {
       description: '',
       creator: CURRENT_MEMBER,
       extra: {
-        [ItemType.FOLDER]: {
-          childrenOrder: [
-            'gcafbd2a-5688-11eb-ae92-0242ac130015',
-            'gcafbd2a-4218-31eb-fe32-0542bc120002',
-            'gcbffd2a-4218-31eb-fe32-0542bc120002',
-            'gfbfed2a-4218-31eb-fe32-0542bc120002',
-          ],
-        },
+        [ItemType.FOLDER]: {},
       },
     }),
     FolderItemFactory({
@@ -43,15 +36,7 @@ export const STATIC_ELECTRICITY: {
       name: 'Causes and experiences',
       creator: CURRENT_MEMBER,
       extra: {
-        [ItemType.FOLDER]: {
-          childrenOrder: [
-            'gcefbd2a-5688-11eb-ae92-0542bc120002',
-            'gcefbd2a-5688-11eb-fe32-0542bc120002',
-            'gcefbd2a-5648-31eb-fe32-0542bc120002',
-            'gcefbd4e-5688-11eb-fe32-0542bc120002',
-            'gceffe4e-5688-11eb-fe32-0542bc120002',
-          ],
-        },
+        [ItemType.FOLDER]: {},
       },
     }),
     DocumentItemFactory({
@@ -119,12 +104,7 @@ export const STATIC_ELECTRICITY: {
       description: '',
       creator: CURRENT_MEMBER,
       extra: {
-        [ItemType.FOLDER]: {
-          childrenOrder: [
-            'gcafbd2a-4118-31eb-fe32-0542bc120002',
-            'gcafbd2a-4118-31eb-fe32-1542bc120002',
-          ],
-        },
+        [ItemType.FOLDER]: {},
       },
     }),
     AppItemFactory({
@@ -158,12 +138,7 @@ export const STATIC_ELECTRICITY: {
       description: '',
       creator: CURRENT_MEMBER,
       extra: {
-        [ItemType.FOLDER]: {
-          childrenOrder: [
-            'gcbffd2a_4218_31eb_fe32_0542bc121102',
-            'gcbffd2a_4218_31eb_fe32_0542bc121145',
-          ],
-        },
+        [ItemType.FOLDER]: {},
       },
     }),
     DocumentItemFactory({
@@ -195,13 +170,7 @@ export const STATIC_ELECTRICITY: {
       name: 'Static Discharge: Lightning',
       creator: CURRENT_MEMBER,
       extra: {
-        [ItemType.FOLDER]: {
-          childrenOrder: [
-            'gfbfed2a_4218_31eb_fe32_0522bc120002',
-            'gfbfed2a_4218_31eb_fe32_0522bc120065',
-            'gfbfed2a_4218_31eb_fe32_0522bc120265',
-          ],
-        },
+        [ItemType.FOLDER]: {},
       },
     }),
     {
