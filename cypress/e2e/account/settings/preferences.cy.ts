@@ -170,32 +170,30 @@ describe('Edit preferences', () => {
     });
   });
 
-  describe('Email Frequency', () => {
-    [
-      { initial: EmailFrequency.Never, final: EmailFrequency.Always },
-      { initial: EmailFrequency.Always, final: EmailFrequency.Never },
-    ].forEach(({ initial, final }) => {
-      it(`From ${initial} to ${final}`, () => {
-        cy.setUpApi({
-          currentMember: {
-            ...CURRENT_MEMBER,
-            extra: {
-              ...CURRENT_MEMBER.extra,
-              emailFreq: initial,
-            },
+  [
+    { initial: EmailFrequency.Never, final: EmailFrequency.Always },
+    { initial: EmailFrequency.Always, final: EmailFrequency.Never },
+  ].forEach(({ initial, final }) => {
+    it(`Email Frequency from ${initial} to ${final}`, () => {
+      cy.setUpApi({
+        currentMember: {
+          ...CURRENT_MEMBER,
+          extra: {
+            ...CURRENT_MEMBER.extra,
+            emailFreq: initial,
           },
-        });
-        cy.visit(ACCOUNT_SETTINGS_PATH);
-        cy.wait('@getCurrentMember');
-        cy.get(`#${PREFERENCES_EDIT_BUTTON_ID}`).click();
+        },
+      });
+      cy.visit(ACCOUNT_SETTINGS_PATH);
+      cy.wait('@getCurrentMember');
+      cy.get(`#${PREFERENCES_EDIT_BUTTON_ID}`).click();
 
-        switchEmailFreq(final);
+      switchEmailFreq(final);
 
-        cy.get(`#${PREFERENCES_SAVE_BUTTON_ID}`).click();
+      cy.get(`#${PREFERENCES_SAVE_BUTTON_ID}`).click();
 
-        cy.wait('@editMember').then(({ request }) => {
-          expect(request.body.extra.emailFreq).to.equal(final);
-        });
+      cy.wait('@editMember').then(({ request }) => {
+        expect(request.body.extra.emailFreq).to.equal(final);
       });
     });
   });

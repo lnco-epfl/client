@@ -138,7 +138,7 @@ describe('Check member info', () => {
       'contain',
       MEMBER_WITH_AVATAR.name,
     );
-    const lang = MEMBER_WITH_AVATAR.extra.lang || 'en';
+    const lang = MEMBER_WITH_AVATAR.extra.lang ?? 'en';
     // displays the correct creation date
     const formattedDate = formatDistanceToNow(MEMBER_WITH_AVATAR.createdAt, {
       locale: getLocalForDateFns(lang),
