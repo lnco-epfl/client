@@ -3,6 +3,7 @@ import {
   ChatMessage,
   CompleteMember,
   HttpMethod,
+  ItemGeolocation,
   Member,
   PublicProfile,
   getIdsFromPath,
@@ -417,12 +418,10 @@ export const mockGetAccessibleItems = (items: MockItem[]): void => {
       const page = parseInt(params.get('page') ?? '1', 10);
       const pageSize = parseInt(params.get('pageSize') ?? '10', 10);
 
-      // as { page: number; pageSize: number };
-
       // warning: we don't check memberships
       const root = items.filter(isRootItem);
 
-      // todo: filter
+      // improvement: apply requested filters
 
       const result = root.slice((page - 1) * pageSize, page * pageSize);
 
@@ -700,7 +699,7 @@ export const mockGetLoginSchemaType = (itemLogins: {
     ({ reply, url }) => {
       const itemId = url.slice(API_HOST.length).split('/')[2];
 
-      // todo: add response for itemLoginSchemaType
+      // improvement: add response for itemLoginSchemaType
       const itemLogin = itemLogins[itemId];
 
       if (itemLogin) {
@@ -859,10 +858,10 @@ export const mockGetItemGeolocation = (items: MockItem[]): void => {
       const geolocs = items
         .filter((i) => parentIds.includes(i.id))
         .filter(Boolean)
-        .map((i) => i.geolocation);
+        .map((i) => i.geolocation) as Partial<ItemGeolocation>[];
 
       if (geolocs.length) {
-        return reply(geolocs[0]!);
+        return reply(geolocs[0]);
       }
 
       return reply({ statusCode: StatusCodes.NOT_FOUND });

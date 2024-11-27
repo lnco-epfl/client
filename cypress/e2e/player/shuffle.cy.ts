@@ -14,7 +14,7 @@ import { buildContentPagePath, expectFolderLayout } from './utils';
 
 export const TREE_NODE_GROUP_CLASS = 'tree-node-group';
 
-// todo: shuffling order is dependent on member Id and item Id, which can change.
+// Warning: shuffling order is dependent on member Id and item Id, which can change.
 // re-enable this test once we can compute the order in advance without it depending on specific ids.
 describe.skip('Shuffle', () => {
   describe('Anna', () => {

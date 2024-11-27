@@ -179,15 +179,13 @@ describe('Edit public profile', () => {
       ],
     },
   ].forEach(({ platform, urls }) => {
-    describe(platform, () => {
-      urls.forEach((url) =>
-        it(url, () => {
-          cy.get(`input[name=${platform}]`).clear();
-          cy.get(`input[name=${platform}]`).type(url);
-          cy.get(`#${PUBLIC_PROFILE_SAVE_BUTTON_ID}`).should('be.disabled');
-        }),
-      );
-    });
+    urls.forEach((url) =>
+      it(url, () => {
+        cy.get(`input[name=${platform}]`).clear();
+        cy.get(`input[name=${platform}]`).type(url);
+        cy.get(`#${PUBLIC_PROFILE_SAVE_BUTTON_ID}`).should('be.disabled');
+      }),
+    );
   });
 
   Object.values(SocialProfile).forEach((platform) => {

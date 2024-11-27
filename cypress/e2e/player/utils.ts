@@ -189,13 +189,10 @@ const {
 
 export class TestHelper {
   private isLoggedIn: boolean = false;
-  private hasAccessToItem: boolean = true;
-
-  private pseudoMember: CompleteGuest;
-
-  private item: DiscriminatedItem;
-
-  private returnItemLoginSchemaType: boolean = true;
+  private readonly hasAccessToItem: boolean = true;
+  private readonly pseudoMember: CompleteGuest;
+  private readonly item: DiscriminatedItem;
+  private readonly returnItemLoginSchemaType: boolean = true;
 
   constructor(args: {
     pseudoMember: CompleteGuest;

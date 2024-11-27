@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useCallback, useContext } from 'react';
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 
 import { AccountType, getCurrentAccountLang } from '@graasp/sdk';
 import { DEFAULT_LANG } from '@graasp/translations';
@@ -38,9 +44,9 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({
   children,
-}: {
+}: Readonly<{
   children: ReactNode;
-}): JSX.Element {
+}>): JSX.Element {
   const { data: currentMember, isLoading } = hooks.useCurrentMember();
 
   const useLogin = mutations.useSignIn();
@@ -57,13 +63,9 @@ export function AuthProvider({
     [useLogin],
   );
 
-  // if the query has not resolved yet, we can not render the rest of the tree
-  if (isLoading) {
-    return <CustomInitialLoader />;
-  }
-
-  const value = currentMember
-    ? {
+  const value = useMemo(() => {
+    if (currentMember) {
+      return {
         isAuthenticated: true as const,
         user: {
           name: currentMember.name,
@@ -73,8 +75,21 @@ export function AuthProvider({
         },
         logout,
         login: null,
-      }
-    : { isAuthenticated: false as const, user: null, login, logout: null };
+      };
+    } else {
+      return {
+        isAuthenticated: false as const,
+        user: null,
+        login,
+        logout: null,
+      };
+    }
+  }, [currentMember, login, logout]);
+
+  // if the query has not resolved yet, we can not render the rest of the tree
+  if (isLoading) {
+    return <CustomInitialLoader />;
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
