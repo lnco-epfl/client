@@ -27,7 +27,7 @@ const { buildGetCurrentMemberRoute, buildUploadAvatarRoute } = API_ROUTES;
 
 type TestHelperInput = { currentMember: MemberForTest };
 class TestHelper {
-  private currentMember: MemberForTest;
+  private readonly currentMember: MemberForTest;
 
   constructor(args: TestHelperInput) {
     this.currentMember = JSON.parse(JSON.stringify(args.currentMember));
