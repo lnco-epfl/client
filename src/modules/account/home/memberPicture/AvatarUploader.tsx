@@ -5,7 +5,7 @@ import { Dialog, Stack, styled, useTheme } from '@mui/material';
 
 import { ThumbnailSize } from '@graasp/sdk';
 
-import { ImageUp as ImageUpIcon } from 'lucide-react';
+import { ImageUpIcon } from 'lucide-react';
 
 import { useAuth } from '@/AuthContext';
 import { AVATAR_SIZE, NS } from '@/config/constants';
@@ -109,8 +109,7 @@ export function AvatarUploader(): JSX.Element {
             onEdit();
           }
         }}
-        aria-label="change folder avatar"
-        role="button"
+        aria-label="change avatar"
         tabIndex={0}
         height={AVATAR_SIZE}
         width={AVATAR_SIZE}
@@ -128,7 +127,7 @@ export function AvatarUploader(): JSX.Element {
           borderRadius={2}
           zIndex={theme.zIndex.drawer - 2}
         >
-          <ImageUpIcon color={theme.palette.secondary.light} />
+          <ImageUpIcon color={theme.palette.primary.contrastText} />
         </HoveredBox>
         {avatarUrl ? (
           <img

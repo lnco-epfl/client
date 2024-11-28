@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 import { PRIMARY_COLOR } from '@graasp/ui';
 
+import { useAuth } from '@/AuthContext';
+import LanguageSwitch from '@/components/ui/LanguageSwitch';
 import { NS } from '@/config/constants';
+import { mutations } from '@/config/queryClient';
 
 import { FooterSection } from './FooterSection';
 import {
@@ -60,7 +63,7 @@ const socialLinks = [
     Icon: TwitterIcon,
   },
   {
-    title: 'Instragram',
+    title: 'Instagram',
     href: 'https://www.instagram.com/graasper',
     Icon: InstagramIcon,
   },
@@ -84,17 +87,20 @@ const socialLinks = [
 const internalLinkActiveProp = () => ({
   sx: {
     backgroundColor: '#00000040',
-    '&::before': {
-      content: `url("data:image/svg+xml,${encodeURI('<svg xmlns="http://www.w3.org/2000/svg" color="white" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>')}")`,
-      position: 'relative',
-      top: '2px',
-      marginRight: '8px',
-    },
   },
 });
 
 export function Footer(): JSX.Element {
-  const { t } = useTranslation(NS.Landing);
+  const { t, i18n } = useTranslation(NS.Landing, { keyPrefix: 'FOOTER' });
+  const { mutate } = mutations.useEditCurrentMember();
+  const { isAuthenticated } = useAuth();
+
+  const handleLanguageChange = (lang: string) => {
+    if (isAuthenticated) {
+      mutate({ extra: { lang } });
+    }
+    i18n.changeLanguage(lang);
+  };
   return (
     <Stack
       component="footer"
@@ -107,7 +113,7 @@ export function Footer(): JSX.Element {
     >
       <Stack maxWidth="lg" m="auto" width="100%">
         <Typography textAlign="center" fontWeight="bold">
-          {t('FOOTER.TAG_LINE')}
+          {t('TAG_LINE')}
         </Typography>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
@@ -121,28 +127,28 @@ export function Footer(): JSX.Element {
             flex={1}
             justifyContent="space-around"
           >
-            <FooterSection name={t('FOOTER.CONTENT.TITLE')}>
+            <FooterSection name={t('CONTENT.TITLE')}>
               <InternalLink to="/" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.CONTENT.HOME')}
+                {t('CONTENT.HOME')}
               </InternalLink>
               <InternalLink to="/features" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.CONTENT.FEATURES')}
+                {t('CONTENT.FEATURES')}
               </InternalLink>
               <InternalLink to="/about-us" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.CONTENT.ABOUT_US')}
+                {t('CONTENT.ABOUT_US')}
               </InternalLink>
               <InternalLink to="/support" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.CONTENT.SUPPORT')}
+                {t('CONTENT.SUPPORT')}
               </InternalLink>
               <InternalLink
                 to="/contact-us"
                 activeProps={internalLinkActiveProp}
               >
-                {t('FOOTER.CONTENT.CONTACT_US')}
+                {t('CONTENT.CONTACT_US')}
               </InternalLink>
             </FooterSection>
 
-            <FooterSection name={t('FOOTER.PARTNERS.TITLE')}>
+            <FooterSection name={t('PARTNERS.TITLE')}>
               {partnerLinks.map(({ href, title }) => (
                 <ExternalLink key={title} href={href}>
                   {title}
@@ -157,7 +163,7 @@ export function Footer(): JSX.Element {
             flex={1}
             justifyContent="space-around"
           >
-            <FooterSection name={t('FOOTER.SOCIAL.TITLE')}>
+            <FooterSection name={t('SOCIAL.TITLE')}>
               {socialLinks.map(({ href, Icon, title }) => (
                 <SocialLink key={title} href={href} icon={<Icon size={24} />}>
                   {title}
@@ -165,25 +171,38 @@ export function Footer(): JSX.Element {
               ))}
             </FooterSection>
 
-            <FooterSection name={t('FOOTER.OTHER.TITLE')}>
+            <FooterSection name={t('OTHER.TITLE')}>
               <InternalLink to="/terms" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.OTHER.TERMS')}
+                {t('OTHER.TERMS')}
               </InternalLink>
               <InternalLink to="/policy" activeProps={internalLinkActiveProp}>
-                {t('FOOTER.OTHER.POLICY')}
+                {t('OTHER.POLICY')}
               </InternalLink>
               <InternalLink
                 to="/disclaimer"
                 activeProps={internalLinkActiveProp}
               >
-                {t('FOOTER.OTHER.DISCLAIMER')}
+                {t('OTHER.DISCLAIMER')}
               </InternalLink>
+              <Box>
+                <LanguageSwitch
+                  lang={i18n.language}
+                  onChange={handleLanguageChange}
+                />
+              </Box>
             </FooterSection>
           </Stack>
         </Stack>
-        <Typography textAlign="center" variant="note">
-          &copy; Graasp 2014 - {new Date().getFullYear()}
-        </Typography>
+        <Stack
+          direction="row"
+          gap={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography textAlign="center" variant="note">
+            &copy; Graasp 2014 - {new Date().getFullYear()}
+          </Typography>
+        </Stack>
       </Stack>
     </Stack>
   );

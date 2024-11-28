@@ -11,12 +11,12 @@ interface MUILinkProps extends Omit<ButtonProps, 'href'> {
 
 const MUILinkComponent = React.forwardRef<HTMLAnchorElement, MUILinkProps>(
   (props, ref) => {
-    return <Button component={'a'} role="button" ref={ref} {...props} />;
+    return <Button component={'a'} ref={ref} {...props} />;
   },
 );
 
 const CreatedLinkComponent = createLink(MUILinkComponent);
 
 export const ButtonLink: LinkComponent<typeof MUILinkComponent> = (props) => {
-  return <CreatedLinkComponent preload={'intent'} {...props} />;
+  return <CreatedLinkComponent preload="intent" {...props} />;
 };

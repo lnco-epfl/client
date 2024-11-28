@@ -3,17 +3,15 @@ import { useState } from 'react';
 import { Box, styled } from '@mui/material';
 
 const MovingBox = styled(Box)({
-  // animation: 'shake 500ms linear, move 40s linear infinite',
   animation: 'move 40s linear infinite',
-  position: 'fixed',
   bottom: '0px',
-  right: '-100px',
+  right: '-200px',
   '@keyframes move': {
     from: {
-      transform: 'translate(0,0)',
+      transform: 'translate(50vw,130px)',
     },
     to: {
-      transform: 'translate(calc(-100vw - 100px), 0)',
+      transform: 'translate(calc(-50vw - 200px), 130px)',
     },
   },
   // stop the animation on hover
@@ -50,7 +48,7 @@ export function ConstructionAnimation(): JSX.Element | null {
     );
   }
 
-  return null;
+  return <Box height="106px" />;
 }
 
 type ConstructionTruckProps = {
