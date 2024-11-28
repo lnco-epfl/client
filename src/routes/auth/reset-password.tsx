@@ -60,7 +60,7 @@ type Inputs = {
 export function ResetPassword() {
   const { t } = useTranslation(NS.Auth);
   const search = Route.useSearch();
-  const { isValid, token } = useValidateJWTToken(search.t);
+  const { isValid: isTokenValid, token } = useValidateJWTToken(search.t);
 
   const [showPasswords, setShowPasswords] = useState(false);
 
@@ -77,7 +77,7 @@ export function ResetPassword() {
     isSuccess,
   } = useResolvePasswordResetRequest();
 
-  if (!isValid) {
+  if (!isTokenValid) {
     return <InvalidTokenScreen />;
   }
 
