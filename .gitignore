@@ -47,3 +47,4 @@ cypress/videos
 *.tsbuildinfo
 
 *storybook.log
+storybook-static

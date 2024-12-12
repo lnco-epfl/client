@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@5.4.6':
+        specifier: link:@graasp/@5.4.6
+        version: link:@graasp/@5.4.6
       '@emotion/cache':
         specifier: 11.14.0
         version: 11.14.0
@@ -22,7 +25,7 @@ importers:
         version: 5.1.0
       '@graasp/chatbox':
         specifier: 3.3.1
-        version: 3.3.1(dkwxdit3mmxdwxdlktfuzpfjai)
+        version: 3.3.1(4y2jgwntz6nulkiu3n5mw2lpem)
       '@graasp/query-client':
         specifier: 5.7.0
         version: 5.7.0(@graasp/sdk@5.4.0(date-fns@4.1.0)(uuid@11.0.3))(@graasp/translations@1.43.0(i18next@24.1.0(typescript@5.7.2)))(react@18.3.1)
@@ -36,8 +39,8 @@ importers:
         specifier: 1.43.0
         version: 1.43.0(i18next@24.1.0(typescript@5.7.2))
       '@graasp/ui':
-        specifier: 5.4.5
-        version: 5.4.5(yp2iljihmy37ug6y3jie47re4i)
+        specifier: 5.4.6
+        version: 5.4.6(3hnjqrt2337kjoo3hx5ftqwvnq)
       '@mui/icons-material':
         specifier: 6.2.0
         version: 6.2.0(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
@@ -48,8 +51,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/react':
-        specifier: 8.43.0
-        version: 8.43.0(react@18.3.1)
+        specifier: 8.44.0
+        version: 8.44.0(react@18.3.1)
       '@tanstack/react-router':
         specifier: 1.87.9
         version: 1.87.9(@tanstack/router-generator@1.87.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -166,8 +169,8 @@ importers:
         specifier: ^8.4.7
         version: 8.4.7(storybook@8.4.7(prettier@3.4.2))
       '@tanstack/router-plugin':
-        specifier: 1.87.7
-        version: 1.87.7(vite@6.0.3(@types/node@22.9.0)(jiti@1.21.6)(terser@5.37.0)(tsx@4.19.2))(webpack@5.91.0(esbuild@0.24.0))
+        specifier: 1.87.11
+        version: 1.87.11(vite@6.0.3(@types/node@22.9.0)(jiti@1.21.6)(terser@5.37.0)(tsx@4.19.2))(webpack@5.91.0(esbuild@0.24.0))
       '@testing-library/jest-dom':
         specifier: 6.6.3
         version: 6.6.3
@@ -1621,8 +1624,8 @@ packages:
     peerDependencies:
       i18next: ^23.8.1
 
-  '@graasp/ui@5.4.5':
-    resolution: {integrity: sha512-6Shh4I6iVXM5gEkrsRbSOJK6p+6e1aeQzqhYTk0qsac1FS6hCOhQKcBMQlLZH7YZS7rjkK+Mn3xWxaRCOSC9zw==}
+  '@graasp/ui@5.4.6':
+    resolution: {integrity: sha512-HIwN3N3Ri4oFUntoEV4GS3pxNXsTUNvP3QSSEuZ8o11wTRE7j1xgDb8UvEcAJ9OVrqtP4h4lG8Tr2dAbW+kjhg==}
     engines: {node: '>=20'}
     peerDependencies:
       '@emotion/cache': ~11.10.7 || ~11.11.0 || ~11.13.0 || ~11.14.0
@@ -2009,32 +2012,32 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@sentry-internal/browser-utils@8.43.0':
-    resolution: {integrity: sha512-5WhJZ3SA5sZVDBwOsChDd5JCzYcwBX7sEqBqEcm3pFru6TUihEnFIJmDIbreIyrQMwUhs3dTxnfnidgjr5z1Ag==}
+  '@sentry-internal/browser-utils@8.44.0':
+    resolution: {integrity: sha512-kmSRdS1r2G3i0wTJJv69uMZqf/UwP3pVqrCq/0hvNaF4L5v+vrEOKTDZghDvCqutEqOFXI0V/l9SuDpgjElcZQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/feedback@8.43.0':
-    resolution: {integrity: sha512-rcGR2kzFu4vLXBQbI9eGJwjyToyjl36O2q/UKbiZBNJ5IFtDvKRLke6jIHq/YqiHPfFGpVtq5M/lYduDfA/eaQ==}
+  '@sentry-internal/feedback@8.44.0':
+    resolution: {integrity: sha512-x/7dilh9VRpsPRgx+1kT3Aulgj0X02GF+JfNeaFA2p786+2jBHTupGBu7AGiq1b1YRbDefkFXQxS1MaeqEEeOg==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay-canvas@8.43.0':
-    resolution: {integrity: sha512-rL8G7E1GtozH8VNalRrBQNjYDJ5ChWS/vpQI5hUG11PZfvQFXEVatLvT3uO2l0xIlHm4idTsHOSLTe/usxnogQ==}
+  '@sentry-internal/replay-canvas@8.44.0':
+    resolution: {integrity: sha512-hFCUHDekuJknzVCu5JnDkgUuOTJbwu82RR+VfbT+2lfIpZoT+gH44LzSH5bQUPXgmznRae4OYHblWAPue9U1Bw==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay@8.43.0':
-    resolution: {integrity: sha512-geV5/zejLfGGwWHjylzrb1w8NI3U37GMG9/53nmv13FmTXUDF5XF2lh41KXFVYwvp7Ha4bd1FRQ9IU9YtBWskw==}
+  '@sentry-internal/replay@8.44.0':
+    resolution: {integrity: sha512-ZPX3Bg8ShuWZZzL5lw/fHjHdRhxxhhdzsVXq2jItg3CPvuO7oQofZsG4po6vgXTlj+fdtjUMQanj/6Ah4+jwsQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry/browser@8.43.0':
-    resolution: {integrity: sha512-LGvLLnfmR8+AEgFmd7Q7KHiOTiV0P1Lvio2ENDELhEqJOIiICauttibVmig+AW02qg4kMeywvleMsUYaZv2RVA==}
+  '@sentry/browser@8.44.0':
+    resolution: {integrity: sha512-s12u8rz2aYjiWPzoE7StL7fiCS2Z5p5BYmk9bhGDqDWyAPVEVZFUB3u/hwcPUF4yDAroWCbsNzTiBwr813zihg==}
     engines: {node: '>=14.18'}
 
-  '@sentry/core@8.43.0':
-    resolution: {integrity: sha512-ktyovtjkTMNud+kC/XfqHVCoQKreIKgx/hgeRvzPwuPyd1t1KzYmRL3DBkbcWVnyOPpVTHn+RsEI1eRcVYHtvw==}
+  '@sentry/core@8.44.0':
+    resolution: {integrity: sha512-C43eW9Mr1WGpxCeI6pXUl7TeTwR2TwWhuU8wHx2s5eoATDQwbjz9l+JXXjVJf5YXXEwNOZL2WAx/f0diLA5rTQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry/react@8.43.0':
-    resolution: {integrity: sha512-PsTzLrYio/FOJU537Y5Gj9jJi7OMHEjdttsC9INUxy5062LOd8ObtHsjE0mopLaSYEwUfSROQOBZCwmISh8ByQ==}
+  '@sentry/react@8.44.0':
+    resolution: {integrity: sha512-LGqkLC+Sf1iEMmlHTBtCpEoZgwkeXjDDjc1rQjCq/5PG04jrCgXBTTAP7UqoetrYhQLNxtrgkGXmU4CE2BnIBw==}
     engines: {node: '>=14.18'}
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
@@ -2259,8 +2262,8 @@ packages:
     resolution: {integrity: sha512-w9Px1C6DM0YNVXvu1VjUuZ5el0ykOeofEmEZBW83VUTzvCXFpcjPCHncU9FO9uXup8NFIxNfGz+xpwf93GoFnQ==}
     engines: {node: '>=12'}
 
-  '@tanstack/router-plugin@1.87.7':
-    resolution: {integrity: sha512-3QdDyanjZkGW9yqqiDbjrFIEnrDpJGydNB5pawTbv2UsWO3vXQfzFY6wYuUZGjbXjXxXZ+C0H2f/igIP0dDDqg==}
+  '@tanstack/router-plugin@1.87.11':
+    resolution: {integrity: sha512-mg8Ci9IT2H5aDBM6DippwKr1AHTBc6eudgpvHRMelGxLl4VY7vlKNx5Ds5yZeqE9Jp6VNr2z7E0xx70e8cFoBg==}
     engines: {node: '>=12'}
     peerDependencies:
       '@rsbuild/core': '>=1.0.2'
@@ -3868,10 +3871,6 @@ packages:
     resolution: {integrity: sha512-5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==}
     engines: {node: '>= 0.4'}
 
-  get-intrinsic@1.2.5:
-    resolution: {integrity: sha512-Y4+pKa7XeRUPWFNvOOYHkRYrfzW07oraURSvjDmRVOJ748OrVmeXtpE4+GCEHncjCjkTxPNRt8kEbxDhsn6VTg==}
-    engines: {node: '>= 0.4'}
-
   get-intrinsic@1.2.6:
     resolution: {integrity: sha512-qxsEs+9A+u85HhllWJJFicJfPDhRmjzoYdl64aMWW9yRIJmSyxdn8IEkuIM530/7T+lv0TIHd8L6Q/ra0tEoeA==}
     engines: {node: '>= 0.4'}
@@ -4432,8 +4431,8 @@ packages:
     resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
     engines: {node: '>=18'}
 
-  katex@0.16.11:
-    resolution: {integrity: sha512-RQrI8rlHY92OLf3rho/Ts8i/XvjgguEjOkO1BEXcU3N8BqPpSzBNwV/G0Ukr+P/l3ivvJUE/Fa/CwbS6HesGNQ==}
+  katex@0.16.15:
+    resolution: {integrity: sha512-yE9YJIEAk2aZ+FL/G8r+UGw0CTUzEA8ZFy6E+8tc3spHUKq3qBnzCkI1CQwGoI9atJhVyFPEypQsTY7mJ1Pi9w==}
     hasBin: true
 
   keyv@4.5.4:
@@ -7015,8 +7014,8 @@ snapshots:
   '@babel/template@7.25.9':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/parser': 7.26.2
-      '@babel/types': 7.26.0
+      '@babel/parser': 7.26.3
+      '@babel/types': 7.26.3
 
   '@babel/traverse@7.25.9':
     dependencies:
@@ -7722,7 +7721,7 @@ snapshots:
 
   '@fontsource-variable/nunito@5.1.0': {}
 
-  '@graasp/chatbox@3.3.1(dkwxdit3mmxdwxdlktfuzpfjai)':
+  '@graasp/chatbox@3.3.1(4y2jgwntz6nulkiu3n5mw2lpem)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.16)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
@@ -7730,7 +7729,7 @@ snapshots:
       '@graasp/sdk': 5.4.0(date-fns@4.1.0)(uuid@11.0.3)
       '@graasp/stylis-plugin-rtl': 2.2.0(stylis@4.3.4)
       '@graasp/translations': 1.43.0(i18next@24.1.0(typescript@5.7.2))
-      '@graasp/ui': 5.4.5(yp2iljihmy37ug6y3jie47re4i)
+      '@graasp/ui': 5.4.6(3hnjqrt2337kjoo3hx5ftqwvnq)
       '@mui/icons-material': 6.2.0(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
       '@mui/lab': 6.0.0-beta.19(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/material': 6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7780,7 +7779,7 @@ snapshots:
     dependencies:
       i18next: 24.1.0(typescript@5.7.2)
 
-  '@graasp/ui@5.4.5(yp2iljihmy37ug6y3jie47re4i)':
+  '@graasp/ui@5.4.6(3hnjqrt2337kjoo3hx5ftqwvnq)':
     dependencies:
       '@emotion/cache': 11.14.0
       '@emotion/react': 11.14.0(@types/react@18.3.16)(react@18.3.1)
@@ -7794,7 +7793,7 @@ snapshots:
       http-status-codes: 2.3.0
       i18next: 24.1.0(typescript@5.7.2)
       interweave: 13.1.0(react@18.3.1)
-      katex: 0.16.11
+      katex: 0.16.15
       lodash.truncate: 4.4.2
       lucide-react: 0.468.0(react@18.3.1)
       react: 18.3.1
@@ -8131,38 +8130,38 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@sentry-internal/browser-utils@8.43.0':
+  '@sentry-internal/browser-utils@8.44.0':
     dependencies:
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/feedback@8.43.0':
+  '@sentry-internal/feedback@8.44.0':
     dependencies:
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/replay-canvas@8.43.0':
+  '@sentry-internal/replay-canvas@8.44.0':
     dependencies:
-      '@sentry-internal/replay': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/replay': 8.44.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/replay@8.43.0':
+  '@sentry-internal/replay@8.44.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/browser-utils': 8.44.0
+      '@sentry/core': 8.44.0
 
-  '@sentry/browser@8.43.0':
+  '@sentry/browser@8.44.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.43.0
-      '@sentry-internal/feedback': 8.43.0
-      '@sentry-internal/replay': 8.43.0
-      '@sentry-internal/replay-canvas': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/browser-utils': 8.44.0
+      '@sentry-internal/feedback': 8.44.0
+      '@sentry-internal/replay': 8.44.0
+      '@sentry-internal/replay-canvas': 8.44.0
+      '@sentry/core': 8.44.0
 
-  '@sentry/core@8.43.0': {}
+  '@sentry/core@8.44.0': {}
 
-  '@sentry/react@8.43.0(react@18.3.1)':
+  '@sentry/react@8.44.0(react@18.3.1)':
     dependencies:
-      '@sentry/browser': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry/browser': 8.44.0
+      '@sentry/core': 8.44.0
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
 
@@ -8447,7 +8446,7 @@ snapshots:
       tsx: 4.19.2
       zod: 3.24.1
 
-  '@tanstack/router-plugin@1.87.7(vite@6.0.3(@types/node@22.9.0)(jiti@1.21.6)(terser@5.37.0)(tsx@4.19.2))(webpack@5.91.0(esbuild@0.24.0))':
+  '@tanstack/router-plugin@1.87.11(vite@6.0.3(@types/node@22.9.0)(jiti@1.21.6)(terser@5.37.0)(tsx@4.19.2))(webpack@5.91.0(esbuild@0.24.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/generator': 7.26.3
@@ -8551,16 +8550,16 @@ snapshots:
 
   '@types/babel__generator@7.6.8':
     dependencies:
-      '@babel/types': 7.26.0
+      '@babel/types': 7.26.3
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.26.2
-      '@babel/types': 7.26.0
+      '@babel/parser': 7.26.3
+      '@babel/types': 7.26.3
 
   '@types/babel__traverse@7.20.6':
     dependencies:
-      '@babel/types': 7.26.0
+      '@babel/types': 7.26.3
 
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
@@ -9314,7 +9313,7 @@ snapshots:
     dependencies:
       call-bind-apply-helpers: 1.0.1
       es-define-property: 1.0.1
-      get-intrinsic: 1.2.5
+      get-intrinsic: 1.2.6
       set-function-length: 1.2.2
 
   call-bound@1.0.2:
@@ -9660,9 +9659,9 @@ snapshots:
 
   define-data-property@1.1.4:
     dependencies:
-      es-define-property: 1.0.0
+      es-define-property: 1.0.1
       es-errors: 1.3.0
-      gopd: 1.0.1
+      gopd: 1.2.0
 
   define-lazy-prop@2.0.0: {}
 
@@ -9781,7 +9780,7 @@ snapshots:
       is-callable: 1.2.7
       is-data-view: 1.0.1
       is-negative-zero: 2.0.3
-      is-regex: 1.1.4
+      is-regex: 1.2.1
       is-shared-array-buffer: 1.0.3
       is-string: 1.0.7
       is-typed-array: 1.1.13
@@ -10478,17 +10477,6 @@ snapshots:
       has-symbols: 1.0.3
       hasown: 2.0.2
 
-  get-intrinsic@1.2.5:
-    dependencies:
-      call-bind-apply-helpers: 1.0.1
-      dunder-proto: 1.0.0
-      es-define-property: 1.0.1
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      gopd: 1.2.0
-      has-symbols: 1.1.0
-      hasown: 2.0.2
-
   get-intrinsic@1.2.6:
     dependencies:
       call-bind-apply-helpers: 1.0.1
@@ -10611,7 +10599,7 @@ snapshots:
 
   has-tostringtag@1.0.2:
     dependencies:
-      has-symbols: 1.0.3
+      has-symbols: 1.1.0
 
   hasha@5.2.2:
     dependencies:
@@ -10736,7 +10724,7 @@ snapshots:
 
   is-arguments@1.1.1:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.8
       has-tostringtag: 1.0.2
 
   is-array-buffer@3.0.4:
@@ -11039,7 +11027,7 @@ snapshots:
 
   jwt-decode@4.0.0: {}
 
-  katex@0.16.11:
+  katex@0.16.15:
     dependencies:
       commander: 8.3.0
 
@@ -12196,7 +12184,7 @@ snapshots:
 
   regexp.prototype.flags@1.5.3:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.8
       define-properties: 1.2.1
       es-errors: 1.3.0
       set-function-name: 2.0.2
@@ -12385,8 +12373,8 @@ snapshots:
       define-data-property: 1.1.4
       es-errors: 1.3.0
       function-bind: 1.1.2
-      get-intrinsic: 1.2.4
-      gopd: 1.0.1
+      get-intrinsic: 1.2.6
+      gopd: 1.2.0
       has-property-descriptors: 1.0.2
 
   set-function-name@2.0.2:
@@ -13109,7 +13097,7 @@ snapshots:
       is-date-object: 1.0.5
       is-finalizationregistry: 1.0.2
       is-generator-function: 1.0.10
-      is-regex: 1.1.4
+      is-regex: 1.2.1
       is-weakref: 1.0.2
       isarray: 2.0.5
       which-boxed-primitive: 1.0.2
