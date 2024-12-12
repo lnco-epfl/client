@@ -22,7 +22,7 @@ importers:
         version: 5.1.0
       '@graasp/chatbox':
         specifier: 3.3.1
-        version: 3.3.1(2ywrlidzrv3xk3d3xwnod4ljbi)
+        version: 3.3.1(dkwxdit3mmxdwxdlktfuzpfjai)
       '@graasp/query-client':
         specifier: 5.7.0
         version: 5.7.0(@graasp/sdk@5.4.0(date-fns@4.1.0)(uuid@11.0.3))(@graasp/translations@1.43.0(i18next@24.1.0(typescript@5.7.2)))(react@18.3.1)
@@ -36,8 +36,8 @@ importers:
         specifier: 1.43.0
         version: 1.43.0(i18next@24.1.0(typescript@5.7.2))
       '@graasp/ui':
-        specifier: github:graasp/graasp-ui#remove-react-router
-        version: https://codeload.github.com/graasp/graasp-ui/tar.gz/b3039d805ace422cdde139075ba5b8e8cfce2b47(yp2iljihmy37ug6y3jie47re4i)
+        specifier: 5.4.5
+        version: 5.4.5(yp2iljihmy37ug6y3jie47re4i)
       '@mui/icons-material':
         specifier: 6.2.0
         version: 6.2.0(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
@@ -1621,22 +1621,21 @@ packages:
     peerDependencies:
       i18next: ^23.8.1
 
-  '@graasp/ui@https://codeload.github.com/graasp/graasp-ui/tar.gz/b3039d805ace422cdde139075ba5b8e8cfce2b47':
-    resolution: {tarball: https://codeload.github.com/graasp/graasp-ui/tar.gz/b3039d805ace422cdde139075ba5b8e8cfce2b47}
-    version: 5.4.2
+  '@graasp/ui@5.4.5':
+    resolution: {integrity: sha512-6Shh4I6iVXM5gEkrsRbSOJK6p+6e1aeQzqhYTk0qsac1FS6hCOhQKcBMQlLZH7YZS7rjkK+Mn3xWxaRCOSC9zw==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@emotion/cache': ~11.10.7 || ~11.11.0 || ~11.13.0
-      '@emotion/react': ~11.10.6 || ~11.11.0 || ~11.13.0
-      '@emotion/styled': ~11.10.6 || ~11.11.0 || ~11.13.0
+      '@emotion/cache': ~11.10.7 || ~11.11.0 || ~11.13.0 || ~11.14.0
+      '@emotion/react': ~11.10.6 || ~11.11.0 || ~11.13.0 || ~11.14.0
+      '@emotion/styled': ~11.10.6 || ~11.11.0 || ~11.13.0 || ~11.14.0
       '@graasp/sdk': ^4.29.0 || ^5.0.0
       '@graasp/stylis-plugin-rtl': ^2
       '@graasp/translations': ^1.23.0
       '@mui/icons-material': ^6
       '@mui/lab': ^6
       '@mui/material': ^6
-      i18next: ^22.4.15 || ^23.0.0
-      katex: 0.16.11
+      i18next: ^22.4.15 || ^23.0.0 || ^24.0.0
+      katex: 0.16.15
       lucide-react: ^0
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -1703,6 +1702,10 @@ packages:
 
   '@jridgewell/gen-mapping@0.3.5':
     resolution: {integrity: sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==}
+    engines: {node: '>=6.0.0'}
+
+  '@jridgewell/gen-mapping@0.3.8':
+    resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
     engines: {node: '>=6.0.0'}
 
   '@jridgewell/resolve-uri@3.1.2':
@@ -2959,6 +2962,10 @@ packages:
     resolution: {integrity: sha512-oKlSFMcMwpUg2ednkhQ454wfWiU/ul3CkJe/PEHcTKuiX6RpbehUiFMXu13HalGZxfUwCQzZG747YXBn1im9ww==}
     engines: {node: '>= 0.4'}
 
+  call-bound@1.0.2:
+    resolution: {integrity: sha512-0lk0PHFe/uz0vl527fG9CgdE9WdafjDbCXvBbs+LUv000TVt2Jjhqbs4Jwm8gz070w8xXyEAxrPOMullsxXeGg==}
+    engines: {node: '>= 0.4'}
+
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
@@ -3865,6 +3872,10 @@ packages:
     resolution: {integrity: sha512-Y4+pKa7XeRUPWFNvOOYHkRYrfzW07oraURSvjDmRVOJ748OrVmeXtpE4+GCEHncjCjkTxPNRt8kEbxDhsn6VTg==}
     engines: {node: '>= 0.4'}
 
+  get-intrinsic@1.2.6:
+    resolution: {integrity: sha512-qxsEs+9A+u85HhllWJJFicJfPDhRmjzoYdl64aMWW9yRIJmSyxdn8IEkuIM530/7T+lv0TIHd8L6Q/ra0tEoeA==}
+    engines: {node: '>= 0.4'}
+
   get-package-type@0.1.0:
     resolution: {integrity: sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==}
     engines: {node: '>=8.0.0'}
@@ -4220,6 +4231,10 @@ packages:
     resolution: {integrity: sha512-kvRdxDsxZjhzUX07ZnLydzS1TU/TJlTUHHY4YLL87e37oUA49DfkLqgy+VjFocowy29cKvcSiu+kIv728jTTVg==}
     engines: {node: '>= 0.4'}
 
+  is-regex@1.2.1:
+    resolution: {integrity: sha512-MjYsKHO5O7mCsmRGxWcLWheFqN9DJ/2TmngvjKXihe6efViPqc274+Fx/4fYj/r03+ESvBdTXK0V6tA3rgez1g==}
+    engines: {node: '>= 0.4'}
+
   is-set@2.0.3:
     resolution: {integrity: sha512-iPAjerrse27/ygGLxw+EBR9agv9Y6uLeYVJMu+QNCoouJ1/1ri0mGrcWpfCqFZuzzx3WjtwxG098X+n4OuRkPg==}
     engines: {node: '>= 0.4'}
@@ -4570,6 +4585,10 @@ packages:
 
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
+
+  math-intrinsics@1.0.0:
+    resolution: {integrity: sha512-4MqMiKP90ybymYvsut0CH2g4XWbfLtmlCkXmtmdcDCxNB+mQcu1w/1+L/VD7vi/PSv7X2JYV7SCcR+jiPXnQtA==}
+    engines: {node: '>= 0.4'}
 
   mdast-util-find-and-replace@3.0.1:
     resolution: {integrity: sha512-SG21kZHGC3XRTSUhtofZkBzZTJNM5ecCi0SK2IMKmSXR8vO3peL+kb1O0z7Zl83jKtutG4k5Wv/W7V3/YHvzPA==}
@@ -5412,9 +5431,9 @@ packages:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
     engines: {node: '>= 10.13.0'}
 
-  schema-utils@4.2.0:
-    resolution: {integrity: sha512-L0jRsrPpjdckP3oPug3/VxNKt2trR8TcabrM6FOAAlvC/9Phcmm+cuAgTlxBqdBR1WJx7Naj9WHw+aOmheSVbw==}
-    engines: {node: '>= 12.13.0'}
+  schema-utils@4.3.0:
+    resolution: {integrity: sha512-Gf9qqc58SpCA/xdziiHz35F4GNIWYWZrEshUc/G/r5BnLph6xpKuLeoJoQuj5WfBIx/eQLf+hmVPYHaxJu7V2g==}
+    engines: {node: '>= 10.13.0'}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -7703,7 +7722,7 @@ snapshots:
 
   '@fontsource-variable/nunito@5.1.0': {}
 
-  '@graasp/chatbox@3.3.1(2ywrlidzrv3xk3d3xwnod4ljbi)':
+  '@graasp/chatbox@3.3.1(dkwxdit3mmxdwxdlktfuzpfjai)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.16)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
@@ -7711,7 +7730,7 @@ snapshots:
       '@graasp/sdk': 5.4.0(date-fns@4.1.0)(uuid@11.0.3)
       '@graasp/stylis-plugin-rtl': 2.2.0(stylis@4.3.4)
       '@graasp/translations': 1.43.0(i18next@24.1.0(typescript@5.7.2))
-      '@graasp/ui': https://codeload.github.com/graasp/graasp-ui/tar.gz/b3039d805ace422cdde139075ba5b8e8cfce2b47(yp2iljihmy37ug6y3jie47re4i)
+      '@graasp/ui': 5.4.5(yp2iljihmy37ug6y3jie47re4i)
       '@mui/icons-material': 6.2.0(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react@18.3.1)
       '@mui/lab': 6.0.0-beta.19(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@mui/material@6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/material': 6.2.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react@18.3.1))(@types/react@18.3.16)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7761,7 +7780,7 @@ snapshots:
     dependencies:
       i18next: 24.1.0(typescript@5.7.2)
 
-  '@graasp/ui@https://codeload.github.com/graasp/graasp-ui/tar.gz/b3039d805ace422cdde139075ba5b8e8cfce2b47(yp2iljihmy37ug6y3jie47re4i)':
+  '@graasp/ui@5.4.5(yp2iljihmy37ug6y3jie47re4i)':
     dependencies:
       '@emotion/cache': 11.14.0
       '@emotion/react': 11.14.0(@types/react@18.3.16)(react@18.3.1)
@@ -7857,13 +7876,19 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
 
+  '@jridgewell/gen-mapping@0.3.8':
+    dependencies:
+      '@jridgewell/set-array': 1.2.1
+      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/trace-mapping': 0.3.25
+
   '@jridgewell/resolve-uri@3.1.2': {}
 
   '@jridgewell/set-array@1.2.1': {}
 
   '@jridgewell/source-map@0.3.6':
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.5
+      '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/sourcemap-codec@1.5.0': {}
@@ -9173,7 +9198,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.0
       find-cache-dir: 4.0.0
-      schema-utils: 4.2.0
+      schema-utils: 4.3.0
       webpack: 5.91.0(esbuild@0.24.0)
 
   babel-plugin-macros@3.1.0:
@@ -9291,6 +9316,11 @@ snapshots:
       es-define-property: 1.0.1
       get-intrinsic: 1.2.5
       set-function-length: 1.2.2
+
+  call-bound@1.0.2:
+    dependencies:
+      call-bind: 1.0.8
+      get-intrinsic: 1.2.6
 
   callsites@3.1.0: {}
 
@@ -9617,7 +9647,7 @@ snapshots:
     dependencies:
       is-arguments: 1.1.1
       is-date-object: 1.0.5
-      is-regex: 1.1.4
+      is-regex: 1.2.1
       object-is: 1.1.6
       object-keys: 1.1.1
       regexp.prototype.flags: 1.5.3
@@ -10459,6 +10489,19 @@ snapshots:
       has-symbols: 1.1.0
       hasown: 2.0.2
 
+  get-intrinsic@1.2.6:
+    dependencies:
+      call-bind-apply-helpers: 1.0.1
+      dunder-proto: 1.0.0
+      es-define-property: 1.0.1
+      es-errors: 1.3.0
+      es-object-atoms: 1.0.0
+      function-bind: 1.1.2
+      gopd: 1.2.0
+      has-symbols: 1.1.0
+      hasown: 2.0.2
+      math-intrinsics: 1.0.0
+
   get-package-type@0.1.0: {}
 
   get-stream@5.2.0:
@@ -10798,6 +10841,13 @@ snapshots:
       call-bind: 1.0.7
       has-tostringtag: 1.0.2
 
+  is-regex@1.2.1:
+    dependencies:
+      call-bound: 1.0.2
+      gopd: 1.2.0
+      has-tostringtag: 1.0.2
+      hasown: 2.0.2
+
   is-set@2.0.3: {}
 
   is-shared-array-buffer@1.0.3:
@@ -11125,6 +11175,8 @@ snapshots:
   map-or-similar@1.5.0: {}
 
   markdown-table@3.0.4: {}
+
+  math-intrinsics@1.0.0: {}
 
   mdast-util-find-and-replace@3.0.1:
     dependencies:
@@ -11640,7 +11692,7 @@ snapshots:
 
   object-is@1.1.6:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.8
       define-properties: 1.2.1
 
   object-keys@1.1.1: {}
@@ -12311,7 +12363,7 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  schema-utils@4.2.0:
+  schema-utils@4.3.0:
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.17.1
