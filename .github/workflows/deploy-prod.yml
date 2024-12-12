@@ -68,7 +68,9 @@ jobs:
         # Replace input build-folder or version if needed
         with:
           build-folder: "build"
-          role-to-assume: ${{ secrets.AWS_ROLE }}
+          # todo: replace these with the role-to-assume oidc solution
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
           aws-region: ${{ vars.AWS_REGION }}
           aws-s3-bucket-name: ${{ vars.AWS_S3_BUCKET_NAME }}
           cloudfront-distribution-id: ${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
