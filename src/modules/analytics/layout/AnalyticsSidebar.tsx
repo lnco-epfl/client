@@ -24,7 +24,9 @@ import {
 } from '~analytics/config/selectors';
 import { DataContext } from '~analytics/context/DataProvider';
 
-export function AnalyticsSidebar({ itemId }: { itemId: string }): JSX.Element {
+export function AnalyticsSidebar({
+  itemId,
+}: Readonly<{ itemId: string }>): JSX.Element {
   const { t } = useTranslation(NS.Analytics);
   const { descendantApps } = useContext(DataContext);
   const { data: item } = hooks.useItem(itemId);

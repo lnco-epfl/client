@@ -18,7 +18,9 @@ import {
 
 const { useItem, useParents, useCurrentMember, useChildren } = hooks;
 
-export function Navigator({ itemId }: { itemId: string }): JSX.Element | null {
+export function Navigator({
+  itemId,
+}: Readonly<{ itemId: string }>): JSX.Element | null {
   const { data: currentMember } = useCurrentMember();
   const { data: item, isLoading: isItemLoading } = useItem(itemId);
 

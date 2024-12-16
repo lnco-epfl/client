@@ -45,7 +45,7 @@ type Props = {
 };
 export function MemberGeneralStatisticsCards({
   actionsGroupedByTypes,
-}: Props): JSX.Element {
+}: Readonly<Props>): JSX.Element {
   const { t } = useTranslation(NS.Analytics);
 
   return (

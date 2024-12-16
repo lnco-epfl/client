@@ -16,7 +16,7 @@ type Props = {
 
 export function UserSwitchWrapper({
   ButtonContent,
-}: Props): JSX.Element | null {
+}: Readonly<Props>): JSX.Element | null {
   const { i18n } = useTranslation(NS.Account);
   const { isAuthenticated, user, logout } = useAuth();
 

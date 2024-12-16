@@ -1,6 +1,7 @@
 import { createContext, useMemo, useState } from 'react';
 
 import { addDays, intervalToDuration } from 'date-fns';
+import type { Duration } from 'date-fns';
 
 import { DateRange, GroupByInterval } from '~analytics/config/type';
 
@@ -22,6 +23,20 @@ const defaultValue: {
 
 export const MyAnalyticsDateRangeDataContext = createContext(defaultValue);
 
+function getGroupInterval(duration: Duration) {
+  if (duration.years && duration.years >= 1) {
+    return GroupByInterval.Year;
+  }
+  if (duration.months && duration.months > 2) {
+    return GroupByInterval.Month;
+  }
+  if (duration.days && duration.days < 8) {
+    return GroupByInterval.Day;
+  } else {
+    return GroupByInterval.Week;
+  }
+}
+
 const MyAnalyticsDateRangeProvider = ({
   children,
 }: {
@@ -33,19 +48,12 @@ const MyAnalyticsDateRangeProvider = ({
     key: 'selection',
   });
 
-  const { months, days, years } = intervalToDuration({
-    start: dateRange.startDate,
-    end: dateRange.endDate,
-  });
-
-  const groupInterval =
-    years && years >= 1
-      ? GroupByInterval.Year
-      : months && months > 2
-        ? GroupByInterval.Month
-        : days && days < 8
-          ? GroupByInterval.Day
-          : GroupByInterval.Week;
+  const groupInterval = getGroupInterval(
+    intervalToDuration({
+      start: dateRange.startDate,
+      end: dateRange.endDate,
+    }),
+  );
 
   const value = useMemo(
     () => ({
