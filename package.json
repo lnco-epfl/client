@@ -162,5 +162,8 @@
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "resolutions": {
+    "date-fns": "^4"
   }
 }

@@ -24,7 +24,6 @@ import {
 import { NS } from '@/config/constants';
 import { hooks } from '@/config/queryClient';
 
-import StyledAlert from '~analytics/common/StyledAlert';
 import { DataContext } from '~analytics/context/DataProvider';
 import { ViewDataContext } from '~analytics/context/ViewDataProvider';
 
