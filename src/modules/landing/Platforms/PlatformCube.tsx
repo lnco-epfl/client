@@ -13,7 +13,6 @@ import {
 
 import { NS } from '@/config/constants';
 import {
-  GRAASP_ANALYTICS_HOST,
   GRAASP_BUILDER_HOST,
   GRAASP_LIBRARY_HOST,
   GRAASP_PLAYER_HOST,
@@ -65,7 +64,7 @@ export function PlatformCube() {
       text: <Trans t={t} i18nKey="ANALYTICS.DESCRIPTION" />,
       button: {
         text: t('ANALYTICS.BUTTON_TEXT'),
-        href: GRAASP_ANALYTICS_HOST,
+        href: '/features/#analytics',
       },
     },
   } as const;

@@ -2,6 +2,7 @@
 import 'i18next';
 
 import account from '../locales/en/account.json';
+import analytics from '../locales/en/analytics.json';
 import auth from '../locales/en/auth.json';
 import common from '../locales/en/common.json';
 import enums from '../locales/en/enums.json';
@@ -14,6 +15,7 @@ declare module 'i18next' {
     resources: {
       account: typeof account;
       auth: typeof auth;
+      analytics: typeof analytics;
       landing: typeof landing;
       player: typeof player;
       enums: typeof enums;

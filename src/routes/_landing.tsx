@@ -12,7 +12,9 @@ import {
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 
 import { useAuth } from '@/AuthContext';
+import { ButtonLink } from '@/components/ui/ButtonLink';
 import { NS } from '@/config/constants';
+import { GRAASP_LIBRARY_HOST } from '@/config/env';
 import { LANDING_PAGE_PATH } from '@/config/paths';
 import { mutations } from '@/config/queryClient';
 import { OnChangeLangProp } from '@/types';
@@ -68,23 +70,54 @@ function RouteComponent() {
             direction="row"
             alignItems="center"
             id="rightTitleWrapper"
-            component={Link}
-            to={LANDING_PAGE_PATH}
-            // override link styling
-            sx={{ textDecoration: 'none', color: 'inherit' }}
-            gap={1}
+            gap={4}
           >
-            <GraaspLogo height={44} sx={{ fill: primary! }} />
-            {!isMobile && (
-              <Typography fontWeight="bold" variant="h2" color="primary">
-                Graasp
-                {isPreviewEnabled ? (
-                  <Typography variant="note">preview</Typography>
-                ) : (
-                  ''
-                )}
-              </Typography>
-            )}
+            <Stack
+              direction="row"
+              gap={1}
+              alignItems="center"
+              component={Link}
+              to={LANDING_PAGE_PATH}
+              // override link styling
+              sx={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <GraaspLogo height={44} sx={{ fill: primary! }} />
+              {!isMobile && (
+                <Typography fontWeight="bold" variant="h2" color="primary">
+                  Graasp
+                  {isPreviewEnabled ? (
+                    <Typography variant="note">preview</Typography>
+                  ) : (
+                    ''
+                  )}
+                </Typography>
+              )}
+            </Stack>
+            <Stack
+              direction="row"
+              display={{ xs: 'none', sm: 'unset' }}
+              gap={2}
+              alignItems="center"
+            >
+              <ButtonLink
+                activeProps={() => ({ fontStyle: 'bold' })}
+                to="/features"
+              >
+                Features
+              </ButtonLink>
+              <ButtonLink
+                activeProps={() => ({ fontStyle: 'bold' })}
+                to="/about-us"
+              >
+                About us
+              </ButtonLink>
+              <ButtonLink
+                activeProps={() => ({ fontStyle: 'bold' })}
+                to={GRAASP_LIBRARY_HOST}
+              >
+                Library
+              </ButtonLink>
+            </Stack>
           </Stack>
           <RightHeader onChangeLang={onChangeLang} />
         </Stack>

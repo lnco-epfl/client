@@ -6,6 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 import { PackedItem, formatDate } from '@graasp/sdk';
+import { AnalyticsIcon, PlayIcon } from '@graasp/ui';
+
+import { Link } from '@tanstack/react-router';
 
 import { CardActionAreaLink } from '@/components/ui/CardActionAreaLink';
 import { NS } from '@/config/constants';
@@ -26,30 +29,59 @@ const SimpleCard = ({ item }: Props): JSX.Element => {
         params={{ rootId: item.id, itemId: item.id }}
       >
         <CardContent>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              // do not allow icons to shrink
-              flexShrink={0}
-            >
-              <ItemThumbnail item={item} />
-            </Box>
-            <Stack minWidth={0}>
-              <Typography
-                variant="h5"
-                component="h2"
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <Stack direction="row" spacing={2} width="100%" minWidth={0}>
+              <Box
+                display="flex"
+                justifyContent="center"
                 alignItems="center"
-                textOverflow="ellipsis"
-                overflow="hidden"
-                noWrap
+                // do not allow icons to shrink
+                flexShrink={0}
               >
-                {item.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {formatDate(item.updatedAt, { locale: i18n.language })}
-              </Typography>
+                <ItemThumbnail item={item} />
+              </Box>
+              <Stack minWidth={0}>
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  alignItems="center"
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  noWrap
+                >
+                  {item.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {formatDate(item.updatedAt, { locale: i18n.language })}
+                </Typography>
+              </Stack>
+            </Stack>
+            <Stack>
+              <Link
+                to="/player/$rootId/$itemId"
+                params={{ rootId: item.id, itemId: item.id }}
+                style={{ minHeight: 0 }}
+              >
+                <PlayIcon
+                  size={30}
+                  secondaryColor="white"
+                  disableHover={false}
+                  sx={{ display: 'block' }}
+                />
+              </Link>
+              <Link to="/analytics/items/$itemId" params={{ itemId: item.id }}>
+                <AnalyticsIcon
+                  size={30}
+                  secondaryColor="white"
+                  disableHover={false}
+                  sx={{ display: 'block' }}
+                />
+              </Link>
             </Stack>
           </Stack>
         </CardContent>

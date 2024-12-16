@@ -34,5 +34,28 @@
 
   "guest": "guest",
   "individual": "member",
-  "group": "group"
+  "group": "group",
+
+  "collection-view": "view collection",
+  "chat_clear": "clear chat",
+  "chat_delete": "delete chat",
+  "chat_update": "update chat",
+  "chat_create": "create chat",
+  "delete": "delete item",
+  "update": "update item",
+  "copy": "copy item",
+  "create": "create item",
+  "move": "move item",
+  "item-search": "search item",
+  "item-embed": "embed item",
+  "item-unlike": "unlike item",
+  "item-like": "like item",
+  "item-download": "download item",
+  "link-open": "open link",
+  "item-view": "view item",
+  "collapse-item": "collapse item",
+  "uncollapse-item": "un-collapse item",
+  "member-login": "member login",
+  "ask-reset-password": "request password reset",
+  "reset-password": "password reset"
 }

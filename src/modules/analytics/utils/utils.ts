@@ -12,12 +12,16 @@ import {
   startOfWeek,
   startOfYear,
 } from 'date-fns';
-import { fromPairs, orderBy, toPairs } from 'lodash';
-import countBy from 'lodash.countby';
-import groupBy from 'lodash.groupby';
-import truncate from 'lodash.truncate';
+import {
+  countBy,
+  fromPairs,
+  groupBy,
+  orderBy,
+  toPairs,
+  truncate,
+} from 'lodash';
 
-import { GroupByInterval } from '@/config/type';
+import { GroupByInterval } from '~analytics/config/type';
 
 import {
   ITEM_NAME_MAX_LENGTH,
@@ -396,15 +400,15 @@ const groupActionsBasedOnMaxIntervals = (
 
 export const groupActions = (
   actions: Action[],
-  groupBy: GroupByInterval,
+  groupByKey: GroupByInterval,
   start: Date,
   stop: Date,
   maxIntervals: number,
 ): { [key: string]: Action[] } => {
-  const groupedActions = groupActionsByInterval(actions, groupBy);
+  const groupedActions = groupActionsByInterval(actions, groupByKey);
   const filledGroupedActions = fillDateGaps(
     groupedActions,
-    groupBy,
+    groupByKey,
     start,
     stop,
   );

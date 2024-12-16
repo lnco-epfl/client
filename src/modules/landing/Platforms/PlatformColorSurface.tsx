@@ -83,7 +83,9 @@ export function PlatformColorSurface({
         <Typography fontSize={20} color="white" flex={1}>
           {text}
         </Typography>
-        <StyledButton color={color}>{button.text}</StyledButton>
+        <StyledButton href={button.href} color={color}>
+          {button.text}
+        </StyledButton>
       </Stack>
     </StyledStack>
   );

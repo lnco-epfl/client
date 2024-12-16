@@ -32,12 +32,17 @@ export function RecentItems() {
   );
 
   return (
-    <Stack m={2} direction="column" alignItems="center" spacing={4}>
-      <Stack direction="column" width="100%">
-        <Typography variant="h4" component="h1" mb={1}>
+    <Stack direction="column" alignItems="center" gap={2} width="100%">
+      <Stack direction="column" width="100%" gap={2}>
+        <Typography variant="h4" component="h1">
           {t('RECENT_ITEMS_TITLE')}
         </Typography>
-        <Grid container spacing={3} justifyItems="center">
+        <Grid
+          container
+          // needs to be "spacing" because with gap it does not fill the whole line
+          spacing={2}
+          justifyItems="center"
+        >
           <DisplayItems items={accessibleItems?.data} isLoading={isLoading} />
         </Grid>
       </Stack>

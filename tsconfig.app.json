@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -22,6 +22,7 @@
       "~landing/*": ["./src/modules/landing/*"],
       "~player/*": ["./src/modules/player/*"],
       "~auth/*": ["./src/modules/auth/*"],
+      "~analytics/*": ["./src/modules/analytics/*"],
       "@/*": ["./src/*"]
     }
   },

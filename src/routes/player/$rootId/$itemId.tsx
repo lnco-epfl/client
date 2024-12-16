@@ -13,11 +13,7 @@ import { z } from 'zod';
 import { CustomLink } from '@/components/ui/CustomLink';
 import { UserSwitchWrapper } from '@/components/ui/UserSwitchWrapper';
 import { NS } from '@/config/constants';
-import {
-  GRAASP_ANALYTICS_HOST,
-  GRAASP_BUILDER_HOST,
-  GRAASP_LIBRARY_HOST,
-} from '@/config/env';
+import { GRAASP_BUILDER_HOST, GRAASP_LIBRARY_HOST } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 
 import ItemNavigation from '~player/ItemNavigation';
@@ -65,7 +61,7 @@ function PlayerWrapper(): JSX.Element {
       href: GRAASP_LIBRARY_HOST,
     },
     [Platform.Analytics]: {
-      href: `${GRAASP_ANALYTICS_HOST}/items/${itemId}`,
+      href: `/analytics/items/${itemId}`,
     },
   };
 

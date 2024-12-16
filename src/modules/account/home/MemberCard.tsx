@@ -40,7 +40,7 @@ export function MemberCard(): JSX.Element | null {
 
           <Typography id={MEMBER_CREATED_AT_ID} variant="caption">
             {t('PROFILE_CREATED_AT_INFO', {
-              date: formatDistanceToNow(member.createdAt, {
+              date: formatDistanceToNow(new Date(member.createdAt), {
                 locale: getLocalForDateFns(i18n.language),
               }),
             })}

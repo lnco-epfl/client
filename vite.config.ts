@@ -1,11 +1,11 @@
-/// <reference types="./src/env.d.ts"/>
+/// <reference types="./src/vite-env.d.ts"/>
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
 import { type UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tsConfigPaths from 'vite-tsconfig-paths';
 
 import { umamiPlugin } from './umami.plugin';
 
@@ -26,7 +26,7 @@ const config = ({ mode }: { mode: string }): UserConfigExport => {
     VITE_GRAASP_API_HOST,
   } = process.env;
   // compute the port to use
-  const PORT = parseInt(VITE_PORT || '3114', 10);
+  const PORT = parseInt(VITE_PORT ?? '3114', 10);
   // compute whether we should open the browser
   // this defines if we should automatically open the browser
   const shouldOpen = BROWSER && BROWSER !== 'none';
@@ -62,6 +62,9 @@ const config = ({ mode }: { mode: string }): UserConfigExport => {
     },
     plugins: [
       TanStackRouterVite(),
+      tsConfigPaths({
+        projects: ['./tsconfig.json'],
+      }),
       // the checker plugin is disabled when running the tests
       mode !== 'test'
         ? checker({
@@ -93,15 +96,15 @@ const config = ({ mode }: { mode: string }): UserConfigExport => {
         targets: [{ src: 'src/locales', dest: '' }],
       }),
     ],
-    resolve: {
-      alias: {
-        '~account': resolve(__dirname, 'src/modules/account'),
-        '~landing': resolve(__dirname, 'src/modules/landing'),
-        '~player': resolve(__dirname, 'src/modules/player'),
-        '~auth': resolve(__dirname, 'src/modules/auth'),
-        '@': resolve(__dirname, 'src'),
-      },
-    },
+    // resolve: {
+    //   alias: {
+    //     '~account': resolve(__dirname, 'src/modules/account'),
+    //     '~landing': resolve(__dirname, 'src/modules/landing'),
+    //     '~player': resolve(__dirname, 'src/modules/player'),
+    //     '~auth': resolve(__dirname, 'src/modules/auth'),
+    //     '@': resolve(__dirname, 'src'),
+    //   },
+    // },
   });
 };
 export default config;

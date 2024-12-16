@@ -17,6 +17,7 @@ export function ExportData(): JSX.Element {
     exportData();
     setIsExported(true);
   };
+
   return (
     <BorderedSection title={t('EXPORT_INFORMATIONS_TITLE')}>
       <Stack direction="column" spacing={2}>

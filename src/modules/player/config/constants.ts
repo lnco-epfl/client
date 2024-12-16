@@ -1,10 +1,6 @@
 import { Context } from '@graasp/sdk';
 
-import {
-  GRAASP_ANALYTICS_HOST,
-  GRAASP_BUILDER_HOST,
-  GRAASP_LIBRARY_HOST,
-} from '@/config/env';
+import { GRAASP_BUILDER_HOST, GRAASP_LIBRARY_HOST } from '@/config/env';
 
 export const APP_NAME = 'Graasp';
 
@@ -19,7 +15,7 @@ export const DESCRIPTION_MAX_LENGTH = 130;
 export const HOST_MAP = {
   [Context.Builder]: GRAASP_BUILDER_HOST,
   [Context.Library]: GRAASP_LIBRARY_HOST,
-  [Context.Analytics]: GRAASP_ANALYTICS_HOST,
+  [Context.Analytics]: '/analytics',
   [Context.Player]: '/',
 };
 
