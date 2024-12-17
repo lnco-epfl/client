@@ -66,7 +66,7 @@ export function umamiPlugin(options: UmamiPluginOptions): Plugin {
           attrs: {
             defer: true,
             // remove trailing slash from base
-            src: `${config.base.replace(/\/$/, '')}/umami.js`,
+            src: `${config.base.replace(/\/$/, '')}/script.js`,
             'data-website-id': options.websiteId,
             'data-host-url': options.host,
           },

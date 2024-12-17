@@ -4,7 +4,7 @@ import { Alert, Stack, Typography } from '@mui/material';
 
 import { AccountType } from '@graasp/sdk';
 
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
 
 import { getLocalForDateFns } from '@/components/langs';
 import { NS } from '@/config/constants';

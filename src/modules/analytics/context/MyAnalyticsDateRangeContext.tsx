@@ -1,7 +1,8 @@
 import { createContext, useMemo, useState } from 'react';
 
-import { addDays, intervalToDuration } from 'date-fns';
 import type { Duration } from 'date-fns';
+import { addDays } from 'date-fns/addDays';
+import { intervalToDuration } from 'date-fns/intervalToDuration';
 
 import { DateRange, GroupByInterval } from '~analytics/config/type';
 

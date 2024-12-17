@@ -16,7 +16,9 @@ import {
   PackedItem,
 } from '@graasp/sdk';
 
-import { addDays, endOfDay, formatISO } from 'date-fns';
+import { addDays } from 'date-fns/addDays';
+import { endOfDay } from 'date-fns/endOfDay';
+import { formatISO } from 'date-fns/formatISO';
 
 import { hooks } from '@/config/queryClient';
 

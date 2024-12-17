@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Stack } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 import { PackedItem, formatDate } from '@graasp/sdk';
@@ -24,68 +23,71 @@ const SimpleCard = ({ item }: Props): JSX.Element => {
 
   return (
     <Card>
-      <CardActionAreaLink
-        to="/player/$rootId/$itemId"
-        params={{ rootId: item.id, itemId: item.id }}
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
       >
-        <CardContent>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            width="100%"
-          >
-            <Stack direction="row" spacing={2} width="100%" minWidth={0}>
-              <Box
-                display="flex"
-                justifyContent="center"
+        <CardActionAreaLink
+          to="/player/$rootId/$itemId"
+          params={{ rootId: item.id, itemId: item.id }}
+          sx={{
+            minWidth: 0,
+            width: '100%',
+            p: 2,
+          }}
+        >
+          <Stack direction="row" spacing={2} width="100%" minWidth={0}>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              // do not allow icons to shrink
+              flexShrink={0}
+            >
+              <ItemThumbnail item={item} />
+            </Box>
+            <Stack minWidth={0}>
+              <Typography
+                variant="h5"
+                component="h2"
                 alignItems="center"
-                // do not allow icons to shrink
-                flexShrink={0}
+                textOverflow="ellipsis"
+                overflow="hidden"
+                noWrap
               >
-                <ItemThumbnail item={item} />
-              </Box>
-              <Stack minWidth={0}>
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  alignItems="center"
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  noWrap
-                >
-                  {item.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {formatDate(item.updatedAt, { locale: i18n.language })}
-                </Typography>
-              </Stack>
-            </Stack>
-            <Stack>
-              <Link
-                to="/player/$rootId/$itemId"
-                params={{ rootId: item.id, itemId: item.id }}
-                style={{ minHeight: 0 }}
-              >
-                <PlayIcon
-                  size={30}
-                  secondaryColor="white"
-                  disableHover={false}
-                  sx={{ display: 'block' }}
-                />
-              </Link>
-              <Link to="/analytics/items/$itemId" params={{ itemId: item.id }}>
-                <AnalyticsIcon
-                  size={30}
-                  secondaryColor="white"
-                  disableHover={false}
-                  sx={{ display: 'block' }}
-                />
-              </Link>
+                {item.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {formatDate(item.updatedAt, { locale: i18n.language })}
+              </Typography>
             </Stack>
           </Stack>
-        </CardContent>
-      </CardActionAreaLink>
+        </CardActionAreaLink>
+        <Stack paddingInlineEnd={2}>
+          <Link
+            to="/player/$rootId/$itemId"
+            params={{ rootId: item.id, itemId: item.id }}
+            style={{ minHeight: 0 }}
+          >
+            <PlayIcon
+              size={30}
+              secondaryColor="white"
+              disableHover={false}
+              sx={{ display: 'block' }}
+            />
+          </Link>
+          <Link to="/analytics/items/$itemId" params={{ itemId: item.id }}>
+            <AnalyticsIcon
+              size={30}
+              secondaryColor="white"
+              disableHover={false}
+              sx={{ display: 'block' }}
+            />
+          </Link>
+        </Stack>
+      </Stack>
     </Card>
   );
 };

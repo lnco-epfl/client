@@ -11,7 +11,8 @@ import {
   CountGroupBy,
 } from '@graasp/sdk';
 
-import { endOfDay, formatISO } from 'date-fns';
+import { endOfDay } from 'date-fns/endOfDay';
+import { formatISO } from 'date-fns/formatISO';
 
 import { NS } from '@/config/constants';
 import { hooks } from '@/config/queryClient';

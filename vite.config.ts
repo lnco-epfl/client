@@ -96,15 +96,6 @@ const config = ({ mode }: { mode: string }): UserConfigExport => {
         targets: [{ src: 'src/locales', dest: '' }],
       }),
     ],
-    // resolve: {
-    //   alias: {
-    //     '~account': resolve(__dirname, 'src/modules/account'),
-    //     '~landing': resolve(__dirname, 'src/modules/landing'),
-    //     '~player': resolve(__dirname, 'src/modules/player'),
-    //     '~auth': resolve(__dirname, 'src/modules/auth'),
-    //     '@': resolve(__dirname, 'src'),
-    //   },
-    // },
   });
 };
 export default config;

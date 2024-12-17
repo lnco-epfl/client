@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material';
 
 import { ActionTriggers } from '@graasp/sdk';
 
-import { groupBy } from 'lodash';
+import groupBy from 'lodash/groupBy';
 import {
   Bar,
   CartesianGrid,

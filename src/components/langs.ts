@@ -1,6 +1,6 @@
 import { DEFAULT_LANG } from '@graasp/translations';
 
-import { Locale } from 'date-fns';
+import type { Locale } from 'date-fns';
 import { ar } from 'date-fns/locale/ar';
 import { de } from 'date-fns/locale/de';
 import { enUS } from 'date-fns/locale/en-US';

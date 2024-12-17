@@ -10,8 +10,9 @@ import {
   CountGroupBy,
 } from '@graasp/sdk';
 
-import { endOfDay, formatISO } from 'date-fns';
-import { groupBy } from 'lodash';
+import { endOfDay } from 'date-fns/endOfDay';
+import { formatISO } from 'date-fns/formatISO';
+import groupBy from 'lodash/groupBy';
 import {
   Bar,
   CartesianGrid,

@@ -10,7 +10,8 @@ import {
   CountGroupBy,
 } from '@graasp/sdk';
 
-import { endOfDay, formatISO } from 'date-fns';
+import { endOfDay } from 'date-fns/endOfDay';
+import { formatISO } from 'date-fns/formatISO';
 import {
   CartesianGrid,
   Legend,

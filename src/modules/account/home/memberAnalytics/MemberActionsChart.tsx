@@ -5,8 +5,10 @@ import { Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { Action } from '@graasp/sdk';
 
-import { format, intervalToDuration } from 'date-fns';
-import { countBy, groupBy } from 'lodash';
+import { format } from 'date-fns/format';
+import { intervalToDuration } from 'date-fns/intervalToDuration';
+import countBy from 'lodash/countBy';
+import groupBy from 'lodash/groupBy';
 import {
   Bar,
   CartesianGrid,

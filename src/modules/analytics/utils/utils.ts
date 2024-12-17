@@ -1,25 +1,21 @@
 import { Action, DiscriminatedItem, Member } from '@graasp/sdk';
 
-import {
-  addDays,
-  addMonths,
-  addWeeks,
-  addYears,
-  isBefore,
-  parseISO,
-  startOfDay,
-  startOfMonth,
-  startOfWeek,
-  startOfYear,
-} from 'date-fns';
-import {
-  countBy,
-  fromPairs,
-  groupBy,
-  orderBy,
-  toPairs,
-  truncate,
-} from 'lodash';
+import { addDays } from 'date-fns/addDays';
+import { addMonths } from 'date-fns/addMonths';
+import { addWeeks } from 'date-fns/addWeeks';
+import { addYears } from 'date-fns/addYears';
+import { isBefore } from 'date-fns/isBefore';
+import { parseISO } from 'date-fns/parseISO';
+import { startOfDay } from 'date-fns/startOfDay';
+import { startOfMonth } from 'date-fns/startOfMonth';
+import { startOfWeek } from 'date-fns/startOfWeek';
+import { startOfYear } from 'date-fns/startOfYear';
+import countBy from 'lodash/countBy';
+import fromPairs from 'lodash/fromPairs';
+import groupBy from 'lodash/groupBy';
+import orderBy from 'lodash/orderBy';
+import toPairs from 'lodash/toPairs';
+import truncate from 'lodash/truncate';
 
 import { GroupByInterval } from '~analytics/config/type';
 

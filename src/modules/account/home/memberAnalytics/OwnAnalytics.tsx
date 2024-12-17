@@ -5,8 +5,9 @@ import { Alert, Stack, Typography } from '@mui/material';
 
 import { Loader } from '@graasp/ui';
 
-import { format, formatISO } from 'date-fns';
-import { groupBy } from 'lodash';
+import { format } from 'date-fns/format';
+import { formatISO } from 'date-fns/formatISO';
+import groupBy from 'lodash/groupBy';
 
 import { NS } from '@/config/constants';
 import { hooks } from '@/config/queryClient';

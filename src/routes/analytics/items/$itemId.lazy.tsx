@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Grid2, Skeleton, Stack, Typography } from '@mui/material';
 
-import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Outlet, createLazyFileRoute } from '@tanstack/react-router';
 
 import { NS } from '@/config/constants';
 
@@ -16,7 +16,7 @@ import ViewDataProvider, {
 import { PageWrapper } from '~analytics/layout/PageWrapper';
 import ActionsLegend from '~analytics/space/charts-layout/ActionsLegend';
 
-export const Route = createFileRoute('/analytics/items/$itemId')({
+export const Route = createLazyFileRoute('/analytics/items/$itemId')({
   component: RouteComponent,
 });
 
