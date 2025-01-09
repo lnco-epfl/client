@@ -6,7 +6,6 @@ import { Stack, Typography } from '@mui/material';
 import {
   AnalyticsIcon,
   BuildIcon,
-  LibraryIcon,
   Platform,
   PlayIcon,
 } from '@graasp/ui';
@@ -14,7 +13,6 @@ import {
 import { NS } from '@/config/constants';
 import {
   GRAASP_BUILDER_HOST,
-  GRAASP_LIBRARY_HOST,
   GRAASP_PLAYER_HOST,
 } from '@/config/env';
 
@@ -49,15 +47,6 @@ export function PlatformCube() {
         href: GRAASP_PLAYER_HOST,
       },
     },
-    [Platform.Library]: {
-      Icon: LibraryIcon,
-      color: Platform.Library,
-      text: <Trans t={t} i18nKey="LIBRARY.DESCRIPTION" />,
-      button: {
-        text: t('LIBRARY.BUTTON_TEXT'),
-        href: GRAASP_LIBRARY_HOST,
-      },
-    },
     [Platform.Analytics]: {
       Icon: AnalyticsIcon,
       color: Platform.Analytics,
@@ -84,7 +73,6 @@ export function PlatformCube() {
         </Row>
         <Row>
           <PlatformColorSurface {...PlatformProps.player} />
-          <PlatformColorSurface {...PlatformProps.library} />
         </Row>
       </Stack>
     </Stack>

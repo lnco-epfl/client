@@ -25,7 +25,7 @@ importers:
         version: 5.1.1
       '@graasp/chatbox':
         specifier: 3.3.1
-        version: 3.3.1(htr2mqcqqbxuceudmn3hlrygky)
+        version: 3.3.1(k3ugjh7iptynsek25gs3bydtwi)
       '@graasp/query-client':
         specifier: 5.7.0
         version: 5.7.0(@graasp/sdk@5.5.0(date-fns@4.1.0)(uuid@11.0.4))(@graasp/translations@1.43.0(i18next@24.2.1(typescript@5.7.3)))(react@18.3.1)
@@ -39,8 +39,8 @@ importers:
         specifier: 1.43.0
         version: 1.43.0(i18next@24.2.1(typescript@5.7.3))
       '@graasp/ui':
-        specifier: 5.4.7
-        version: 5.4.7(kfd2ro4tbvvrldjoca7fj7atuu)
+        specifier: https://github.com/lnco-epfl/graasp-ui
+        version: https://codeload.github.com/lnco-epfl/graasp-ui/tar.gz/feacff8ce7bae00dfa8ac5a1e948a820403d0bf3(kfd2ro4tbvvrldjoca7fj7atuu)
       '@mui/icons-material':
         specifier: 6.3.1
         version: 6.3.1(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -1574,8 +1574,9 @@ packages:
     peerDependencies:
       i18next: ^23.8.1
 
-  '@graasp/ui@5.4.7':
-    resolution: {integrity: sha512-y3bkf21y45tSAczvAcnVtGIALV6LL/FhqOjsKrsKOBVQqpBlHr5DtHPJE+JzvB+bitWyU1YgrkC4kYHUDXkTzg==}
+  '@graasp/ui@https://codeload.github.com/lnco-epfl/graasp-ui/tar.gz/feacff8ce7bae00dfa8ac5a1e948a820403d0bf3':
+    resolution: {tarball: https://codeload.github.com/lnco-epfl/graasp-ui/tar.gz/feacff8ce7bae00dfa8ac5a1e948a820403d0bf3}
+    version: 5.4.4
     engines: {node: '>=20'}
     peerDependencies:
       '@emotion/cache': ~11.10.7 || ~11.11.0 || ~11.13.0 || ~11.14.0
@@ -1588,7 +1589,7 @@ packages:
       '@mui/lab': ^6
       '@mui/material': ^6
       i18next: ^22.4.15 || ^23.0.0 || ^24.0.0
-      katex: 0.16.15
+      katex: 0.16.11
       lucide-react: ^0
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -7642,7 +7643,7 @@ snapshots:
 
   '@googlemaps/js-api-loader@1.16.8': {}
 
-  '@graasp/chatbox@3.3.1(htr2mqcqqbxuceudmn3hlrygky)':
+  '@graasp/chatbox@3.3.1(k3ugjh7iptynsek25gs3bydtwi)':
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -7650,7 +7651,7 @@ snapshots:
       '@graasp/sdk': 5.5.0(date-fns@4.1.0)(uuid@11.0.4)
       '@graasp/stylis-plugin-rtl': 2.2.0(stylis@4.3.4)
       '@graasp/translations': 1.43.0(i18next@24.2.1(typescript@5.7.3))
-      '@graasp/ui': 5.4.7(kfd2ro4tbvvrldjoca7fj7atuu)
+      '@graasp/ui': https://codeload.github.com/lnco-epfl/graasp-ui/tar.gz/feacff8ce7bae00dfa8ac5a1e948a820403d0bf3(kfd2ro4tbvvrldjoca7fj7atuu)
       '@mui/icons-material': 6.3.1(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@mui/lab': 6.0.0-beta.22(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/material': 6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7700,7 +7701,7 @@ snapshots:
     dependencies:
       i18next: 24.2.1(typescript@5.7.3)
 
-  '@graasp/ui@5.4.7(kfd2ro4tbvvrldjoca7fj7atuu)':
+  '@graasp/ui@https://codeload.github.com/lnco-epfl/graasp-ui/tar.gz/feacff8ce7bae00dfa8ac5a1e948a820403d0bf3(kfd2ro4tbvvrldjoca7fj7atuu)':
     dependencies:
       '@emotion/cache': 11.14.0
       '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
@@ -12600,7 +12601,7 @@ snapshots:
 
   substyle@9.4.1(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.4.5
+      '@babel/runtime': 7.26.0
       invariant: 2.2.4
       react: 18.3.1
 

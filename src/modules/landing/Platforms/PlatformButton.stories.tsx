@@ -39,12 +39,6 @@ export const Player = {
   },
 } satisfies Story;
 
-export const Library = {
-  args: {
-    platform: Platform.Library,
-  },
-} satisfies Story;
-
 export const Analytics = {
   args: {
     platform: Platform.Analytics,

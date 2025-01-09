@@ -17,7 +17,7 @@ import { UserRoundIcon } from 'lucide-react';
 
 import { UserSwitchWrapper } from '@/components/ui/UserSwitchWrapper';
 import { NS } from '@/config/constants';
-import { GRAASP_BUILDER_HOST, GRAASP_LIBRARY_HOST } from '@/config/env';
+import { GRAASP_BUILDER_HOST } from '@/config/env';
 import { ACCOUNT_HOME_PATH } from '@/config/paths';
 
 import { MainMenu } from './MainMenu';
@@ -51,9 +51,6 @@ export function PageWrapper({
     },
     [Platform.Player]: {
       href: '/player',
-    },
-    [Platform.Library]: {
-      href: GRAASP_LIBRARY_HOST,
     },
     [Platform.Analytics]: {
       href: '/analytics',

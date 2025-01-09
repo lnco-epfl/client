@@ -72,12 +72,6 @@ export function PuzzleSection(): JSX.Element {
               buttonText={t('HOME.PUZZLE.ANALYTICS.BUTTON_TEXT')}
               description={t('HOME.PUZZLE.ANALYTICS.DESCRIPTION')}
             />
-            <PlatformButton
-              platform={Platform.Library}
-              direction="right"
-              buttonText={t('HOME.PUZZLE.LIBRARY.BUTTON_TEXT')}
-              description={t('HOME.PUZZLE.LIBRARY.DESCRIPTION')}
-            />
           </Grid2>
         </Grid2>
       </Stack>
